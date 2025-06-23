@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Warung Ngoding</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <nav
+        style="background-color: #333; padding: 1rem; position: sticky; top: 0; z-index: 100; display: flex; align-items: center;">
+        <h1 style="margin: 0; color: white; font-size: 1.5rem;">Warung Ngoding</h1>
+        <ul
+            style="list-style: none; margin: 0; padding: 0; display: flex; gap: 2rem; flex: 1; justify-content: center;">
+            <li><a href="./index.html"
+                    style="color: white; text-decoration: none; font-weight: 500; transition: color 0.3s;">Home</a></li>
+            <li><a href="./produk.html"
+                    style="color: white; text-decoration: none; font-weight: 500; transition: color 0.3s;">Produk</a>
+            </li>
+            <li><a href="./tentang.html"
+                    style="color: white; text-decoration: none; font-weight: 500; transition: color 0.3s;">Tentang</a>
+            </li>
+        </ul>
+    </nav>
+    <header class="hero"
+        style="background-image: url('./images/hero.png'); background-size: cover; background-position: center; color: white; text-align: center; height: 500px; display: flex; flex-direction: column; justify-content: center; position: relative;">
+        <div style="background: rgba(0,0,0,0.5); position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></div>
+        <h2 style="position: relative; z-index: 1;">Ngoding sambil ngopi</h2>
+        <p style="position: relative; z-index: 1;">Debugging tanpa ngopi? Impossible!</p>
+    </header>
+    <section class="produk-highlight">
+        <h3>Produk Unggulan</h3>
+        <div class="cards">
+            <div class="card">
+                <img src="./images/coffee-bag.png" alt="Kopi Nusantara">
+                <h4>Kopi Nusantara (250g)</h4>
+                <p>Rp 50.000</p>
+                <small>Kopi robusta pilihan untuk menemani setiap baris kode.</small>
+            </div>
+            <div class="card">
+                <img src="./images/mug-custom.png" alt="Mug Hello World">
+                <h4>Mug "Hello World"</h4>
+                <p>Rp 40.000</p>
+                <small>Mug custom dengan desain programmer yang unik.</small>
+            </div>
+            <div class="card">
+                <img src="./images/t-shirt.png" alt="Kaos Syntax Error">
+                <h4>Kaos "Syntax Error"</h4>
+                <p>Rp 90.000</p>
+                <small>Kaos nyaman dipakai saat begadang ngebut project.</small>
+            </div>
+        </div>
+    </section>
+
+    <section class="kontak">
+        <h2>Hubungi Kami</h2>
+        <form id="contactForm">
+            <div class="form-group">
+                <label for="nama">Nama Lengkap *</label>
+                <input type="text" id="nama" name="nama" placeholder="Masukkan nama lengkap Anda" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email *</label>
+                <input type="email" id="email" name="email" placeholder="contoh@email.com" required>
+            </div>
+
+            <div class="form-group">
+                <label for="subject">Subjek</label>
+                <input type="text" id="subject" name="subject" placeholder="Tentang apa pesan Anda?">
+            </div>
+
+            <div class="form-group">
+                <label for="pesan">Pesan *</label>
+                <textarea id="pesan" name="pesan" placeholder="Tulis pesan Anda di sini..." required></textarea>
+            </div>
+
+            <button type="submit">Kirim Pesan</button>
+        </form>
+    </section>
+
+    <footer>
+        &copy; 2025 Warung Ngoding
+    </footer>
+    <script src="script.js"></script>
+</body>
+
+</html>
