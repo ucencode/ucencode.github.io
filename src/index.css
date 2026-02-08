@@ -1,0 +1,85 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 222 25% 6%;
+    --foreground: 210 15% 92%;
+
+    --card: 222 20% 10%;
+    --card-foreground: 210 15% 92%;
+
+    --popover: 222 20% 10%;
+    --popover-foreground: 210 15% 92%;
+
+    --primary: 160 84% 39%;
+    --primary-foreground: 222 25% 4%;
+
+    --secondary: 222 18% 14%;
+    --secondary-foreground: 210 12% 78%;
+
+    --muted: 222 15% 16%;
+    --muted-foreground: 215 12% 52%;
+
+    --accent: 158 30% 18%;
+    --accent-foreground: 158 50% 70%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 15% 92%;
+
+    --border: 222 14% 16%;
+    --input: 222 14% 20%;
+    --ring: 160 84% 39%;
+
+    --radius: 0.5rem;
+
+    --sidebar-background: 222 25% 6%;
+    --sidebar-foreground: 210 15% 92%;
+    --sidebar-primary: 160 84% 39%;
+    --sidebar-primary-foreground: 222 25% 4%;
+    --sidebar-accent: 222 15% 16%;
+    --sidebar-accent-foreground: 210 15% 92%;
+    --sidebar-border: 222 14% 16%;
+    --sidebar-ring: 160 84% 39%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+}
+
+@layer components {
+  .hero-grid {
+    background-image:
+      linear-gradient(hsl(160 84% 39% / 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(160 84% 39% / 0.04) 1px, transparent 1px);
+    background-size: 64px 64px;
+  }
+
+  .hero-glow {
+    background: radial-gradient(
+      ellipse 60% 50% at 50% 40%,
+      hsl(160 84% 39% / 0.08) 0%,
+      transparent 70%
+    );
+  }
+
+  .section-alt {
+    @apply bg-secondary/40;
+  }
+
+  .tech-tag {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-mono
+      bg-accent text-accent-foreground border border-border;
+  }
+}
