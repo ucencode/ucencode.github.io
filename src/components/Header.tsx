@@ -55,7 +55,7 @@ const Header = () => {
           onClick={() => scrollTo("#home")}
           className="font-mono text-sm font-medium text-primary tracking-wide hover:opacity-80 transition-opacity"
         >
-          ahh.dev
+          ucen.dev
         </button>
 
         {/* Desktop nav */}

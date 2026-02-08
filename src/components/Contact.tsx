@@ -66,7 +66,7 @@ const Contact = () => {
                 <div className="p-2.5 rounded-lg border border-border">
                   <MapPin size={18} />
                 </div>
-                <span className="text-sm">Sleman, Yogyakarta, Indonesia</span>
+                <span className="text-sm">Malang, Indonesia</span>
               </div>
 
               <div className="flex items-center gap-3 pt-4">

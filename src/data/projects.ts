@@ -115,8 +115,8 @@ export const socialLinks = {
 };
 
 export const coreStrengths = [
-  "Backend Development — PHP, Python, Laravel, CodeIgniter",
-  "System Design — Odoo, Custom MVC, API Architecture",
-  "Database — MySQL, PostgreSQL, Query Optimization",
-  "Full-Stack Delivery — End-to-end project ownership in startups",
+  "Backend Development — Node.js, TypeScript, Express, PostgreSQL",
+  "System Design — API architecture, Database design, Scalable systems",
+  "Database — PostgreSQL, Redis, Query optimization, Data modeling",
+  "DevOps — Docker, Git, GCP, ArgoCD, CI/CD workflows",
 ];

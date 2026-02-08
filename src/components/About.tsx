@@ -19,15 +19,10 @@ const About = () => {
           <SectionReveal delay={100}>
             <div className="space-y-4 text-muted-foreground leading-relaxed">
               <p>
-                I'm Husein — a software engineer based in Yogyakarta, Indonesia.
-                I have 3+ years of experience building web applications in
-                startup environments, with a focus on backend development and
-                system architecture.
+                I'm Ahmad — a backend engineer based in Malang, Indonesia. I specialize in building web applications with Node.js, TypeScript, and PostgreSQL, with 4+ years of experience in production environments.
               </p>
               <p>
-                I'm self-taught, detail-oriented, and driven by solving
-                complex problems with clean, maintainable code. I take
-                ownership of projects from concept to deployment.
+                I'm passionate about writing clean, maintainable code and solving complex technical challenges. I work independently and collaboratively to deliver projects from start to finish.
               </p>
             </div>
 

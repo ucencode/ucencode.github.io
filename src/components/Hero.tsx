@@ -16,21 +16,19 @@ const Hero = () => {
 
       <div className="relative z-10 max-w-5xl mx-auto px-6 py-32">
         <p className="font-mono text-primary text-sm md:text-base mb-4 tracking-wide animate-fade-in">
-          Software Engineer
+          Backend & Systems Engineer
         </p>
 
         <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-foreground leading-[1.1] mb-6 animate-fade-up">
-          Ahmad Husein
+          Ahmad Husein Hambali
           <br />
-          <span className="text-muted-foreground">Hambali</span>
         </h1>
 
         <p
           className="text-base md:text-lg text-muted-foreground max-w-xl mb-10 leading-relaxed animate-fade-up"
           style={{ animationDelay: "150ms" }}
         >
-          Building reliable web applications and backend systems. 3+ years
-          shipping production software in startup environments.
+          Backend Engineer experienced in Node.js and TypeScript, specializing in building scalable systems and solving complex technical problems.
         </p>
 
         <div
@@ -56,7 +54,7 @@ const Hero = () => {
       {/* Scroll indicator */}
       <button
         onClick={() => scrollTo("about")}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 text-muted-foreground hover:text-foreground transition-colors animate-fade-in"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 text-muted-foreground hover:text-foreground transition-colors animate-fade-in cursor-pointer"
         style={{ animationDelay: "600ms" }}
         aria-label="Scroll to about section"
       >

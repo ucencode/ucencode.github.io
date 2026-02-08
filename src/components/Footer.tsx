@@ -18,12 +18,12 @@ const Footer = () => {
       <div className="max-w-5xl mx-auto px-6">
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
           <div>
-            <p className="font-mono text-sm text-primary mb-1">ahh.dev</p>
+            {/* <p className="font-mono text-sm text-primary mb-1">ahh.dev</p> */}
             <p className="text-xs text-muted-foreground">
               {socialLinks.email}
             </p>
             <p className="text-xs text-muted-foreground">
-              Sleman, Yogyakarta, Indonesia
+              Malang, Indonesia
             </p>
           </div>
 
