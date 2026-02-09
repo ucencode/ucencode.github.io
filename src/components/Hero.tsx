@@ -19,7 +19,7 @@ const Hero = () => {
           Backend & Systems Engineer
         </p>
 
-        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-foreground leading-[1.1] mb-6 animate-fade-up">
+        <h1 className="text-4xl sm:text-5xl font-bold text-foreground leading-[1.1] mb-6 animate-fade-up">
           Ahmad Husein Hambali
           <br />
         </h1>
@@ -28,7 +28,8 @@ const Hero = () => {
           className="text-base md:text-lg text-muted-foreground max-w-xl mb-10 leading-relaxed animate-fade-up"
           style={{ animationDelay: "150ms" }}
         >
-          Backend Engineer experienced in Node.js and TypeScript, specializing in building scalable systems and solving complex technical problems.
+          Backend Engineer experienced in Node.js and TypeScript <br/>
+          I design reliable systems, make thoughtful architectural decisions, and write maintainable code that works in production.
         </p>
 
         <div
