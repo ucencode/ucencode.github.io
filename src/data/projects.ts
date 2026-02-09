@@ -10,32 +10,32 @@ export interface Project {
 }
 
 export const projects: Project[] = [
-  {
-    id: "serenity",
-    title: "PT. Serenity Indonesia",
-    shortDescription:
-      "Company profile and product catalog website for an Indonesian enterprise.",
-    techStack: ["PHP", "CodeIgniter 3", "Bootstrap 4", "MySQL"],
-    problem:
-      "The company needed an online presence to showcase their products, catalogs, and company information to clients and partners.",
-    solution:
-      "Built a full company profile website with a dynamic product catalog system, allowing the team to manage and display products with detailed specifications.",
-    outcome:
-      "Enabled digital product showcase, improving client engagement and reducing the need for physical catalogs.",
-  },
-  {
-    id: "smk-pgri",
-    title: "SMK PGRI 3 Information Website",
-    shortDescription:
-      "School information portal built as a high school final project.",
-    techStack: ["PHP", "Custom MVC Framework", "MySQL", "CSS"],
-    problem:
-      "The vocational high school needed a centralized web platform for distributing school information, announcements, and resources.",
-    solution:
-      "Designed and built a custom MVC-based information website from scratch, implementing a clean architecture pattern similar to CodeIgniter.",
-    outcome:
-      "Served as the school's primary information portal. Demonstrated strong architectural understanding as a final project.",
-  },
+  // {
+  //   id: "serenity",
+  //   title: "PT. Serenity Indonesia",
+  //   shortDescription:
+  //     "Company profile and product catalog website for an Indonesian enterprise.",
+  //   techStack: ["PHP", "CodeIgniter 3", "Bootstrap 4", "MySQL"],
+  //   problem:
+  //     "The company needed an online presence to showcase their products, catalogs, and company information to clients and partners.",
+  //   solution:
+  //     "Built a full company profile website with a dynamic product catalog system, allowing the team to manage and display products with detailed specifications.",
+  //   outcome:
+  //     "Enabled digital product showcase, improving client engagement and reducing the need for physical catalogs.",
+  // },
+  // {
+  //   id: "smk-pgri",
+  //   title: "SMK PGRI 3 Information Website",
+  //   shortDescription:
+  //     "School information portal built as a high school final project.",
+  //   techStack: ["PHP", "Custom MVC Framework", "MySQL", "CSS"],
+  //   problem:
+  //     "The vocational high school needed a centralized web platform for distributing school information, announcements, and resources.",
+  //   solution:
+  //     "Designed and built a custom MVC-based information website from scratch, implementing a clean architecture pattern similar to CodeIgniter.",
+  //   outcome:
+  //     "Served as the school's primary information portal. Demonstrated strong architectural understanding as a final project.",
+  // },
   {
     id: "digital-mtq",
     title: "Digital MTQ",
