@@ -104,19 +104,3 @@ export const clients: Client[] = [
   { name: "Digital MTQ", url: "https://digitalmtq.com/" },
   { name: "Pitcar", url: "https://pitcar.co.id/" },
 ];
-
-export const socialLinks = {
-  email: "ahmadhuseinh.03@gmail.com",
-  github: "https://github.com/ucencode",
-  linkedin: "https://www.linkedin.com/in/ahmadhuseinhambali03/",
-  whatsapp: "http://bit.ly/a_husein",
-  instagram: "https://www.instagram.com/ucenintheworld/",
-  facebook: "https://www.facebook.com/ahmad.husein.hambali/",
-};
-
-export const coreStrengths = [
-  "Backend Development — Node.js, TypeScript, Express.js",
-  "System Design — API architecture, Database design, Scalable systems",
-  "Database — PostgreSQL, Redis, Query optimization, Data modeling",
-  "DevOps — Docker, Git, CI/CD workflows",
-];

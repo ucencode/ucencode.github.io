@@ -1,4 +1,4 @@
-import { socialLinks } from "@/data/projects";
+import { socialLinks } from "@/data/about";
 
 const navItems = [
   { label: "Home", href: "#home" },

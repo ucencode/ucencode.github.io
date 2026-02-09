@@ -1,5 +1,5 @@
 import { Github, Linkedin, Mail } from "lucide-react";
-import { socialLinks, coreStrengths } from "@/data/projects";
+import { socialLinks, coreStrengths, description } from "@/data/about";
 import SectionReveal from "./SectionReveal";
 
 const About = () => {
@@ -18,12 +18,9 @@ const About = () => {
         <div className="grid md:grid-cols-2 gap-12 md:gap-16">
           <SectionReveal delay={100}>
             <div className="space-y-4 text-muted-foreground leading-relaxed">
-              <p>
-                I specialize in building web applications with Node.js, TypeScript, and PostgreSQL, with 5+ years of experience in production environments.
-              </p>
-              <p>
-                I'm passionate about writing clean, maintainable code and solving complex technical challenges. I work independently and collaboratively to deliver projects from start to finish.
-              </p>
+              {description.map((paragraph, index) => (
+                <p key={index}>{paragraph}</p>
+              ))}
             </div>
 
             <div className="flex items-center gap-3 mt-8">

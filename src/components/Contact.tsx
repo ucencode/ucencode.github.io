@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Mail, MapPin, Send, Github, Linkedin } from "lucide-react";
-import { socialLinks } from "@/data/projects";
+import { socialLinks } from "@/data/about";
 import SectionReveal from "./SectionReveal";
 
 const Contact = () => {
