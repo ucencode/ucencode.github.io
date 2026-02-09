@@ -115,8 +115,8 @@ export const socialLinks = {
 };
 
 export const coreStrengths = [
-  "Backend Development — Node.js, TypeScript, Express, PostgreSQL",
+  "Backend Development — Node.js, TypeScript, Express.js",
   "System Design — API architecture, Database design, Scalable systems",
   "Database — PostgreSQL, Redis, Query optimization, Data modeling",
-  "DevOps — Docker, Git, GCP, ArgoCD, CI/CD workflows",
+  "DevOps — Docker, Git, CI/CD workflows",
 ];

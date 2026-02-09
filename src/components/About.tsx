@@ -19,7 +19,7 @@ const About = () => {
           <SectionReveal delay={100}>
             <div className="space-y-4 text-muted-foreground leading-relaxed">
               <p>
-                I'm Ahmad — a backend engineer based in Malang, Indonesia. I specialize in building web applications with Node.js, TypeScript, and PostgreSQL, with 4+ years of experience in production environments.
+                I specialize in building web applications with Node.js, TypeScript, and PostgreSQL, with 5+ years of experience in production environments.
               </p>
               <p>
                 I'm passionate about writing clean, maintainable code and solving complex technical challenges. I work independently and collaboratively to deliver projects from start to finish.
