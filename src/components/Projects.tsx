@@ -23,47 +23,65 @@ const Projects = () => {
           </p>
         </SectionReveal>
 
-        <div className="grid md:grid-cols-2 gap-5">
-          {projects.map((project, i) => (
-            <SectionReveal key={project.id} delay={i * 80}>
-              <button
-                onClick={() => setSelectedProject(project)}
-                className="group w-full text-left bg-card border border-border rounded-lg overflow-hidden hover:border-primary/40 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-background"
-              >
-                {/* Card header gradient */}
-                <div className="aspect-[16/10] bg-gradient-to-br from-secondary to-muted flex items-center justify-center p-6 relative overflow-hidden">
-                  <span className="font-mono text-lg text-muted-foreground/60 text-center leading-tight">
-                    {project.title.split(" ").slice(0, 2).join(" ")}
-                  </span>
-                  <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
-                    <ArrowUpRight size={16} className="text-primary" />
-                  </div>
-                </div>
+        <div className="space-y-6">
+          {projects.map((project, i) => {
+            const isReversed = i % 2 !== 0;
+            const imageSrc = `${import.meta.env.BASE_URL}${project.image.src.replace(
+              /^\//,
+              "",
+            )}`;
 
-                {/* Card body */}
-                <div className="p-5">
-                  <h3 className="font-semibold text-foreground text-sm mb-2 group-hover:text-primary transition-colors leading-snug">
-                    {project.title}
-                  </h3>
-                  <p className="text-muted-foreground text-xs leading-relaxed mb-4 line-clamp-2">
-                    {project.shortDescription}
-                  </p>
-                  <div className="flex flex-wrap gap-1.5">
-                    {project.techStack.slice(0, 3).map((tech) => (
-                      <span key={tech} className="tech-tag text-[11px]">
-                        {tech}
-                      </span>
-                    ))}
-                    {project.techStack.length > 3 && (
-                      <span className="tech-tag text-[11px]">
-                        +{project.techStack.length - 3}
-                      </span>
-                    )}
+            return (
+              <SectionReveal key={project.id} delay={i * 80}>
+                <button
+                  onClick={() => setSelectedProject(project)}
+                  className="group w-full text-left bg-card border border-border rounded-xl overflow-hidden hover:border-primary/40 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-background md:min-h-[280px]"
+                >
+                  <div
+                    className={`flex flex-col md:flex-row md:items-stretch ${
+                      isReversed ? "md:flex-row-reverse" : ""
+                    }`}
+                  >
+                    <div className="relative w-full md:w-5/12 h-60 sm:h-64 md:h-auto md:min-h-[280px] overflow-hidden bg-secondary/40">
+                      <img
+                        src={imageSrc}
+                        alt={project.image.alt}
+                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                        loading="lazy"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-tr from-black/35 via-transparent to-transparent opacity-70" />
+                    </div>
+
+                    <div className="flex-1 p-6 md:p-7">
+                      <div className="flex items-start justify-between gap-4 mb-3">
+                        <h3 className="font-semibold text-foreground text-base md:text-lg leading-snug group-hover:text-primary transition-colors">
+                          {project.title}
+                        </h3>
+                        <span className="text-primary opacity-0 group-hover:opacity-100 transition-opacity mt-1">
+                          <ArrowUpRight size={18} />
+                        </span>
+                      </div>
+                      <p className="text-muted-foreground text-sm leading-relaxed mb-4 line-clamp-3">
+                        {project.shortDescription}
+                      </p>
+                      <div className="flex flex-wrap gap-1.5">
+                        {project.techStack.slice(0, 3).map((tech) => (
+                          <span key={tech} className="tech-tag text-[11px]">
+                            {tech}
+                          </span>
+                        ))}
+                        {project.techStack.length > 3 && (
+                          <span className="tech-tag text-[11px]">
+                            +{project.techStack.length - 3}
+                          </span>
+                        )}
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </button>
-            </SectionReveal>
-          ))}
+                </button>
+              </SectionReveal>
+            );
+          })}
         </div>
       </div>
 
