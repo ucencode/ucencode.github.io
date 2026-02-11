@@ -38,14 +38,14 @@ const Hero = () => {
         >
           <button
             onClick={() => scrollTo("projects")}
-            className="inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground font-medium px-6 py-3 rounded-lg hover:opacity-90 transition-opacity text-sm"
+            className="inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground font-medium px-6 py-3 rounded-lg hover:opacity-90 transition-opacity text-sm cursor-pointer"
           >
             View Projects
             <ArrowRight size={16} />
           </button>
           <button
             onClick={() => scrollTo("contact")}
-            className="inline-flex items-center justify-center gap-2 border border-border text-foreground font-medium px-6 py-3 rounded-lg hover:bg-secondary transition-colors text-sm"
+            className="inline-flex items-center justify-center gap-2 border border-border text-foreground font-medium px-6 py-3 rounded-lg hover:bg-secondary transition-colors text-sm cursor-pointer"
           >
             Get in Touch
           </button>
