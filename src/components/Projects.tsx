@@ -62,7 +62,7 @@ const Projects = () => {
                         </span>
                       </div>
                       <p className="text-muted-foreground text-sm leading-relaxed mb-4 line-clamp-3">
-                        {project.shortDescription}
+                        {project.description}
                       </p>
                       <div className="flex flex-wrap gap-1.5">
                         {project.techStack.slice(0, 3).map((tech) => (

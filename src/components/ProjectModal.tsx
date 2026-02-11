@@ -24,7 +24,7 @@ const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
             {project.title}
           </DialogTitle>
           <DialogDescription className="text-muted-foreground text-sm">
-            {project.shortDescription}
+            {project.description}
           </DialogDescription>
         </DialogHeader>
 
@@ -34,7 +34,7 @@ const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
               <h4 className="font-mono text-xs text-primary mb-2 tracking-wide uppercase">
                 {section.title}
               </h4>
-              <ul className="space-y-2">
+              <ul className="space-y-2 list-disc pl-5 marker:text-primary">
                 {section.bullets.map((bullet, index) => (
                   <li
                     key={`${section.title}-${index}`}
