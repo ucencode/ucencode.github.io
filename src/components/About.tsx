@@ -25,13 +25,6 @@ const About = () => {
 
             <div className="flex items-center gap-3 mt-8">
               <a
-                href={`mailto:${socialLinks.email}`}
-                aria-label="Email"
-                className="p-2.5 rounded-lg border border-border text-muted-foreground hover:text-primary hover:border-primary transition-colors"
-              >
-                <Mail size={18} />
-              </a>
-              <a
                 href={socialLinks.github}
                 target="_blank"
                 rel="noopener noreferrer"
