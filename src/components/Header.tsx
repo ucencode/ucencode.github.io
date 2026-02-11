@@ -91,7 +91,7 @@ const Header = () => {
       <div
         className={cn(
           "md:hidden overflow-hidden transition-all duration-300 ease-out border-b border-border bg-background/95 backdrop-blur-md",
-          menuOpen ? "max-h-80 opacity-100" : "max-h-0 opacity-0 border-b-0"
+          menuOpen ? "max-h-100 opacity-100" : "max-h-0 opacity-0 border-b-0"
         )}
       >
         <nav className="px-6 py-4 flex flex-col gap-1" aria-label="Mobile navigation">
