@@ -29,25 +29,23 @@ const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
         </DialogHeader>
 
         <div className="space-y-6 pt-2">
-          {/* Problem */}
-          <div>
-            <h4 className="font-mono text-xs text-primary mb-2 tracking-wide uppercase">
-              Problem
-            </h4>
-            <p className="text-sm text-muted-foreground leading-relaxed">
-              {project.problem}
-            </p>
-          </div>
-
-          {/* Solution */}
-          <div>
-            <h4 className="font-mono text-xs text-primary mb-2 tracking-wide uppercase">
-              What I Built
-            </h4>
-            <p className="text-sm text-muted-foreground leading-relaxed">
-              {project.solution}
-            </p>
-          </div>
+          {project.additionalInfo?.map((section) => (
+            <div key={section.title}>
+              <h4 className="font-mono text-xs text-primary mb-2 tracking-wide uppercase">
+                {section.title}
+              </h4>
+              <ul className="space-y-2">
+                {section.bullets.map((bullet, index) => (
+                  <li
+                    key={`${section.title}-${index}`}
+                    className="text-sm text-muted-foreground leading-relaxed"
+                  >
+                    {bullet}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
 
           {/* Tech Stack */}
           <div>
@@ -61,16 +59,6 @@ const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
                 </span>
               ))}
             </div>
-          </div>
-
-          {/* Outcome */}
-          <div>
-            <h4 className="font-mono text-xs text-primary mb-2 tracking-wide uppercase">
-              Outcome
-            </h4>
-            <p className="text-sm text-muted-foreground leading-relaxed">
-              {project.outcome}
-            </p>
           </div>
 
           {/* Links */}

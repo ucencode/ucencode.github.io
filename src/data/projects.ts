@@ -1,3 +1,7 @@
+interface Metadata {
+  title: string; // e.g. "Problem", "Solution", "Outcome"
+  bullets: string[];
+}
 export interface Project {
   id: string;
   title: string;
@@ -7,10 +11,8 @@ export interface Project {
     alt: string;
   };
   techStack: string[];
-  problem: string;
-  solution: string;
-  outcome: string;
   links?: { label: string; url: string }[];
+  additionalInfo?: Metadata[];
 }
 
 export const projects: Project[] = [
@@ -23,13 +25,27 @@ export const projects: Project[] = [
       src: "/projects/book-your-gp.svg",
       alt: "Book Your GP project preview",
     },
-    techStack: ["Laravel", "Bootstrap 3", "PHP", "MySQL"],
-    problem:
-      "UK GP practices needed an accessible online system for patients to book appointments without phone calls.",
-    solution:
-      "Built a web application with appointment scheduling, doctor availability management, and patient registration workflows.",
-    outcome:
-      "Simplified the appointment booking process for patients and reduced administrative overhead for GP practices.",
+    techStack: ["Laravel", "Bootstrap", "PHP", "MySQL"],
+    additionalInfo: [
+      {
+        title: "Problem",
+        bullets: [
+          "UK GP practices needed an accessible online system for patients to book appointments without phone calls.",
+        ],
+      },
+      {
+        title: "What I Built",
+        bullets: [
+          "Built a web application with appointment scheduling, doctor availability management, and patient registration workflows.",
+        ],
+      },
+      {
+        title: "Outcome",
+        bullets: [
+          "Simplified the appointment booking process for patients and reduced administrative overhead for GP practices.",
+        ],
+      },
+    ],
   },
   {
     id: "pitcar",
@@ -37,16 +53,30 @@ export const projects: Project[] = [
     shortDescription:
       "Operations management system for a car service company.",
     image: {
-      src: "/projects/pitcar.svg",
-      alt: "Pitcar service management system preview",
+      src: "/projects/clinic-os.svg",
+      alt: "ClinicOS project preview",
     },
     techStack: ["Odoo", "Python", "Custom Addons", "PostgreSQL"],
-    problem:
-      "Pitcar, a car service company, needed to digitize and streamline their service operations, scheduling, and customer management.",
-    solution:
-      "Developed custom Odoo addons to handle service scheduling, customer tracking, invoice management, and operational reporting.",
-    outcome:
-      "Streamlined day-to-day operations, reducing manual tracking and improving service delivery efficiency.",
+    additionalInfo: [
+      {
+        title: "Problem",
+        bullets: [
+          "Pitcar, a car service company, needed to digitize and streamline their service operations, scheduling, and customer management.",
+        ],
+      },
+      {
+        title: "What I Built",
+        bullets: [
+          "Developed custom Odoo addons to handle service scheduling, customer tracking, invoice management, and operational reporting.",
+        ],
+      },
+      {
+        title: "Outcome",
+        bullets: [
+          "Streamlined day-to-day operations, reducing manual tracking and improving service delivery efficiency.",
+        ],
+      },
+    ],
     links: [{ label: "Company", url: "https://pitcar.co.id" }],
   },
   {
@@ -59,12 +89,26 @@ export const projects: Project[] = [
       alt: "Pitcar service management system preview",
     },
     techStack: ["Odoo", "Python", "Custom Addons", "PostgreSQL"],
-    problem:
-      "Pitcar, a car service company, needed to digitize and streamline their service operations, scheduling, and customer management.",
-    solution:
-      "Developed custom Odoo addons to handle service scheduling, customer tracking, invoice management, and operational reporting.",
-    outcome:
-      "Streamlined day-to-day operations, reducing manual tracking and improving service delivery efficiency.",
+    additionalInfo: [
+      {
+        title: "Problem",
+        bullets: [
+          "Pitcar, a car service company, needed to digitize and streamline their service operations, scheduling, and customer management.",
+        ],
+      },
+      {
+        title: "What I Built",
+        bullets: [
+          "Developed custom Odoo addons to handle service scheduling, customer tracking, invoice management, and operational reporting.",
+        ],
+      },
+      {
+        title: "Outcome",
+        bullets: [
+          "Streamlined day-to-day operations, reducing manual tracking and improving service delivery efficiency.",
+        ],
+      },
+    ],
     links: [{ label: "Company", url: "https://pitcar.co.id" }],
   },
 ];
@@ -74,10 +118,3 @@ export interface Client {
   url: string;
   logoUrl?: string;
 }
-
-export const clients: Client[] = [
-  { name: "BBS TV", url: "https://www.bbstv.id/" },
-  { name: "Theta Momentum", url: "https://thetamomentum.com/" },
-  { name: "Digital MTQ", url: "https://digitalmtq.com/" },
-  { name: "Pitcar", url: "https://pitcar.co.id/" },
-];
