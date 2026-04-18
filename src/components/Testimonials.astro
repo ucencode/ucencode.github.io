@@ -1,0 +1,52 @@
+---
+import { socialLinks } from '@/data/about';
+
+const linkedinBase = socialLinks.linkedin.endsWith('/')
+  ? socialLinks.linkedin
+  : `${socialLinks.linkedin}/`;
+const recommendationsUrl = `${linkedinBase}details/recommendations/?detailScreenTabIndex=0`;
+---
+<section id="testimonials" class="py-24 md:py-32">
+  <div class="max-w-5xl mx-auto px-6">
+    <div data-reveal>
+      <p class="font-mono text-primary text-sm mb-3 tracking-wide">Peer Recognition</p>
+      <h2 class="text-2xl md:text-3xl font-bold text-foreground mb-10">What Colleagues Say</h2>
+    </div>
+
+    <div data-reveal data-reveal-delay="120">
+      <div class="bg-[rgba(0,255,163,0.05)] border-l-[3px] border-[#00ffa3] p-6 rounded-lg my-5">
+        <p class="italic text-[#e0e0e0] leading-relaxed text-[1.1rem]">
+          "I had the privilege of leading Husein at Nosc AI, where he served
+          as a Backend Engineer. Husein is the kind of engineer you want in
+          your corner when building complex, high-performance systems. He
+          built the billing, invoicing system and many core functionalities
+          which were crucial for us. He is a fantastic asset to any
+          engineering team that values code quality and integrity."
+        </p>
+        <div class="mt-6">
+          <a
+            href="https://www.linkedin.com/in/suryasurakhman/?locale=en"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-primary font-semibold hover:text-primary/80 hover:underline transition-colors"
+          >
+            -- Surya Surakhman
+          </a>
+          <p class="text-sm text-muted-foreground">Senior Fullstack Engineer</p>
+          <p class="text-sm text-muted-foreground">Ex-Coupang &amp; HOOQ | Distributed Systems &amp; AI</p>
+        </div>
+      </div>
+    </div>
+
+    <div data-reveal data-reveal-delay="200">
+      <a
+        href={recommendationsUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center text-primary hover:text-primary/80 transition-colors"
+      >
+        View all recommendations on LinkedIn -&gt;
+      </a>
+    </div>
+  </div>
+</section>
