@@ -1,75 +1,58 @@
-# React + TypeScript + Vite
+# ucencode.github.io
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Personal portfolio site for Ahmad Husein Hambali — Backend Engineer.
 
-Currently, two official plugins are available:
+Built with [Astro](https://astro.build), [React](https://react.dev), and [Tailwind CSS v4](https://tailwindcss.com). Deployed to [GitHub Pages](https://ucencode.github.io).
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Stack
 
-## React Compiler
+- **Astro** — static site framework, zero-JS by default
+- **React Islands** — interactive components (Header, Projects modal) hydrate with `client:load`
+- **Tailwind CSS v4** — utility-first styling via PostCSS
+- **TypeScript** — type-safe data and components
+- **shadcn/ui** — Radix Dialog for project modals
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
+## Project Structure
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+src/
+  layouts/
+    BaseLayout.astro      # HTML shell, GA, fonts, scroll-reveal observer
+  pages/
+    index.astro           # Main page
+    404.astro             # Custom 404
+  components/
+    Header.tsx            # React Island — scroll detection, mobile menu
+    Projects.tsx          # React Island — project cards + modal
+    ProjectModal.tsx      # Radix Dialog modal
+    Hero.astro            # Static hero section
+    About.astro           # Static about section
+    Experience.astro      # Static experience timeline
+    Testimonials.astro    # Static testimonials
+    Contact.astro         # Static contact section
+    Footer.astro          # Static footer
+  data/
+    about.ts              # Bio, strengths, social links
+    experience.ts         # Work history
+    projects.ts           # Project metadata
+  styles/
+    global.css            # Tailwind + CSS variables + animations
+public/
+  projects/               # Project preview images (.webp)
+  .nojekyll               # Disables Jekyll on GitHub Pages
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Development
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
+npm run dev       # start dev server at localhost:4321
+npm run build     # build to dist/
+npm run preview   # preview production build
 ```
 
-https://lovable.dev/projects/c458959b-327d-4a5e-938e-dbe66a2b0551?view=codeEditor
+## Deploy
+
+```bash
+npm run deploy    # build + push to gh-pages branch via gh-pages
+```

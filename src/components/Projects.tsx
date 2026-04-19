@@ -2,7 +2,6 @@ import { useState } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { projects, type Project } from "@/data/projects";
 import ProjectModal from "./ProjectModal";
-import SectionReveal from "./SectionReveal";
 
 const Projects = () => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
@@ -10,7 +9,7 @@ const Projects = () => {
   return (
     <section id="projects" className="py-24 md:py-32 section-alt">
       <div className="max-w-5xl mx-auto px-6">
-        <SectionReveal>
+        <div>
           <p className="font-mono text-primary text-sm mb-3 tracking-wide">
             Projects
           </p>
@@ -21,7 +20,7 @@ const Projects = () => {
             A selection of projects I've built — from freelance work to
             enterprise systems.
           </p>
-        </SectionReveal>
+        </div>
 
         <div className="space-y-6">
           {projects.map((project, i) => {
@@ -32,7 +31,7 @@ const Projects = () => {
             )}`;
 
             return (
-              <SectionReveal key={project.id} delay={i * 80}>
+              <div key={project.id}>
                 <button
                   onClick={() => setSelectedProject(project)}
                   className="group w-full text-left bg-card border border-border rounded-xl overflow-hidden hover:border-primary/40 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-background md:min-h-[280px]"
@@ -79,7 +78,7 @@ const Projects = () => {
                     </div>
                   </div>
                 </button>
-              </SectionReveal>
+              </div>
             );
           })}
         </div>
