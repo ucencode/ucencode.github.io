@@ -12,6 +12,12 @@ dist
 dist-ssr
 *.local
 
+# Astro
+.astro/
+
+# Lock files (keep only one)
+yarn.lock
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
