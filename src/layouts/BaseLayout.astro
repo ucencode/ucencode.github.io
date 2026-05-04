@@ -21,11 +21,15 @@ const {
     <meta name="description" content={description} />
     <meta name="author" content="Ahmad Husein Hambali" />
 
+    <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site).toString()} />
+    <meta name="robots" content="index, follow" />
+
     <meta property="og:title" content={title} />
     <meta property="og:description" content="Backend Engineer with 5+ years building reliable Node.js and TypeScript systems for production." />
     <meta property="og:type" content="website" />
-
-    <meta name="twitter:card" content="summary_large_image" />
+    <meta property="og:url" content={new URL(Astro.url.pathname, Astro.site).toString()} />
+    <meta property="og:site_name" content="Ahmad Husein Hambali" />
+    <meta property="og:locale" content="en_US" />
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-LS7KXT6E9R"></script>
