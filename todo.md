@@ -2,7 +2,7 @@
 
 ## SEO
 
-- [ ] **OG image** — create a 1200×630 social preview image, save to `/public/og-image.png`, then add to `src/layouts/BaseLayout.astro`:
+- [x] **OG image** — create a 1200×630 social preview image, save to `/public/og-image.png`, then add to `src/layouts/BaseLayout.astro`:
   ```astro
   <meta property="og:image" content={new URL('/og-image.png', Astro.site).toString()} />
   ```
