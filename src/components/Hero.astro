@@ -1,6 +1,7 @@
 ---
 import { ArrowRight, ArrowDown } from 'lucide-react';
 ---
+
 <section
   id="home"
   class="relative min-h-screen flex items-center overflow-hidden"
@@ -8,49 +9,278 @@ import { ArrowRight, ArrowDown } from 'lucide-react';
   <div class="absolute inset-0 hero-grid" aria-hidden="true"></div>
   <div class="absolute inset-0 hero-glow" aria-hidden="true"></div>
 
-  <div class="relative z-10 max-w-5xl mx-auto px-6 py-32">
-    <p class="font-mono text-primary text-sm md:text-base mb-4 tracking-wide animate-fade-in">
-      Backend & Systems Engineer
-    </p>
+  <div class="relative z-10 w-full max-w-6xl mx-auto px-6 py-24 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
 
-    <h1 class="text-4xl sm:text-5xl font-bold text-foreground leading-[1.1] mb-6 animate-fade-up">
-      Ahmad Husein Hambali
-    </h1>
+    <!-- Left: Text -->
+    <div>
+      <p class="font-mono text-primary text-sm md:text-base mb-4 tracking-wide animate-fade-in">
+        Backend &amp; Systems Engineer
+      </p>
 
-    <p
-      class="text-base md:text-lg text-muted-foreground max-w-xl mb-10 leading-relaxed animate-fade-up"
-      style="animation-delay: 150ms"
-    >
-      Backend Engineer experienced in Node.js and TypeScript<br />
-      I design reliable systems, make thoughtful architectural decisions, and write maintainable code that works in production.
-    </p>
+      <h1 class="text-4xl sm:text-5xl font-bold text-foreground leading-[1.1] mb-6 animate-fade-up">
+        Ahmad Husein<br />Hambali
+      </h1>
 
-    <div
-      class="flex flex-col sm:flex-row gap-4 animate-fade-up"
-      style="animation-delay: 300ms"
-    >
-      <a
-        href="#projects"
-        class="inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground font-medium px-6 py-3 rounded-lg hover:opacity-90 transition-opacity text-sm"
+      <p
+        class="text-base md:text-lg text-muted-foreground max-w-xl mb-10 leading-relaxed animate-fade-up"
+        style="animation-delay: 150ms"
       >
-        View Projects
-        <ArrowRight size={16} />
-      </a>
-      <a
-        href="#contact"
-        class="inline-flex items-center justify-center gap-2 border border-border text-foreground font-medium px-6 py-3 rounded-lg hover:bg-secondary transition-colors text-sm"
+        Backend Engineer experienced in Node.js and TypeScript.
+        I design reliable systems, make thoughtful architectural decisions,
+        and write maintainable code that works in production.
+      </p>
+
+      <div
+        class="flex flex-col sm:flex-row gap-4 animate-fade-up"
+        style="animation-delay: 300ms"
       >
-        Get in Touch
-      </a>
+        <a
+          href="#projects"
+          class="inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground font-medium px-6 py-3 rounded-lg hover:opacity-90 transition-opacity text-sm"
+        >
+          View Projects
+          <ArrowRight size={16} />
+        </a>
+        <a
+          href="#contact"
+          class="inline-flex items-center justify-center gap-2 border border-border text-foreground font-medium px-6 py-3 rounded-lg hover:bg-secondary transition-colors text-sm"
+        >
+          Get in Touch
+        </a>
+      </div>
     </div>
+
+    <!-- Right: Terminal window -->
+    <div class="hidden lg:block animate-fade-in" style="animation-delay: 500ms">
+      <div class="term-win">
+        <div class="term-header">
+          <div class="flex gap-1.5 items-center">
+            <span class="w-3 h-3 rounded-full bg-[#ff5f57]"></span>
+            <span class="w-3 h-3 rounded-full bg-[#febc2e]"></span>
+            <span class="w-3 h-3 rounded-full bg-[#28c840]"></span>
+          </div>
+          <span class="term-fname">order-processor.ts</span>
+          <div class="w-14"></div>
+        </div>
+        <div class="term-body">
+          <pre id="term-code"></pre>
+        </div>
+      </div>
+    </div>
+
   </div>
 
   <a
     href="#about"
     class="absolute bottom-8 left-1/2 -translate-x-1/2 text-muted-foreground hover:text-foreground transition-colors animate-fade-in"
-    style="animation-delay: 600ms"
+    style="animation-delay: 700ms"
     aria-label="Scroll to about section"
   >
     <ArrowDown size={20} className="animate-bounce" />
   </a>
 </section>
+
+<style>
+  .term-win {
+    background: hsl(222 30% 4%);
+    border: 1px solid hsl(222 14% 18%);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow:
+      0 0 0 1px hsl(160 84% 39% / 0.07),
+      0 28px 64px -16px hsl(0 0% 0% / 0.65),
+      0 0 80px -24px hsl(160 84% 39% / 0.1);
+  }
+
+  .term-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 11px 14px;
+    background: hsl(222 22% 7%);
+    border-bottom: 1px solid hsl(222 14% 14%);
+  }
+
+  .term-fname {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: hsl(215 10% 46%);
+    letter-spacing: 0.02em;
+  }
+
+  .term-body {
+    padding: 18px 22px 22px;
+    position: relative;
+  }
+
+  .term-body::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 48px;
+    background: linear-gradient(transparent, hsl(222 30% 4%));
+    pointer-events: none;
+    border-radius: 0 0 10px 10px;
+  }
+
+  #term-code {
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    font-size: 12px;
+    line-height: 1.7;
+    color: hsl(210 12% 70%);
+    white-space: pre;
+    margin: 0;
+    height: 390px;
+    overflow: hidden;
+  }
+
+  :global(.tk-kw) { color: hsl(160 84% 50%); }
+  :global(.tk-fn) { color: hsl(210 75% 70%); }
+  :global(.tk-str) { color: hsl(38 88% 60%); }
+  :global(.tk-cm) { color: hsl(215 12% 40%); font-style: italic; }
+  :global(.tk-ty) { color: hsl(186 65% 60%); }
+  :global(.tk-nm) { color: hsl(280 50% 70%); }
+
+  :global(.tcur) {
+    display: inline-block;
+    width: 1.5px;
+    height: 1em;
+    background: hsl(160 84% 50%);
+    vertical-align: text-bottom;
+    margin-left: 1px;
+    animation: tblink 1s step-end infinite;
+  }
+
+  @keyframes tblink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+</style>
+
+<script>
+  const CODE = `// order-processor.ts
+import { db, logger, tracer } from '@/lib';
+
+export async function processOrder(
+  orderId: string
+): Promise<OrderResult> {
+  return tracer.trace('process_order', async () => {
+    const order = await db.orders.findOne({
+      where: { id: orderId, status: 'pending' },
+      lock: { mode: 'FOR UPDATE' },
+    });
+
+    if (!order) throw new NotFoundError(orderId);
+
+    await db.transaction(async (tx) => {
+      await tx.orders.update(orderId, {
+        status: 'processing',
+        updatedAt: new Date(),
+      });
+      await tx.events.insert({
+        type: 'ORDER_PROCESSING',
+        payload: { orderId },
+      });
+    });
+
+    logger.info({ orderId }, 'order processing started');
+    return { success: true, orderId };
+  });
+}`;
+
+  (function () {
+    const el = document.getElementById('term-code');
+    if (!el) return;
+
+    const KEYWORDS = new Set([
+      'import', 'export', 'async', 'await', 'const', 'let',
+      'return', 'if', 'throw', 'new', 'from', 'true', 'false', 'void',
+    ]);
+    const TYPES = new Set([
+      'string', 'number', 'boolean', 'Promise', 'OrderResult',
+      'NotFoundError', 'Date',
+    ]);
+
+    function esc(s) {
+      return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+
+    function highlight(code) {
+      let out = '';
+      let i = 0;
+      while (i < code.length) {
+        // Line comment
+        if (code[i] === '/' && code[i + 1] === '/') {
+          const end = code.indexOf('\n', i);
+          const chunk = end === -1 ? code.slice(i) : code.slice(i, end);
+          out += `<span class="tk-cm">${esc(chunk)}</span>`;
+          i += chunk.length;
+        // String
+        } else if (code[i] === "'" || code[i] === '"' || code[i] === '`') {
+          const q = code[i];
+          let j = i + 1;
+          while (j < code.length && code[j] !== q) {
+            if (code[j] === '\\') j++;
+            j++;
+          }
+          j++;
+          out += `<span class="tk-str">${esc(code.slice(i, j))}</span>`;
+          i = j;
+        // Identifier / keyword / type
+        } else if (/[a-zA-Z_$]/.test(code[i])) {
+          let j = i;
+          while (j < code.length && /[a-zA-Z0-9_$]/.test(code[j])) j++;
+          const word = code.slice(i, j);
+          let k = j;
+          while (k < code.length && code[k] === ' ') k++;
+          if (KEYWORDS.has(word)) {
+            out += `<span class="tk-kw">${word}</span>`;
+          } else if (TYPES.has(word)) {
+            out += `<span class="tk-ty">${word}</span>`;
+          } else if (code[k] === '(') {
+            out += `<span class="tk-fn">${word}</span>`;
+          } else {
+            out += esc(word);
+          }
+          i = j;
+        // Number
+        } else if (/[0-9]/.test(code[i])) {
+          let j = i;
+          while (j < code.length && /[0-9.]/.test(code[j])) j++;
+          out += `<span class="tk-nm">${code.slice(i, j)}</span>`;
+          i = j;
+        } else {
+          out += esc(code[i]);
+          i++;
+        }
+      }
+      return out;
+    }
+
+    let revealed = 0;
+
+    function render() {
+      const text = CODE.slice(0, revealed);
+      const lastNL = text.lastIndexOf('\n');
+      const done = lastNL >= 0 ? text.slice(0, lastNL) : '';
+      const curr = text.slice(lastNL + 1);
+      el.innerHTML =
+        (done ? highlight(done) + '\n' : '') +
+        esc(curr) +
+        '<span class="tcur"></span>';
+    }
+
+    function tick() {
+      if (revealed >= CODE.length) { render(); return; }
+      const burst = CODE[revealed] === '\n' ? 1 : Math.ceil(Math.random() * 3);
+      revealed = Math.min(revealed + burst, CODE.length);
+      render();
+      const delay = CODE[revealed - 1] === '\n' ? 55 : 10 + Math.random() * 18;
+      setTimeout(tick, delay);
+    }
+
+    setTimeout(function () { render(); setTimeout(tick, 300); }, 900);
+  })();
+</script>
