@@ -4,11 +4,13 @@ import '../styles/global.css';
 interface Props {
   title?: string;
   description?: string;
+  ogType?: 'website' | 'article';
 }
 
 const {
   title = 'Ahmad Husein Hambali — Backend Engineer',
   description = 'Ahmad Husein Hambali is a Backend Engineer with 5+ years of production experience building reliable Node.js and TypeScript systems with architectural clarity and long-term maintainability.',
+  ogType = 'website',
 } = Astro.props;
 ---
 <!doctype html>
@@ -25,8 +27,8 @@ const {
     <meta name="robots" content="index, follow" />
 
     <meta property="og:title" content={title} />
-    <meta property="og:description" content="Backend Engineer with 5+ years building reliable Node.js and TypeScript systems for production." />
-    <meta property="og:type" content="website" />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content={ogType} />
     <meta property="og:url" content={new URL(Astro.url.pathname, Astro.site).toString()} />
     <meta property="og:site_name" content="Ahmad Husein Hambali" />
     <meta property="og:locale" content="en_US" />
@@ -34,6 +36,8 @@ const {
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="Ahmad Husein Hambali — Backend Engineer" />
+
+    <meta name="twitter:card" content="summary_large_image" />
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-LS7KXT6E9R"></script>
