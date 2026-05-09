@@ -5,11 +5,9 @@ export const experience = [
     position: "Backend Engineer",
     location: "Hamburg, Germany - Remote - 2 Years",
     bullets: [
-      "Built and maintained Node.js (Express) backend services for financial systems processing ~1-5k invoices/month.",
-      "Implemented invoice correction, billing liquidation integrations, and payment workflows with regulatory compliance requirements.",
-      "Partnered with the CTO on architecture decisions and owned technical design for feature delivery and production issue resolution.",
-      "Led code reviews and strengthened test coverage to reduce regressions and uphold code quality.",
-      "Delivered incrementally in a cross-functional team, with regular releases and production support.",
+      "Core backend engineer on ClinicOS, an AI-powered clinic system, within a 9-person engineering team. Primary ownership of billing, lab orders, and appointment workflows, with broader contributions across the platform.",
+      "Built the medical billing pipeline end-to-end: draft invoices, corrections, PDF generation, German GOÄ integration, Swiss insurance provider integration, cost overrides, and billing provider submission workflows",
+      "Redesigned plugin-based backend architecture to improve modularity, reducing build time by 25%.",
     ],
   },
   {

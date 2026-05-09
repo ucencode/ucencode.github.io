@@ -46,7 +46,7 @@ export const projects: Project[] = [
       },
       {
         title: "My Role",
-        bullets: ["Backend Engineer owning invoicing domain."],
+        bullets: ["Backend Engineer with primary ownership across billing, lab orders, and appointment workflows."],
       },
       {
         title: "What I Built",

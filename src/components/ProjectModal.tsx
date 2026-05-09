@@ -50,7 +50,7 @@ const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
           {/* Tech Stack */}
           <div>
             <h4 className="font-mono text-xs text-primary mb-2 tracking-wide uppercase">
-              Tech Stack
+              Project Stack
             </h4>
             <div className="flex flex-wrap gap-2">
               {project.techStack.map((tech) => (
