@@ -35,10 +35,18 @@ src/
     about.ts              # Bio, strengths, social links
     experience.ts         # Work history
     projects.ts           # Project metadata
+  content/
+    config.ts             # Content collection schema (Zod)
+    blog/                 # Blog posts as Markdown files
+  pages/
+    blog/
+      index.astro         # Post listing at /blog
+      [slug].astro        # Individual post at /blog/<slug>
   styles/
     global.css            # Tailwind + CSS variables + animations
 public/
   projects/               # Project preview images (.webp)
+  og-image.png            # OG image for link previews (1200x630, not yet created)
   .nojekyll               # Disables Jekyll on GitHub Pages
 ```
 
@@ -50,6 +58,28 @@ npm run dev       # start dev server at localhost:4321
 npm run build     # build to dist/
 npm run preview   # preview production build
 ```
+
+## Blog
+
+Posts live in `src/content/blog/` as `.md` files. Frontmatter schema:
+
+```markdown
+---
+title: "Post Title"
+description: "One-line summary — shown in link previews and the post list"
+pubDate: 2026-05-09
+tags: ["node", "typescript"]   # optional
+draft: true                    # optional — hides from listing when true
+---
+```
+
+Each post gets its own OG metadata (`og:title`, `og:description`, `og:type: article`) via `BaseLayout`.
+
+**Still to do:**
+- [ ] Create `public/og-image.png` (1200×630) for homepage/default link preview
+- [ ] Add syntax highlighting for code blocks (e.g. `@astrojs/shiki` or `@shikijs/rehype`)
+- [ ] Add reading time estimate to post header
+- [ ] Add tag filter on `/blog` index
 
 ## Deploy
 
