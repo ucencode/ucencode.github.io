@@ -53,7 +53,7 @@ const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
               Project Stack
             </h4>
             <div className="flex flex-wrap gap-2">
-              {project.techStack.map((tech) => (
+              {project.projectStack.map((tech) => (
                 <span key={tech} className="tech-tag">
                   {tech}
                 </span>

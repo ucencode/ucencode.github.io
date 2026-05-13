@@ -64,14 +64,14 @@ const Projects = () => {
                         {project.description}
                       </p>
                       <div className="flex flex-wrap gap-1.5">
-                        {project.techStack.slice(0, 3).map((tech) => (
+                        {project.projectStack.slice(0, 3).map((tech) => (
                           <span key={tech} className="tech-tag text-[11px]">
                             {tech}
                           </span>
                         ))}
-                        {project.techStack.length > 3 && (
+                        {project.projectStack.length > 3 && (
                           <span className="tech-tag text-[11px]">
-                            +{project.techStack.length - 3}
+                            +{project.projectStack.length - 3}
                           </span>
                         )}
                       </div>

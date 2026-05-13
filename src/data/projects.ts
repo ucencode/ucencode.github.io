@@ -10,61 +10,72 @@ export interface Project {
     src: string;
     alt: string;
   };
-  techStack: string[];
+  projectStack: string[];
   links?: { label: string; url: string }[];
   additionalInfo?: Metadata[];
 }
 
 export const projects: Project[] = [
   {
-    id: "clinic-os",
-    title: "ClinicOS",
-    description:
-      "AI-assisted healthcare operations platform; I owned the invoicing domain and billing workflow architecture.",
-    image: {
-      src: "/projects/clinicos-preview.webp",
-      alt: "ClinicOS project preview",
-    },
-    techStack: [
-      "Node.js",
-      "TypeScript",
-      "PostgreSQL",
-      "Redis",
-      "React",
-      "Vite",
-      "Sentry",
-      "Grafana",
-      "JWT",
-      "RBAC",
-    ],
-    additionalInfo: [
-      {
-        title: "Problem",
-        bullets: [
-          "Medical teams spent excessive time on most clinic operations due to fragmented workflows.",
-        ],
-      },
-      {
-        title: "My Role",
-        bullets: ["Backend Engineer with primary ownership across billing, lab orders, and appointment workflows."],
-      },
-      {
-        title: "What I Built",
-        bullets: [
-          "Invoice lifecycle: appointment-driven drafts that sync with changes, finalized into immutable invoices.",
-          "Integration with insurance/liquidation workflows for downstream billing.",
-        ],
-      },
-      {
-        title: "Outcome",
-        bullets: [
-          "Cut operational time with robust billing that reduced manual corrections.",
-          "Streamlined patient and insurance workflows across the platform.",
-        ],
-      },
-    ],
-    links: [{ label: "Landing Page", url: "https://clinicos.de" }],
+  id: "clinic-os",
+  title: "ClinicOS",
+  description:
+    "ClinicOS is an AI-assisted healthcare operations platform for medical practices, built to streamline documentation, appointments, billing, patient communication, integrations, and administrative workflows in one cloud-based system.",
+  image: {
+    src: "/projects/clinicos-preview.webp",
+    alt: "ClinicOS project preview",
   },
+  projectStack: [
+    "Node.js",
+    "TypeScript",
+    "PostgreSQL",
+    "Express.js",
+    "Redis",
+    "BullMQ",
+    "Pub/Sub",
+    "Google Cloud",
+    "ArgoCD",
+    "Sentry",
+    "Grafana",
+    "JWT",
+    "RBAC",
+  ],
+  additionalInfo: [
+    {
+      title: "Problem",
+      bullets: [
+        "Medical teams often relied on fragmented tools for documentation, billing, lab submissions, insurance workflows, and patient data management.",
+        "Manual forms and disconnected systems slowed clinical operations and increased the risk of data-entry errors.",
+      ],
+    },
+    {
+      title: "My Role",
+      bullets: [
+        "Backend Engineer leading backend development across invoicing, billing workflows, third-party integrations, and backend architecture.",
+        "Established backend standards around code reviews, testing, linting, formatting, and onboarding as the team scaled.",
+      ],
+    },
+    {
+      title: "What I Built",
+      bullets: [
+        "Owned invoicing workflows and integrations with third-party billing, external lab, medication-data, insurance, and liquidation systems.",
+        "Built an appointment-driven invoice lifecycle where draft invoices sync with appointment changes before being finalized into immutable invoices.",
+        "Automated lab and insurance data submission, replacing manual multi-step forms with one-click clinician confirmation.",
+        "Redesigned the plugin-based backend architecture to reduce coupling and improve modularity.",
+      ],
+    },
+    {
+      title: "Outcome",
+      bullets: [
+        "Reduced manual clinical data-entry work and minimized submission errors.",
+        "Improved backend modularity and reduced build time by 25%, accelerating CI/CD and team-wide feature delivery.",
+        "Helped shorten doctor documentation workflows through AI-assisted drafts and OCR-based health record extraction.",
+        "Streamlined patient, insurance, lab, and billing workflows across the wider ClinicOS platform.",
+      ],
+    },
+  ],
+  links: [{ label: "Landing Page", url: "https://clinicos.de" }],
+},
 
   {
     id: "book-your-gp",
@@ -75,7 +86,7 @@ export const projects: Project[] = [
       src: "/projects/bygp-preview.webp",
       alt: "BookYourGP project preview",
     },
-    techStack: [
+    projectStack: [
       "Laravel",
       "PHP",
       "MySQL",
@@ -121,7 +132,7 @@ export const projects: Project[] = [
       src: "/projects/pitcar-preview.webp",
       alt: "Pitcar project preview",
     },
-    techStack: ["Odoo", "Python", "Custom Addons", "PostgreSQL"],
+    projectStack: ["Odoo", "Python", "Custom Addons", "PostgreSQL"],
     additionalInfo: [
       {
         title: "Problem",
