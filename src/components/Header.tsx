@@ -13,6 +13,7 @@ const sectionItems = [
 ];
 
 const pathname = typeof window !== "undefined" ? window.location.pathname : "/";
+const onHomepage = pathname === "/";
 
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -20,6 +21,8 @@ const Header = () => {
   const [activeSection, setActiveSection] = useState("home");
 
   useEffect(() => {
+    if (!onHomepage) return;
+
     const handleScroll = () => {
       setScrolled(window.scrollY > 40);
 
@@ -45,6 +48,11 @@ const Header = () => {
     el?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
+  const navItemClass = (href: string, base: string) =>
+    cn(base, onHomepage && activeSection === href.slice(1)
+      ? "text-primary"
+      : "text-muted-foreground hover:text-foreground");
+
   return (
     <header
       className={cn(
@@ -64,19 +72,22 @@ const Header = () => {
 
         {/* Desktop nav */}
         <nav className="hidden md:flex items-center gap-1" aria-label="Main navigation">
-          {sectionItems.map((item) => (
+          {sectionItems.map((item) => onHomepage ? (
             <button
               key={item.href}
               onClick={() => scrollTo(item.href)}
-              className={cn(
-                "px-3 py-1.5 text-sm rounded-md transition-colors duration-200",
-                activeSection === item.href.slice(1)
-                  ? "text-primary"
-                  : "text-muted-foreground hover:text-foreground"
-              )}
+              className={navItemClass(item.href, "px-3 py-1.5 text-sm rounded-md transition-colors duration-200")}
             >
               {item.label}
             </button>
+          ) : (
+            <a
+              key={item.href}
+              href={`/${item.href}`}
+              className={navItemClass(item.href, "px-3 py-1.5 text-sm rounded-md transition-colors duration-200")}
+            >
+              {item.label}
+            </a>
           ))}
         </nav>
 
@@ -98,19 +109,22 @@ const Header = () => {
         )}
       >
         <nav className="px-6 py-4 flex flex-col gap-1" aria-label="Mobile navigation">
-          {sectionItems.map((item) => (
+          {sectionItems.map((item) => onHomepage ? (
             <button
               key={item.href}
               onClick={() => scrollTo(item.href)}
-              className={cn(
-                "text-left px-3 py-3 text-base rounded-md transition-colors",
-                activeSection === item.href.slice(1)
-                  ? "text-primary bg-accent"
-                  : "text-muted-foreground hover:text-foreground hover:bg-secondary"
-              )}
+              className={navItemClass(item.href, "text-left px-3 py-3 text-base rounded-md transition-colors")}
             >
               {item.label}
             </button>
+          ) : (
+            <a
+              key={item.href}
+              href={`/${item.href}`}
+              className={navItemClass(item.href, "px-3 py-3 text-base rounded-md transition-colors")}
+            >
+              {item.label}
+            </a>
           ))}
         </nav>
       </div>
