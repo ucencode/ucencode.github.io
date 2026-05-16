@@ -8,11 +8,8 @@ const sectionItems = [
   { label: "Projects", href: "#projects" },
   { label: "Experience", href: "#experience" },
   { label: "Testimonials", href: "#testimonials" },
+  { label: "Blog", href: "#blog" },
   { label: "Contact", href: "#contact" },
-];
-
-const pageItems = [
-  { label: "Blog", href: "/blog" },
 ];
 
 const pathname = typeof window !== "undefined" ? window.location.pathname : "/";
@@ -48,9 +45,6 @@ const Header = () => {
     el?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
-  const isPageActive = (href: string) => pathname.startsWith(href);
-  const onPageRoute = pageItems.some((item) => isPageActive(item.href));
-
   return (
     <header
       className={cn(
@@ -76,27 +70,13 @@ const Header = () => {
               onClick={() => scrollTo(item.href)}
               className={cn(
                 "px-3 py-1.5 text-sm rounded-md transition-colors duration-200",
-                !onPageRoute && activeSection === item.href.slice(1)
+                activeSection === item.href.slice(1)
                   ? "text-primary"
                   : "text-muted-foreground hover:text-foreground"
               )}
             >
               {item.label}
             </button>
-          ))}
-          {pageItems.map((item) => (
-            <a
-              key={item.href}
-              href={item.href}
-              className={cn(
-                "px-3 py-1.5 text-sm rounded-md transition-colors duration-200",
-                isPageActive(item.href)
-                  ? "text-primary"
-                  : "text-muted-foreground hover:text-foreground"
-              )}
-            >
-              {item.label}
-            </a>
           ))}
         </nav>
 
@@ -124,27 +104,13 @@ const Header = () => {
               onClick={() => scrollTo(item.href)}
               className={cn(
                 "text-left px-3 py-3 text-base rounded-md transition-colors",
-                !onPageRoute && activeSection === item.href.slice(1)
+                activeSection === item.href.slice(1)
                   ? "text-primary bg-accent"
                   : "text-muted-foreground hover:text-foreground hover:bg-secondary"
               )}
             >
               {item.label}
             </button>
-          ))}
-          {pageItems.map((item) => (
-            <a
-              key={item.href}
-              href={item.href}
-              className={cn(
-                "px-3 py-3 text-base rounded-md transition-colors",
-                isPageActive(item.href)
-                  ? "text-primary bg-accent"
-                  : "text-muted-foreground hover:text-foreground hover:bg-secondary"
-              )}
-            >
-              {item.label}
-            </a>
           ))}
         </nav>
       </div>

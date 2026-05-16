@@ -5,22 +5,50 @@ import Header from '../../components/Header.tsx';
 import Footer from '../../components/Footer.astro';
 
 export async function getStaticPaths() {
-  const posts = await getCollection('blog', ({ data }) => !data.draft);
-  return posts.map((post) => ({ params: { slug: post.slug }, props: { post } }));
+  const posts = (await getCollection('blog', ({ data }) => !data.draft))
+    .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+  return posts.map((post, index) => ({
+    params: { slug: post.slug },
+    props: {
+      post,
+      prev: posts[index + 1] ?? null,
+      next: posts[index - 1] ?? null,
+    },
+  }));
 }
 
-const { post } = Astro.props;
+const { post, prev, next } = Astro.props;
 const { Content } = await post.render();
 ---
 
 <BaseLayout title={`${post.data.title} — Ahmad Husein Hambali`} description={post.data.description} ogType="article">
   <Header client:load />
   <main class="max-w-2xl mx-auto px-6 py-24">
+
+    <nav class="flex items-center justify-between mb-10 text-sm">
+      <div class="flex items-center gap-3">
+        <a href="/" class="text-muted-foreground hover:text-primary transition-colors">← Home</a>
+        <span class="text-border">|</span>
+        <a href="/blog" class="text-muted-foreground hover:text-primary transition-colors">All Posts</a>
+      </div>
+      <div class="flex items-center gap-3">
+        {prev && (
+          <a href={`/blog/${prev.slug}`} class="text-muted-foreground hover:text-primary transition-colors">
+            ← Previous
+          </a>
+        )}
+        {prev && next && <span class="text-border">|</span>}
+        {next && (
+          <a href={`/blog/${next.slug}`} class="text-muted-foreground hover:text-primary transition-colors">
+            Next →
+          </a>
+        )}
+      </div>
+    </nav>
+
     <div data-reveal>
-      <a href="/blog" class="text-sm text-muted-foreground hover:text-primary transition-colors mb-8 inline-block">
-        ← All posts
-      </a>
-      <time class="block text-xs font-mono text-muted-foreground mt-4">
+      <time class="block text-xs font-mono text-muted-foreground">
         {post.data.pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
       </time>
       <h1 class="mt-2 text-3xl font-semibold">{post.data.title}</h1>
@@ -44,6 +72,28 @@ const { Content } = await post.render();
       prose-strong:text-foreground prose-hr:border-border">
       <Content />
     </article>
+
+    <nav class="flex items-center justify-between mt-16 pt-8 border-t border-border text-sm">
+      <div class="flex items-center gap-3">
+        <a href="/" class="text-muted-foreground hover:text-primary transition-colors">← Home</a>
+        <span class="text-border">|</span>
+        <a href="/blog" class="text-muted-foreground hover:text-primary transition-colors">All Posts</a>
+      </div>
+      <div class="flex items-center gap-3">
+        {prev && (
+          <a href={`/blog/${prev.slug}`} class="text-muted-foreground hover:text-primary transition-colors">
+            ← Previous
+          </a>
+        )}
+        {prev && next && <span class="text-border">|</span>}
+        {next && (
+          <a href={`/blog/${next.slug}`} class="text-muted-foreground hover:text-primary transition-colors">
+            Next →
+          </a>
+        )}
+      </div>
+    </nav>
+
   </main>
   <Footer />
 </BaseLayout>
