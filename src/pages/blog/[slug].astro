@@ -32,15 +32,14 @@ const { Content } = await post.render();
         <span class="text-border">|</span>
         <a href="/blog" class="text-muted-foreground hover:text-primary transition-colors">All Posts</a>
       </div>
-      <div class="flex items-center gap-3">
+      <div class="flex items-center gap-2">
         {prev && (
-          <a href={`/blog/${prev.slug}`} class="text-muted-foreground hover:text-primary transition-colors">
+          <a href={`/blog/${prev.slug}`} class="px-4 py-2 rounded-lg border border-border text-muted-foreground hover:text-foreground hover:border-primary/40 transition-colors duration-200">
             ← Previous
           </a>
         )}
-        {prev && next && <span class="text-border">|</span>}
         {next && (
-          <a href={`/blog/${next.slug}`} class="text-muted-foreground hover:text-primary transition-colors">
+          <a href={`/blog/${next.slug}`} class="px-4 py-2 rounded-lg border border-border text-muted-foreground hover:text-foreground hover:border-primary/40 transition-colors duration-200">
             Next →
           </a>
         )}
@@ -79,15 +78,14 @@ const { Content } = await post.render();
         <span class="text-border">|</span>
         <a href="/blog" class="text-muted-foreground hover:text-primary transition-colors">All Posts</a>
       </div>
-      <div class="flex items-center gap-3">
+      <div class="flex items-center gap-2">
         {prev && (
-          <a href={`/blog/${prev.slug}`} class="text-muted-foreground hover:text-primary transition-colors">
+          <a href={`/blog/${prev.slug}`} class="px-4 py-2 rounded-lg border border-border text-muted-foreground hover:text-foreground hover:border-primary/40 transition-colors duration-200">
             ← Previous
           </a>
         )}
-        {prev && next && <span class="text-border">|</span>}
         {next && (
-          <a href={`/blog/${next.slug}`} class="text-muted-foreground hover:text-primary transition-colors">
+          <a href={`/blog/${next.slug}`} class="px-4 py-2 rounded-lg border border-border text-muted-foreground hover:text-foreground hover:border-primary/40 transition-colors duration-200">
             Next →
           </a>
         )}
