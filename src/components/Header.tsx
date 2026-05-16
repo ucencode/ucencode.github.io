@@ -15,15 +15,12 @@ const pageItems = [
   { label: "Blog", href: "/blog" },
 ];
 
+const pathname = typeof window !== "undefined" ? window.location.pathname : "/";
+
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
-  const [pathname, setPathname] = useState("/");
-
-  useEffect(() => {
-    setPathname(window.location.pathname);
-  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -51,7 +48,8 @@ const Header = () => {
     el?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
-  const isBlogActive = pathname.startsWith("/blog");
+  const isPageActive = (href: string) => pathname.startsWith(href);
+  const onPageRoute = pageItems.some((item) => isPageActive(item.href));
 
   return (
     <header
@@ -78,7 +76,7 @@ const Header = () => {
               onClick={() => scrollTo(item.href)}
               className={cn(
                 "px-3 py-1.5 text-sm rounded-md transition-colors duration-200",
-                !isBlogActive && activeSection === item.href.slice(1)
+                !onPageRoute && activeSection === item.href.slice(1)
                   ? "text-primary"
                   : "text-muted-foreground hover:text-foreground"
               )}
@@ -92,7 +90,7 @@ const Header = () => {
               href={item.href}
               className={cn(
                 "px-3 py-1.5 text-sm rounded-md transition-colors duration-200",
-                isBlogActive
+                isPageActive(item.href)
                   ? "text-primary"
                   : "text-muted-foreground hover:text-foreground"
               )}
@@ -126,7 +124,7 @@ const Header = () => {
               onClick={() => scrollTo(item.href)}
               className={cn(
                 "text-left px-3 py-3 text-base rounded-md transition-colors",
-                !isBlogActive && activeSection === item.href.slice(1)
+                !onPageRoute && activeSection === item.href.slice(1)
                   ? "text-primary bg-accent"
                   : "text-muted-foreground hover:text-foreground hover:bg-secondary"
               )}
@@ -140,7 +138,7 @@ const Header = () => {
               href={item.href}
               className={cn(
                 "px-3 py-3 text-base rounded-md transition-colors",
-                isBlogActive
+                isPageActive(item.href)
                   ? "text-primary bg-accent"
                   : "text-muted-foreground hover:text-foreground hover:bg-secondary"
               )}

@@ -14,15 +14,19 @@ npm run deploy    # build then push dist/ to the gh-pages branch
 
 No test suite is wired up despite `vitest.config.ts` being present.
 
+**Lint rules** — ESLint covers `.ts`/`.tsx` files only (`.astro` files are excluded). Always run `npm run lint` before committing and fix all errors. Zero warnings policy: treat warnings as errors.
+
 ## Architecture
 
 Single-page portfolio site. The page is assembled in `src/pages/index.astro`, which composes all sections inside `BaseLayout.astro`.
 
-**Astro vs React split** — most sections are static `.astro` components (Hero, About, Experience, Testimonials, Contact, Footer). Two components are React Islands hydrated with `client:load`:
-- `Header.tsx` — fixed nav with scroll-detection, active-section highlight, and mobile hamburger
+**Astro vs React split** — most sections are static `.astro` components (Hero, About, Experience, Testimonials, Blog, Contact, Footer). Two components are React Islands hydrated with `client:load`:
+- `Header.tsx` — fixed nav with scroll-detection, active-section highlight, mobile hamburger, and page-route active state
 - `Projects.tsx` + `ProjectModal.tsx` — project card grid with a Radix Dialog modal
 
 **Content is data-driven** — all portfolio content lives in `src/data/`:
+- Blog posts are Markdown files in `src/content/blog/` using Astro content collections (schema in `src/content/config.ts`). Frontmatter fields: `title`, `description`, `pubDate`, `tags[]`, `draft`.
+- Use `BlogCard.astro` for rendering post cards — do not duplicate the card markup.
 - `about.ts` — bio paragraphs, core strengths, social links
 - `experience.ts` — work history entries and summary blurb
 - `projects.ts` — `Project[]` typed array; each entry has `id`, `title`, `description`, `image`, `techStack`, `links`, and optional `additionalInfo` sections (Problem / My Role / What I Built / Outcome)

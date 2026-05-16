@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Header from '../../components/Header.tsx';
+import BlogCard from '../../components/BlogCard.astro';
 import Footer from '../../components/Footer.astro';
 
 const posts = (await getCollection('blog', ({ data }) => !data.draft))
@@ -29,33 +30,7 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft))
     ) : (
       <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {posts.map((post, index) => (
-          <a
-            href={`/blog/${post.slug}`}
-            data-reveal
-            data-reveal-delay={String(index * 80)}
-            class="group flex flex-col gap-3 p-6 rounded-xl border border-border bg-card hover:border-primary/40 transition-colors duration-200"
-          >
-            <div class="flex items-center gap-3">
-              <time class="font-mono text-xs text-muted-foreground">
-                {post.data.pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
-              </time>
-              {post.data.tags[0] && (
-                <span class="tech-tag">{post.data.tags[0]}</span>
-              )}
-            </div>
-
-            <h2 class="text-base font-semibold text-foreground group-hover:text-primary transition-colors leading-snug">
-              {post.data.title}
-            </h2>
-
-            <p class="text-sm text-muted-foreground leading-relaxed flex-1">
-              {post.data.description}
-            </p>
-
-            <span class="text-sm text-primary font-medium mt-1">
-              Read more →
-            </span>
-          </a>
+          <BlogCard post={post} index={index} />
         ))}
       </div>
     )}
