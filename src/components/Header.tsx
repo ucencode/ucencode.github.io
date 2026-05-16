@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-const navItems = [
+const sectionItems = [
   { label: "Home", href: "#home" },
   { label: "About", href: "#about" },
   { label: "Projects", href: "#projects" },
@@ -11,22 +11,31 @@ const navItems = [
   { label: "Contact", href: "#contact" },
 ];
 
+const pageItems = [
+  { label: "Blog", href: "/blog" },
+];
+
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
+  const [pathname, setPathname] = useState("/");
+
+  useEffect(() => {
+    setPathname(window.location.pathname);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 40);
 
-      const sections = navItems
+      const sections = sectionItems
         .map((item) => document.getElementById(item.href.slice(1)))
         .filter(Boolean) as HTMLElement[];
 
       for (let i = sections.length - 1; i >= 0; i--) {
         if (window.scrollY >= sections[i].offsetTop - 120) {
-          setActiveSection(navItems[i].href.slice(1));
+          setActiveSection(sectionItems[i].href.slice(1));
           break;
         }
       }
@@ -42,6 +51,8 @@ const Header = () => {
     el?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
+  const isBlogActive = pathname.startsWith("/blog");
+
   return (
     <header
       className={cn(
@@ -52,28 +63,42 @@ const Header = () => {
       )}
     >
       <div className="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
-        <button
-          onClick={() => scrollTo("#home")}
+        <a
+          href="/"
           className="font-mono text-sm font-medium text-primary tracking-wide hover:opacity-80 transition-opacity"
         >
           ucen.dev
-        </button>
+        </a>
 
         {/* Desktop nav */}
         <nav className="hidden md:flex items-center gap-1" aria-label="Main navigation">
-          {navItems.map((item) => (
+          {sectionItems.map((item) => (
             <button
               key={item.href}
               onClick={() => scrollTo(item.href)}
               className={cn(
                 "px-3 py-1.5 text-sm rounded-md transition-colors duration-200",
-                activeSection === item.href.slice(1)
+                !isBlogActive && activeSection === item.href.slice(1)
                   ? "text-primary"
                   : "text-muted-foreground hover:text-foreground"
               )}
             >
               {item.label}
             </button>
+          ))}
+          {pageItems.map((item) => (
+            <a
+              key={item.href}
+              href={item.href}
+              className={cn(
+                "px-3 py-1.5 text-sm rounded-md transition-colors duration-200",
+                isBlogActive
+                  ? "text-primary"
+                  : "text-muted-foreground hover:text-foreground"
+              )}
+            >
+              {item.label}
+            </a>
           ))}
         </nav>
 
@@ -95,19 +120,33 @@ const Header = () => {
         )}
       >
         <nav className="px-6 py-4 flex flex-col gap-1" aria-label="Mobile navigation">
-          {navItems.map((item) => (
+          {sectionItems.map((item) => (
             <button
               key={item.href}
               onClick={() => scrollTo(item.href)}
               className={cn(
                 "text-left px-3 py-3 text-base rounded-md transition-colors",
-                activeSection === item.href.slice(1)
+                !isBlogActive && activeSection === item.href.slice(1)
                   ? "text-primary bg-accent"
                   : "text-muted-foreground hover:text-foreground hover:bg-secondary"
               )}
             >
               {item.label}
             </button>
+          ))}
+          {pageItems.map((item) => (
+            <a
+              key={item.href}
+              href={item.href}
+              className={cn(
+                "px-3 py-3 text-base rounded-md transition-colors",
+                isBlogActive
+                  ? "text-primary bg-accent"
+                  : "text-muted-foreground hover:text-foreground hover:bg-secondary"
+              )}
+            >
+              {item.label}
+            </a>
           ))}
         </nav>
       </div>
