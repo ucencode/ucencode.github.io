@@ -3,6 +3,7 @@ title: "TypeScript Habits That Actually Saved Me"
 description: "A few practical patterns I keep reaching for — not from a style guide, but from bugs I've already shipped."
 pubDate: 2026-05-11
 tags: ["typescript", "dev"]
+draft: true
 ---
 
 Most TypeScript advice is about syntax. This is about the habits I've formed after shipping bugs that TypeScript *could* have caught, if I'd used it properly.

@@ -3,6 +3,7 @@ title: "Notes on Building in Public"
 description: "Six months of sharing work online — what I expected, what surprised me, and what I'd do differently."
 pubDate: 2026-04-28
 tags: ["meta", "career"]
+draft: true
 ---
 
 I started sharing my work online six months ago. Not a formal commitment — just posting what I was building, sometimes with explanations, sometimes just screenshots. Here's what I've learned.
