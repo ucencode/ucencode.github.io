@@ -1,14 +1,15 @@
 export const description = [
-  "I specialize in building scalable backend systems using Node.js, TypeScript, and PostgreSQL, with over five years of experience in production environments. My focus is on reliability, long-term maintainability, and architectural clarity.",
-  "I approach software as a system of constraints. I design with failure scenarios, edge cases, and future evolution in mind while prioritizing stability over quick fixes. This mindset has consistently reduced production defects and improved long-term maintainability.",
-  "I value clean abstractions, explicit trade-offs, and thoughtful testing. I aim to deliver systems that remain understandable and adaptable long after their initial release.",
+  "I’m a Backend Engineer with 5+ years of experience building production systems across healthcare SaaS, ERP platforms, and integration-heavy applications using Node.js, TypeScript, PHP, and PostgreSQL.",
+  "Most of my work focuses on reliability-critical workflows: billing systems, external integrations, automation pipelines, and backend infrastructure where correctness and maintainability directly affect real operations.",
+  "I enjoy designing systems that reduce operational friction, eliminate repetitive manual work, and remain maintainable as products evolve. Recently, I’ve also been exploring LLM application patterns, retrieval pipelines, and practical AI integrations beyond prototype-level demos.",
 ];
 
 export const coreStrengths = [
-  "Backend Development — Node.js, TypeScript, Express.js",
-  "System Design — API architecture, Database design, Scalable systems",
-  "Database — PostgreSQL, Redis, Query optimization, Data modeling",
-  "DevOps — Docker, Git, CI/CD workflows",
+  "Backend Engineering — Node.js, TypeScript, Express.js, Laravel",
+  "System Architecture — API design, asynchronous workflows, event-driven systems",
+  "Data & Persistence — PostgreSQL, Redis, query optimization, indexing, data modeling",
+  "Infrastructure & Delivery — Docker, GitHub Actions, CI/CD, Google Cloud, Linux",
+  "Integrations & Automation — Billing systems, ERP workflows, external APIs",
 ];
 
 export const socialLinks = {
