@@ -13,13 +13,13 @@ interface ProjectModalProps {
 }
 
 const InfoSlide = ({ project }: { project: Project }) => (
-  <div className="w-full h-full flex-shrink-0 overflow-y-auto bg-card">
-    <div className="p-8 space-y-6 min-h-full">
+  <div className="w-full flex-shrink-0 self-stretch overflow-y-auto bg-card">
+    <div className="p-6 sm:p-8 space-y-5 pb-14">
       <div>
         <p className="font-mono text-xs text-primary mb-1 tracking-wide uppercase">
           Project
         </p>
-        <h2 className="text-xl font-semibold text-foreground mb-2">
+        <h2 className="text-xl sm:text-2xl font-semibold text-foreground mb-2">
           {project.title}
         </h2>
         <p className="text-sm text-muted-foreground leading-relaxed">
@@ -28,7 +28,7 @@ const InfoSlide = ({ project }: { project: Project }) => (
       </div>
 
       {project.additionalInfo && project.additionalInfo.length > 0 && (
-        <div className="space-y-5 border-t border-border pt-5">
+        <div className="space-y-4 border-t border-border pt-5">
           {project.additionalInfo.map((section) => (
             <div key={section.title}>
               <h4 className="font-mono text-xs text-primary mb-2 tracking-wide uppercase">
@@ -51,7 +51,7 @@ const InfoSlide = ({ project }: { project: Project }) => (
 
       <div className="border-t border-border pt-5">
         <h4 className="font-mono text-xs text-primary mb-2 tracking-wide uppercase">
-          Project Stack
+          Stack
         </h4>
         <div className="flex flex-wrap gap-2">
           {project.projectStack.map((tech) => (
@@ -105,22 +105,20 @@ const SlideCarousel = ({ project }: { project: Project }) => {
   }, [prev, next]);
 
   return (
-    <div className="relative w-full h-full overflow-hidden">
+    <div className="relative w-full flex-1 min-h-0 overflow-hidden">
       {/* Slide track */}
       <div
         className="flex h-full transition-transform duration-500 ease-in-out"
         style={{ transform: `translateX(-${slideIndex * 100}%)` }}
       >
-        {/* Slide 0: info */}
         <InfoSlide project={project} />
 
-        {/* Slides 1+: images */}
         {project.slides.map((slide, i) => {
           const src = `${import.meta.env.BASE_URL}${slide.replace(/^\//, "")}`;
           return (
             <div
               key={i}
-              className="w-full h-full flex-shrink-0 bg-black flex items-center justify-center"
+              className="w-full flex-shrink-0 self-stretch bg-black flex items-center justify-center"
             >
               <img
                 src={src}
@@ -133,46 +131,46 @@ const SlideCarousel = ({ project }: { project: Project }) => {
         })}
       </div>
 
-      {/* Arrows */}
+      {/* Prev / Next arrows */}
       {total > 1 && (
         <>
           <button
             onClick={prev}
             aria-label="Previous slide"
-            className="absolute left-3 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/75 text-white rounded-full p-1.5 transition-colors z-10"
+            className="absolute left-3 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/65 text-white rounded-full p-2 transition-colors z-10"
           >
-            <ChevronLeft size={18} />
+            <ChevronLeft size={16} />
           </button>
           <button
             onClick={next}
             aria-label="Next slide"
-            className="absolute right-3 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/75 text-white rounded-full p-1.5 transition-colors z-10"
+            className="absolute right-3 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/65 text-white rounded-full p-2 transition-colors z-10"
           >
-            <ChevronRight size={18} />
+            <ChevronRight size={16} />
           </button>
         </>
       )}
 
-      {/* Dots + counter */}
-      <div className="absolute bottom-3 inset-x-0 flex flex-col items-center gap-1.5 z-10 pointer-events-none">
-        {total > 1 && (
-          <div className="flex gap-1.5 pointer-events-auto">
+      {/* Dots + counter — pill backdrop so it's readable on any slide */}
+      {total > 1 && (
+        <div className="absolute bottom-4 inset-x-0 flex justify-center z-10 pointer-events-none">
+          <div className="inline-flex items-center gap-2.5 bg-black/40 backdrop-blur-sm rounded-full px-3 py-1.5 pointer-events-auto">
             {Array.from({ length: total }).map((_, i) => (
               <button
                 key={i}
                 onClick={() => setSlideIndex(i)}
                 aria-label={`Go to slide ${i + 1}`}
                 className={`w-1.5 h-1.5 rounded-full transition-colors ${
-                  i === slideIndex ? "bg-primary" : "bg-white/40"
+                  i === slideIndex ? "bg-primary" : "bg-white/50"
                 }`}
               />
             ))}
+            <span className="text-[10px] text-white/70 font-mono tabular-nums leading-none pl-1 border-l border-white/20">
+              {slideIndex + 1}/{total}
+            </span>
           </div>
-        )}
-        <span className="text-[11px] text-white/60 font-mono tabular-nums drop-shadow">
-          {slideIndex + 1} / {total}
-        </span>
-      </div>
+        </div>
+      )}
     </div>
   );
 };
@@ -184,7 +182,16 @@ const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
     <Dialog open={!!project} onOpenChange={(open) => !open && onClose()}>
       <DialogContent
         key={project.id}
-        className="max-w-2xl w-full p-0 bg-card border-border text-card-foreground overflow-hidden h-[85vh] flex flex-col"
+        className={[
+          // Reset base dialog sizing/positioning for mobile fullscreen
+          "left-0 top-0 translate-x-0 translate-y-0",
+          "w-full h-dvh max-w-none rounded-none",
+          // Desktop: reapply centered near-fullscreen
+          "sm:left-[50%] sm:top-[50%] sm:-translate-x-1/2 sm:-translate-y-1/2",
+          "sm:w-[95vw] sm:h-[90vh] sm:max-w-5xl sm:rounded-xl",
+          // Common
+          "p-0 gap-0 bg-card border-border text-card-foreground overflow-hidden flex flex-col",
+        ].join(" ")}
       >
         <DialogTitle className="sr-only">{project.title}</DialogTitle>
         <SlideCarousel project={project} />
