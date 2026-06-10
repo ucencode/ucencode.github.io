@@ -164,16 +164,16 @@ const SlideCarousel = ({ project }: { project: Project }) => {
           <button
             onClick={prev}
             aria-label="Previous slide"
-            className="absolute left-3 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/65 text-white rounded-full p-2 transition-colors z-10 cursor-pointer"
+            className="absolute left-3 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/65 text-white rounded-full p-2.5 transition-colors z-10 cursor-pointer"
           >
-            <ChevronLeft size={16} />
+            <ChevronLeft size={18} />
           </button>
           <button
             onClick={next}
             aria-label="Next slide"
-            className="absolute right-3 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/65 text-white rounded-full p-2 transition-colors z-10 cursor-pointer"
+            className="absolute right-3 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/65 text-white rounded-full p-2.5 transition-colors z-10 cursor-pointer"
           >
-            <ChevronRight size={16} />
+            <ChevronRight size={18} />
           </button>
         </>
       )}
@@ -188,7 +188,7 @@ const SlideCarousel = ({ project }: { project: Project }) => {
                 key={i}
                 onClick={() => setSlideIndex(i)}
                 aria-label={`Go to slide ${i + 1}`}
-                className={`w-1.5 h-1.5 rounded-full transition-colors cursor-pointer ${
+                className={`w-2 h-2 rounded-full transition-colors cursor-pointer p-0 ${
                   i === slideIndex ? "bg-primary" : "bg-white/50"
                 }`}
               />
@@ -206,14 +206,14 @@ const SlideCarousel = ({ project }: { project: Project }) => {
               onClick={zoomOut}
               disabled={zoom <= ZOOM_MIN}
               aria-label="Zoom out"
-              className="p-1 text-white/80 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed transition-colors cursor-pointer"
+              className="p-1.5 text-white/80 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed transition-colors cursor-pointer"
             >
-              <ZoomOut size={14} />
+              <ZoomOut size={15} />
             </button>
             <button
               onClick={zoomReset}
               aria-label="Reset zoom"
-              className="px-1.5 text-[10px] font-mono text-white/80 hover:text-white transition-colors cursor-pointer min-w-[2rem] text-center"
+              className="px-2 text-xs font-mono text-white/80 hover:text-white transition-colors cursor-pointer min-w-[2.25rem] text-center"
             >
               {zoom === 1 ? "1×" : `${zoom}×`}
             </button>
@@ -221,9 +221,9 @@ const SlideCarousel = ({ project }: { project: Project }) => {
               onClick={zoomIn}
               disabled={zoom >= ZOOM_MAX}
               aria-label="Zoom in"
-              className="p-1 text-white/80 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed transition-colors cursor-pointer"
+              className="p-1.5 text-white/80 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed transition-colors cursor-pointer"
             >
-              <ZoomIn size={14} />
+              <ZoomIn size={15} />
             </button>
           </div>
         )}
