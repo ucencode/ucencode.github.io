@@ -1,3 +1,11 @@
+/** A single image slide for the project modal carousel. */
+interface Slide {
+  /** Path relative to `public/`, e.g. `"slides/clinic-os/slide-01.webp"`. */
+  path: string;
+  /** Optional caption overlaid at the bottom of the slide image. */
+  caption?: string;
+}
+
 /** A named section of additional project detail, rendered as a bullet list. */
 interface Metadata {
   /** Section heading, e.g. "Problem", "My Role", "What I Built", "Outcome". */
@@ -25,12 +33,12 @@ export interface Project {
   };
 
   /**
-   * Ordered list of slide image paths relative to `public/`, e.g.
-   * `["slides/clinic-os/slide-01.webp", "slides/clinic-os/slide-02.webp"]`.
+   * Ordered list of slides shown in the modal carousel.
    * Every entry must be declared explicitly — no glob inference.
-   * Files live at `public/slides/{project-slug}/slide-NN.[jpg|png|webp]`.
+   * Files live at `public/slides/{id}/slide-NN.[jpg|png|webp]`.
+   * An optional `caption` is overlaid at the bottom of the slide when present.
    */
-  slides: string[];
+  slides: Slide[];
 
   /** Tech stack labels shown as pill tags on the card and in the modal. */
   projectStack: string[];
@@ -53,7 +61,7 @@ export const projects: Project[] = [
       alt: "ClinicOS project preview",
     },
     slides: [
-      "slides/clinic-os/slide-01.webp"
+      { path: "slides/clinic-os/slide-01.webp", caption: "ClinicOS dashboard overview" },
     ],
     projectStack: [
       "Node.js",
@@ -120,7 +128,7 @@ export const projects: Project[] = [
       alt: "BookYourGP project preview",
     },
     slides: [
-      "slides/book-your-gp/slide-01.webp"
+      { path: "slides/book-your-gp/slide-01.webp", caption: "BookYourGP interface" },
     ],
     projectStack: [
       "Laravel",
@@ -188,7 +196,7 @@ export const projects: Project[] = [
       alt: "Pitcar project preview",
     },
     slides: [
-      "slides/pitcar/slide-01.webp"
+      { path: "slides/pitcar/slide-01.webp", caption: "Pitcar sale table overview" },
     ],
     projectStack: ["Odoo", "Python", "Custom Addons", "PostgreSQL"],
     additionalInfo: [
