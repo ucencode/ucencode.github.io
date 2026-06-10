@@ -4,9 +4,7 @@ import type { Project } from "@/data/projects";
 import {
   Dialog,
   DialogContent,
-  DialogHeader,
   DialogTitle,
-  DialogDescription,
 } from "@/components/ui/dialog";
 
 interface ProjectModalProps {
@@ -14,10 +12,79 @@ interface ProjectModalProps {
   onClose: () => void;
 }
 
+const InfoSlide = ({ project }: { project: Project }) => (
+  <div className="w-full h-full flex-shrink-0 overflow-y-auto bg-card">
+    <div className="p-8 space-y-6 min-h-full">
+      <div>
+        <p className="font-mono text-xs text-primary mb-1 tracking-wide uppercase">
+          Project
+        </p>
+        <h2 className="text-xl font-semibold text-foreground mb-2">
+          {project.title}
+        </h2>
+        <p className="text-sm text-muted-foreground leading-relaxed">
+          {project.description}
+        </p>
+      </div>
+
+      {project.additionalInfo && project.additionalInfo.length > 0 && (
+        <div className="space-y-5 border-t border-border pt-5">
+          {project.additionalInfo.map((section) => (
+            <div key={section.title}>
+              <h4 className="font-mono text-xs text-primary mb-2 tracking-wide uppercase">
+                {section.title}
+              </h4>
+              <ul className="space-y-1.5 list-disc pl-5 marker:text-primary">
+                {section.bullets.map((bullet, index) => (
+                  <li
+                    key={`${section.title}-${index}`}
+                    className="text-sm text-muted-foreground leading-relaxed"
+                  >
+                    {bullet}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      )}
+
+      <div className="border-t border-border pt-5">
+        <h4 className="font-mono text-xs text-primary mb-2 tracking-wide uppercase">
+          Project Stack
+        </h4>
+        <div className="flex flex-wrap gap-2">
+          {project.projectStack.map((tech) => (
+            <span key={tech} className="tech-tag">
+              {tech}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      {project.links && project.links.length > 0 && (
+        <div className="flex flex-wrap gap-3 border-t border-border pt-5">
+          {project.links.map((link) => (
+            <a
+              key={link.url}
+              href={link.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 text-sm text-primary hover:opacity-80 transition-opacity font-medium"
+            >
+              <ExternalLink size={14} />
+              {link.label}
+            </a>
+          ))}
+        </div>
+      )}
+    </div>
+  </div>
+);
+
 const SlideCarousel = ({ project }: { project: Project }) => {
   const [slideIndex, setSlideIndex] = useState(0);
-  const slides = project.slides;
-  const total = slides.length;
+  const total = 1 + project.slides.length;
 
   const prev = useCallback(
     () => setSlideIndex((i) => (i - 1 + total) % total),
@@ -38,48 +105,59 @@ const SlideCarousel = ({ project }: { project: Project }) => {
   }, [prev, next]);
 
   return (
-    <div className="relative w-full aspect-video bg-black flex-shrink-0 overflow-hidden">
+    <div className="relative w-full h-full overflow-hidden">
+      {/* Slide track */}
       <div
         className="flex h-full transition-transform duration-500 ease-in-out"
         style={{ transform: `translateX(-${slideIndex * 100}%)` }}
       >
-        {slides.map((slide, i) => {
+        {/* Slide 0: info */}
+        <InfoSlide project={project} />
+
+        {/* Slides 1+: images */}
+        {project.slides.map((slide, i) => {
           const src = `${import.meta.env.BASE_URL}${slide.replace(/^\//, "")}`;
           return (
-            <img
+            <div
               key={i}
-              src={src}
-              alt={`${project.title} slide ${i + 1}`}
-              className="w-full h-full object-cover flex-shrink-0"
-              loading={i === 0 ? "eager" : "lazy"}
-            />
+              className="w-full h-full flex-shrink-0 bg-black flex items-center justify-center"
+            >
+              <img
+                src={src}
+                alt={`${project.title} screenshot ${i + 1}`}
+                className="w-full h-full object-cover"
+                loading={i === 0 ? "eager" : "lazy"}
+              />
+            </div>
           );
         })}
       </div>
 
+      {/* Arrows */}
       {total > 1 && (
         <>
           <button
             onClick={prev}
             aria-label="Previous slide"
-            className="absolute left-3 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/75 text-white rounded-full p-1.5 transition-colors"
+            className="absolute left-3 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/75 text-white rounded-full p-1.5 transition-colors z-10"
           >
             <ChevronLeft size={18} />
           </button>
           <button
             onClick={next}
             aria-label="Next slide"
-            className="absolute right-3 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/75 text-white rounded-full p-1.5 transition-colors"
+            className="absolute right-3 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/75 text-white rounded-full p-1.5 transition-colors z-10"
           >
             <ChevronRight size={18} />
           </button>
         </>
       )}
 
-      <div className="absolute bottom-3 inset-x-0 flex flex-col items-center gap-1.5">
+      {/* Dots + counter */}
+      <div className="absolute bottom-3 inset-x-0 flex flex-col items-center gap-1.5 z-10 pointer-events-none">
         {total > 1 && (
-          <div className="flex gap-1.5">
-            {slides.map((_, i) => (
+          <div className="flex gap-1.5 pointer-events-auto">
+            {Array.from({ length: total }).map((_, i) => (
               <button
                 key={i}
                 onClick={() => setSlideIndex(i)}
@@ -91,7 +169,7 @@ const SlideCarousel = ({ project }: { project: Project }) => {
             ))}
           </div>
         )}
-        <span className="text-[11px] text-white/60 font-mono tabular-nums">
+        <span className="text-[11px] text-white/60 font-mono tabular-nums drop-shadow">
           {slideIndex + 1} / {total}
         </span>
       </div>
@@ -106,70 +184,10 @@ const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
     <Dialog open={!!project} onOpenChange={(open) => !open && onClose()}>
       <DialogContent
         key={project.id}
-        className="max-w-2xl w-full p-0 bg-card border-border text-card-foreground overflow-hidden max-h-[90vh] flex flex-col"
+        className="max-w-2xl w-full p-0 bg-card border-border text-card-foreground overflow-hidden h-[85vh] flex flex-col"
       >
+        <DialogTitle className="sr-only">{project.title}</DialogTitle>
         <SlideCarousel project={project} />
-
-        <div className="overflow-y-auto flex-1 min-h-0">
-          <div className="p-6 space-y-5">
-            <DialogHeader>
-              <DialogTitle className="text-lg font-semibold text-foreground pr-6">
-                {project.title}
-              </DialogTitle>
-              <DialogDescription className="text-muted-foreground text-sm">
-                {project.description}
-              </DialogDescription>
-            </DialogHeader>
-
-            {project.additionalInfo?.map((section) => (
-              <div key={section.title}>
-                <h4 className="font-mono text-xs text-primary mb-2 tracking-wide uppercase">
-                  {section.title}
-                </h4>
-                <ul className="space-y-2 list-disc pl-5 marker:text-primary">
-                  {section.bullets.map((bullet, index) => (
-                    <li
-                      key={`${section.title}-${index}`}
-                      className="text-sm text-muted-foreground leading-relaxed"
-                    >
-                      {bullet}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-
-            <div>
-              <h4 className="font-mono text-xs text-primary mb-2 tracking-wide uppercase">
-                Project Stack
-              </h4>
-              <div className="flex flex-wrap gap-2">
-                {project.projectStack.map((tech) => (
-                  <span key={tech} className="tech-tag">
-                    {tech}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            {project.links && project.links.length > 0 && (
-              <div className="flex flex-wrap gap-3 pt-2 border-t border-border">
-                {project.links.map((link) => (
-                  <a
-                    key={link.url}
-                    href={link.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 text-sm text-primary hover:opacity-80 transition-opacity font-medium"
-                  >
-                    <ExternalLink size={14} />
-                    {link.label}
-                  </a>
-                ))}
-              </div>
-            )}
-          </div>
-        </div>
       </DialogContent>
     </Dialog>
   );
