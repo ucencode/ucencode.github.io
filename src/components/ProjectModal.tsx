@@ -154,7 +154,7 @@ const SlideCarousel = ({ project }: { project: Project }) => {
                 loading={i === 0 ? "eager" : "lazy"}
               />
               {slide.caption && (
-                <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/70 to-transparent px-5 pb-14 pt-10 z-[5] pointer-events-none">
+                <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/90 to-transparent px-5 pb-14 pt-10 z-[5] pointer-events-none">
                   <p className="text-sm text-white/90 leading-snug">{slide.caption}</p>
                 </div>
               )}
