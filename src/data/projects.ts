@@ -61,7 +61,7 @@ export const projects: Project[] = [
       alt: "ClinicOS project preview",
     },
     slides: [
-      { path: "slides/clinic-os/slide-01.webp" },
+      { path: "slides/clinic-os/slide-01.webp", caption: "ClinicOS dashboard overview" },
     ],
     projectStack: [
       "Node.js",
@@ -128,7 +128,7 @@ export const projects: Project[] = [
       alt: "BookYourGP project preview",
     },
     slides: [
-      { path: "slides/book-your-gp/slide-01.webp" },
+      { path: "slides/book-your-gp/slide-01.webp", caption: "BookYourGP interface" },
     ],
     projectStack: [
       "Laravel",
@@ -196,7 +196,7 @@ export const projects: Project[] = [
       alt: "Pitcar project preview",
     },
     slides: [
-      { path: "slides/pitcar/slide-01.webp" },
+      { path: "slides/pitcar/slide-01.webp", caption: "Pitcar sale table overview" },
     ],
     projectStack: ["Odoo", "Python", "Custom Addons", "PostgreSQL"],
     additionalInfo: [
