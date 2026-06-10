@@ -28,7 +28,7 @@ export interface Project {
    * Ordered list of slide image paths relative to `public/`, e.g.
    * `["slides/clinic-os/slide-01.webp", "slides/clinic-os/slide-02.webp"]`.
    * Every entry must be declared explicitly — no glob inference.
-   * Files live at `public/slides/{id}/slide-NN.[jpg|png|webp]`.
+   * Files live at `public/slides/{project-slug}/slide-NN.[jpg|png|webp]`.
    */
   slides: string[];
 
@@ -53,8 +53,7 @@ export const projects: Project[] = [
       alt: "ClinicOS project preview",
     },
     slides: [
-      "slides/clinic-os/slide-01.webp",
-      "slides/clinic-os/slide-02.webp",
+      "slides/clinic-os/slide-01.webp"
     ],
     projectStack: [
       "Node.js",
@@ -121,8 +120,7 @@ export const projects: Project[] = [
       alt: "BookYourGP project preview",
     },
     slides: [
-      "slides/book-your-gp/slide-01.webp",
-      "slides/book-your-gp/slide-02.webp",
+      "slides/book-your-gp/slide-01.webp"
     ],
     projectStack: [
       "Laravel",
@@ -190,8 +188,7 @@ export const projects: Project[] = [
       alt: "Pitcar project preview",
     },
     slides: [
-      "slides/pitcar/slide-01.webp",
-      "slides/pitcar/slide-02.webp",
+      "slides/pitcar/slide-01.webp"
     ],
     projectStack: ["Odoo", "Python", "Custom Addons", "PostgreSQL"],
     additionalInfo: [
