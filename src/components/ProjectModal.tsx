@@ -18,7 +18,7 @@ const ZOOM_MAX = 3;
 
 const InfoSlide = ({ project }: { project: Project }) => (
   <div className="w-full flex-shrink-0 self-stretch overflow-y-auto bg-card">
-    <div className="p-6 sm:p-8 pb-14 flex flex-col gap-5">
+    <div className="max-w-4xl mx-auto w-full p-6 sm:p-8 pb-14 flex flex-col gap-5">
       {/* Header — full width */}
       <div>
         <p className="font-mono text-xs text-primary mb-1 tracking-wide uppercase">
