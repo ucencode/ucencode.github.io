@@ -10,6 +10,7 @@ export interface Project {
     src: string;
     alt: string;
   };
+  slides: string[];
   projectStack: string[];
   links?: { label: string; url: string }[];
   additionalInfo?: Metadata[];
@@ -25,6 +26,10 @@ export const projects: Project[] = [
       src: "/projects/clinicos-preview.webp",
       alt: "ClinicOS project preview",
     },
+    slides: [
+      "slides/clinic-os/slide-01.webp",
+      "slides/clinic-os/slide-02.webp",
+    ],
     projectStack: [
       "Node.js",
       "TypeScript",
@@ -89,6 +94,10 @@ export const projects: Project[] = [
       src: "/projects/bygp-preview.webp",
       alt: "BookYourGP project preview",
     },
+    slides: [
+      "slides/book-your-gp/slide-01.webp",
+      "slides/book-your-gp/slide-02.webp",
+    ],
     projectStack: [
       "Laravel",
       "PHP",
@@ -154,6 +163,10 @@ export const projects: Project[] = [
       src: "/projects/pitcar-preview.webp",
       alt: "Pitcar project preview",
     },
+    slides: [
+      "slides/pitcar/slide-01.webp",
+      "slides/pitcar/slide-02.webp",
+    ],
     projectStack: ["Odoo", "Python", "Custom Addons", "PostgreSQL"],
     additionalInfo: [
       {
