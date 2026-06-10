@@ -14,7 +14,8 @@ interface ProjectModalProps {
 
 const InfoSlide = ({ project }: { project: Project }) => (
   <div className="w-full flex-shrink-0 self-stretch overflow-y-auto bg-card">
-    <div className="p-6 sm:p-8 space-y-5 pb-14">
+    <div className="p-6 sm:p-8 pb-14 flex flex-col gap-5">
+      {/* Header — full width */}
       <div>
         <p className="font-mono text-xs text-primary mb-1 tracking-wide uppercase">
           Project
@@ -27,57 +28,64 @@ const InfoSlide = ({ project }: { project: Project }) => (
         </p>
       </div>
 
-      {project.additionalInfo && project.additionalInfo.length > 0 && (
-        <div className="space-y-4 border-t border-border pt-5">
-          {project.additionalInfo.map((section) => (
-            <div key={section.title}>
-              <h4 className="font-mono text-xs text-primary mb-2 tracking-wide uppercase">
-                {section.title}
-              </h4>
-              <ul className="space-y-1.5 list-disc pl-5 marker:text-primary">
-                {section.bullets.map((bullet, index) => (
-                  <li
-                    key={`${section.title}-${index}`}
-                    className="text-sm text-muted-foreground leading-relaxed"
-                  >
-                    {bullet}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-      )}
+      {/* Body — 2 columns on desktop */}
+      <div className="border-t border-border pt-5 sm:grid sm:grid-cols-[3fr_2fr] sm:gap-x-8 sm:items-start">
+        {/* Left: additionalInfo */}
+        {project.additionalInfo && project.additionalInfo.length > 0 && (
+          <div className="space-y-4">
+            {project.additionalInfo.map((section) => (
+              <div key={section.title}>
+                <h4 className="font-mono text-xs text-primary mb-2 tracking-wide uppercase">
+                  {section.title}
+                </h4>
+                <ul className="space-y-1.5 list-disc pl-5 marker:text-primary">
+                  {section.bullets.map((bullet, index) => (
+                    <li
+                      key={`${section.title}-${index}`}
+                      className="text-sm text-muted-foreground leading-relaxed"
+                    >
+                      {bullet}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        )}
 
-      <div className="border-t border-border pt-5">
-        <h4 className="font-mono text-xs text-primary mb-2 tracking-wide uppercase">
-          Stack
-        </h4>
-        <div className="flex flex-wrap gap-2">
-          {project.projectStack.map((tech) => (
-            <span key={tech} className="tech-tag">
-              {tech}
-            </span>
-          ))}
+        {/* Right: Stack + Links */}
+        <div className="mt-5 sm:mt-0 space-y-5 sm:border-l sm:border-border sm:pl-8">
+          <div>
+            <h4 className="font-mono text-xs text-primary mb-2 tracking-wide uppercase">
+              Stack
+            </h4>
+            <div className="flex flex-wrap gap-2">
+              {project.projectStack.map((tech) => (
+                <span key={tech} className="tech-tag">
+                  {tech}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {project.links && project.links.length > 0 && (
+            <div className="flex flex-col gap-2 border-t border-border pt-4">
+              {project.links.map((link) => (
+                <a
+                  key={link.url}
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 text-sm text-primary hover:opacity-80 transition-opacity font-medium"
+                >
+                  <ExternalLink size={14} />
+                  {link.label}
+                </a>
+              ))}
+            </div>
+          )}
         </div>
       </div>
-
-      {project.links && project.links.length > 0 && (
-        <div className="flex flex-wrap gap-3 border-t border-border pt-5">
-          {project.links.map((link) => (
-            <a
-              key={link.url}
-              href={link.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-sm text-primary hover:opacity-80 transition-opacity font-medium"
-            >
-              <ExternalLink size={14} />
-              {link.label}
-            </a>
-          ))}
-        </div>
-      )}
     </div>
   </div>
 );
