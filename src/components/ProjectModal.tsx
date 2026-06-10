@@ -140,19 +140,24 @@ const SlideCarousel = ({ project }: { project: Project }) => {
         <InfoSlide project={project} />
 
         {project.slides.map((slide, i) => {
-          const src = `${import.meta.env.BASE_URL}${slide.replace(/^\//, "")}`;
+          const src = `${import.meta.env.BASE_URL}${slide.path.replace(/^\//, "")}`;
           return (
             <div
               key={i}
-              className="w-full flex-shrink-0 self-stretch bg-black flex items-center justify-center overflow-hidden"
+              className="relative w-full flex-shrink-0 self-stretch bg-black flex items-center justify-center overflow-hidden"
             >
               <img
                 src={src}
-                alt={`${project.title} screenshot ${i + 1}`}
+                alt={slide.caption ?? `${project.title} screenshot ${i + 1}`}
                 className="w-full h-full object-contain"
                 style={{ transform: `scale(${zoom})`, transition: "transform 0.2s ease" }}
                 loading={i === 0 ? "eager" : "lazy"}
               />
+              {slide.caption && (
+                <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/70 to-transparent px-5 pb-14 pt-10 z-[5] pointer-events-none">
+                  <p className="text-sm text-white/90 leading-snug">{slide.caption}</p>
+                </div>
+              )}
             </div>
           );
         })}
