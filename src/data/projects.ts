@@ -1,17 +1,37 @@
+/** A named section of additional project detail, rendered as a bullet list. */
 interface Metadata {
-  title: string; // e.g. "Problem", "Solution", "Outcome"
+  /** Section heading, e.g. "Problem", "My Role", "What I Built", "Outcome". */
+  title: string;
+  /** One bullet point per list item. */
   bullets: string[];
 }
+
+/** A single portfolio project entry. */
 export interface Project {
+  /** Unique slug used as a React key and for slide directory naming (`public/slides/{id}/`). */
   id: string;
+  /** Display name shown on the card and in the modal header. */
   title: string;
+  /** Short summary shown on the card and as the modal subtitle. */
   description: string;
+  /** Preview image displayed on the project card. */
   image: {
+    /** Path relative to `public/`, e.g. `/projects/clinicos-preview.webp`. */
     src: string;
     alt: string;
   };
+  /**
+   * Ordered list of slide image paths relative to `public/`, e.g.
+   * `["slides/clinic-os/slide-01.webp", "slides/clinic-os/slide-02.webp"]`.
+   * Every entry must be declared explicitly — no glob inference.
+   * Files live at `public/slides/{id}/slide-NN.[jpg|png|webp]`.
+   */
+  slides: string[];
+  /** Tech stack labels shown as pill tags on the card and in the modal. */
   projectStack: string[];
+  /** Optional external links rendered in the modal info slide. */
   links?: { label: string; url: string }[];
+  /** Optional deep-dive sections (Problem, My Role, etc.) shown in the modal info slide. */
   additionalInfo?: Metadata[];
 }
 
@@ -25,6 +45,10 @@ export const projects: Project[] = [
       src: "/projects/clinicos-preview.webp",
       alt: "ClinicOS project preview",
     },
+    slides: [
+      "slides/clinic-os/slide-01.webp",
+      "slides/clinic-os/slide-02.webp",
+    ],
     projectStack: [
       "Node.js",
       "TypeScript",
@@ -89,6 +113,10 @@ export const projects: Project[] = [
       src: "/projects/bygp-preview.webp",
       alt: "BookYourGP project preview",
     },
+    slides: [
+      "slides/book-your-gp/slide-01.webp",
+      "slides/book-your-gp/slide-02.webp",
+    ],
     projectStack: [
       "Laravel",
       "PHP",
@@ -154,6 +182,10 @@ export const projects: Project[] = [
       src: "/projects/pitcar-preview.webp",
       alt: "Pitcar project preview",
     },
+    slides: [
+      "slides/pitcar/slide-01.webp",
+      "slides/pitcar/slide-02.webp",
+    ],
     projectStack: ["Odoo", "Python", "Custom Addons", "PostgreSQL"],
     additionalInfo: [
       {

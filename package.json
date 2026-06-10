@@ -6,7 +6,7 @@
   "homepage": "https://ucencode.github.io",
   "scripts": {
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist",
+    "deploy": "gh-pages -d dist -t",
     "dev": "astro dev",
     "build": "astro build",
     "lint": "eslint .",
