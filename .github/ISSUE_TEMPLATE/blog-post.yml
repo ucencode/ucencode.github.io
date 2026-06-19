@@ -1,0 +1,46 @@
+name: New Blog Post
+description: Write and publish a new blog post to the site
+labels: ["blog-post"]
+body:
+  - type: input
+    id: title
+    attributes:
+      label: Title
+      placeholder: "The thing I learned last Tuesday"
+    validations:
+      required: true
+
+  - type: input
+    id: description
+    attributes:
+      label: Description
+      description: Short one-liner used in post cards and meta tags
+      placeholder: "A brief summary of what this post covers"
+    validations:
+      required: true
+
+  - type: input
+    id: tags
+    attributes:
+      label: Tags
+      description: Comma-separated (optional)
+      placeholder: "engineering, debugging, backend"
+
+  - type: dropdown
+    id: draft
+    attributes:
+      label: Publish as draft?
+      description: Draft posts are hidden from the public feed
+      options:
+        - "false"
+        - "true"
+      default: 0
+
+  - type: textarea
+    id: content
+    attributes:
+      label: Content
+      description: Full post body in Markdown
+      placeholder: "Start writing..."
+    validations:
+      required: true
