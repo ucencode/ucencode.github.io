@@ -1,10 +1,57 @@
 ---
+import { Github, Linkedin, Mail } from 'lucide-react';
+import { socialLinks } from '@/data/about';
 const year = new Date().getFullYear();
 ---
-<footer class="border-t border-border py-8">
+<footer class="border-t border-border pt-12 pb-8">
   <div class="max-w-5xl mx-auto px-6">
-    <p class="text-xs text-muted-foreground/60 text-center">
-      © {year} Ahmad Husein Hambali. All rights reserved.
-    </p>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-10 mb-10">
+
+      <!-- Brand -->
+      <div>
+        <p class="text-sm font-semibold text-foreground mb-1">Ahmad Husein Hambali</p>
+        <p class="text-xs text-muted-foreground">Backend Engineer</p>
+      </div>
+
+      <!-- Connect -->
+      <div>
+        <p class="text-xs font-mono text-primary tracking-wide mb-4">Connect</p>
+        <div class="flex items-center gap-3">
+          <a
+            href={socialLinks.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="GitHub"
+            class="p-2 rounded-lg border border-border text-muted-foreground hover:text-primary hover:border-primary transition-colors"
+          >
+            <Github size={16} />
+          </a>
+          <a
+            href={socialLinks.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="LinkedIn"
+            class="p-2 rounded-lg border border-border text-muted-foreground hover:text-primary hover:border-primary transition-colors"
+          >
+            <Linkedin size={16} />
+          </a>
+          <a
+            href={`mailto:${socialLinks.email}`}
+            aria-label="Email"
+            class="p-2 rounded-lg border border-border text-muted-foreground hover:text-primary hover:border-primary transition-colors"
+          >
+            <Mail size={16} />
+          </a>
+        </div>
+        <p class="mt-3 text-xs text-muted-foreground">{socialLinks.email}</p>
+      </div>
+
+    </div>
+
+    <div class="border-t border-border pt-6">
+      <p class="text-xs text-muted-foreground/60 text-center">
+        © {year} Ahmad Husein Hambali. All rights reserved.
+      </p>
+    </div>
   </div>
 </footer>

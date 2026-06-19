@@ -1,5 +1,5 @@
 ---
-import { Mail, Linkedin } from 'lucide-react';
+import { Mail, Linkedin, Github } from 'lucide-react';
 import { socialLinks } from '@/data/about';
 ---
 <section id="contact" class="py-24 md:py-32 section-alt">
@@ -11,7 +11,7 @@ import { socialLinks } from '@/data/about';
           <h2 class="text-2xl md:text-3xl font-bold text-foreground mb-3">Let's Connect</h2>
           <p class="text-muted-foreground mb-8">
             <span class="block">
-              Feel free to reach out via email or connect with me on LinkedIn.
+              Feel free to reach out via email, LinkedIn, or GitHub.
             </span>
           </p>
           <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
@@ -30,6 +30,15 @@ import { socialLinks } from '@/data/about';
             >
               <Linkedin size={16} />
               LinkedIn
+            </a>
+            <a
+              href={socialLinks.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center justify-center gap-2 rounded-full border border-border px-5 py-2.5 text-sm font-medium text-foreground hover:border-primary hover:text-primary transition-colors"
+            >
+              <Github size={16} />
+              GitHub
             </a>
           </div>
           <p class="mt-6 text-xs text-muted-foreground">{socialLinks.email}</p>
