@@ -32,64 +32,60 @@ const InfoSlide = ({ project }: { project: Project }) => (
         </p>
       </div>
 
-      {/* Body — 2 columns on desktop */}
-      <div className="border-t border-border pt-5 sm:grid sm:grid-cols-[3fr_2fr] sm:gap-x-8 sm:items-start">
-        {/* Left: additionalInfo */}
-        {project.additionalInfo && project.additionalInfo.length > 0 && (
-          <div className="space-y-4">
-            {project.additionalInfo.map((section) => (
-              <div key={section.title}>
-                <h4 className="font-mono text-xs text-primary mb-2 tracking-wide uppercase">
-                  {section.title}
-                </h4>
-                <ul className="space-y-1.5 list-disc pl-5 marker:text-primary">
-                  {section.bullets.map((bullet, index) => (
-                    <li
-                      key={`${section.title}-${index}`}
-                      className="text-sm text-muted-foreground leading-relaxed"
-                    >
-                      {bullet}
-                    </li>
-                  ))}
-                </ul>
-              </div>
+      <div>
+        <div className="flex flex-wrap gap-2">
+          {project.projectStack.map((tech) => (
+            <span key={tech} className="tech-tag cursor-default">
+              {tech}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      {/* Stack + Links */}
+      <div>
+        {project.links && project.links.length > 0 && (
+          <div className="flex flex-row gap-5">
+            {project.links.map((link) => (
+              <a
+                key={link.url}
+                href={link.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 text-sm text-primary hover:opacity-80 transition-opacity font-medium"
+              >
+                <ExternalLink size={14} />
+                {link.label}
+              </a>
             ))}
           </div>
         )}
-
-        {/* Right: Stack + Links */}
-        <div className="mt-5 sm:mt-0 space-y-5 sm:border-l sm:border-border sm:pl-8">
-          <div>
-            <h4 className="font-mono text-xs text-primary mb-2 tracking-wide uppercase">
-              Stack
-            </h4>
-            <div className="flex flex-wrap gap-2">
-              {project.projectStack.map((tech) => (
-                <span key={tech} className="tech-tag">
-                  {tech}
-                </span>
-              ))}
-            </div>
-          </div>
-
-          {project.links && project.links.length > 0 && (
-            <div className="flex flex-col gap-2 border-t border-border pt-4">
-              {project.links.map((link) => (
-                <a
-                  key={link.url}
-                  href={link.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 text-sm text-primary hover:opacity-80 transition-opacity font-medium"
-                >
-                  <ExternalLink size={14} />
-                  {link.label}
-                </a>
-              ))}
-            </div>
-          )}
-        </div>
       </div>
+
+      {/* Additional info — 2 columns full width */}
+      {project.additionalInfo && project.additionalInfo.length > 0 && (
+        <div className="border-t border-border pt-5 grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-5">
+          {project.additionalInfo.map((section) => (
+            <div key={section.title}>
+              <h4 className="font-mono text-xs text-primary mb-2 tracking-wide uppercase">
+                {section.title}
+              </h4>
+              <ul className="space-y-1.5 list-disc pl-5 marker:text-primary">
+                {section.bullets.map((bullet, index) => (
+                  <li
+                    key={`${section.title}-${index}`}
+                    className="text-sm text-muted-foreground leading-relaxed"
+                  >
+                    {bullet}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      )}
+
+
     </div>
   </div>
 );
@@ -193,9 +189,8 @@ const SlideCarousel = ({ project }: { project: Project }) => {
                 key={i}
                 onClick={() => setSlideIndex(i)}
                 aria-label={`Go to slide ${i + 1}`}
-                className={`w-2 h-2 rounded-full transition-colors cursor-pointer p-0 ${
-                  i === slideIndex ? "bg-primary" : "bg-white/50"
-                }`}
+                className={`w-2 h-2 rounded-full transition-colors cursor-pointer p-0 ${i === slideIndex ? "bg-primary" : "bg-white/50"
+                  }`}
               />
             ))}
             <span className="text-[10px] text-white/70 font-mono tabular-nums leading-none pl-1 border-l border-white/20">
