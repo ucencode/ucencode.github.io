@@ -2,7 +2,7 @@
 title: "I Changed a Method Name and Touched Eight Files"
 description: "Renaming acknowledgeCancellation to cancelAppointment required touching eight files — and revealed a test that was passing without testing anything real."
 pubDate: 2026-06-10
-tags: ["engineering", "backend"]
+tags: ["engineering", "backend", "need assessment"]
 draft: true
 ---
 

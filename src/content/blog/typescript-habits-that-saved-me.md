@@ -6,55 +6,17 @@ tags: ["typescript", "dev"]
 draft: true
 ---
 
-Most TypeScript advice is about syntax. This is about the habits I've formed after shipping bugs that TypeScript *could* have caught, if I'd used it properly.
+In my past i code in php laravel, i remember i need to revisit where this variable flows and console logging too many for each step to ensure nothing i missed.
 
-## Stop reaching for `any`
+when i moved stack to typescript + I started to implement the type. especially when it comes to arrays and objects.
 
-When a type is hard to express, `any` is tempting. The problem is that `any` is contagious — it flows through your code silently. The type checker stops tracking the value and you lose all the guarantees downstream.
+I continued my peer's code which any variable was flooding and using babel as js compiler. then we as a team refactored it to typescript and using native tsc compiler. The result the code is more deterministic, easier to maintain and expand the feature, and also of course the build time trimmed from 100s to 80s cutting 20% of it.
 
-The better escape hatch is `unknown`. It forces you to narrow the type before using the value, which is exactly what you should be doing anyway.
+since now when i code i dont spend too much on checking variables too deep because by defining type, i can catch in compiler will give me error, even my IDE extension already flag my code line if this is error.
 
-```ts
-// bad — type checker trusts you unconditionally
-function parse(data: any) {
-  return data.user.name; // no error, but blows up at runtime if shape is wrong
-}
+That was the biggest impact that affect my way to code and develop. beside that there's still several impacts that makes development easier
 
-// better — forces you to check
-function parse(data: unknown) {
-  if (typeof data === 'object' && data !== null && 'user' in data) {
-    // now you can safely narrow further
-  }
-}
-```
+I dont need to strictly give type check, I just need to check if value specific or if the result went falsy
 
-## Narrow with discriminated unions
-
-If a value can be in multiple states, model those states explicitly. A discriminated union makes impossible states unrepresentable and exhaustive switches compiler-checkable.
-
-```ts
-type Result<T> =
-  | { status: 'loading' }
-  | { status: 'error'; message: string }
-  | { status: 'ok'; data: T };
-```
-
-Now when you switch on `result.status`, TypeScript knows exactly which fields are available in each branch. Forget to handle `'loading'`? The compiler tells you.
-
-## Prefer `satisfies` over explicit typing for config objects
-
-When you have a config object that should match a type but you also want to infer the literal types of its values, `satisfies` is cleaner than a type annotation.
-
-```ts
-const routes = {
-  home: '/',
-  blog: '/blog',
-  about: '/#about',
-} satisfies Record<string, string>;
-
-// routes.home is typed as '/' not string — literal preserved
-```
-
-## The habit that matters most
-
-None of these patterns help if you only apply them when TypeScript yells at you. The shift is writing types before writing implementations — thinking about the shape of data before thinking about how to transform it. That's where TypeScript pays off.
+These patterns are useless if you only use them to fix TypeScript errors.
+The right way is to write types first before you write the code. Think about the data shape first, then think how to process it. That is the real benefit of TypeScript.

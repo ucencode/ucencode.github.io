@@ -6,6 +6,24 @@ tags: ["engineering", "backend"]
 draft: true
 ---
 
+I want to tell story this way:
+
+I started to develop application which using multiple natural languages such as English and German
+
+At first in the UI its pretty easy, map the string into a json file that loads many UI text in one language that maps
+
+Then when it comes to external integration. the data sent for the communication via REST API, its raw stored in json and sometimes for a document the API request body schema they asked for an XML File.
+
+In the beginning of the file there's opening tag that declare encoding that will be used in the data.
+
+I messed up by putting german texts into UTF-8 or ISO-8859-15 but process before this already sanitize all character into UTF-8 such as character with umlaut or eszett.
+
+I did additional fix when it was fail in development and staging server.
+
+---
+
+The truth:
+
 Story 1 — The Encoding Lie: When UTF-8 Pretends to Be ISO-8859-15
 
 1. Business / Technical Problem

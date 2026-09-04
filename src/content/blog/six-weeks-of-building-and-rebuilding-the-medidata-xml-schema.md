@@ -2,7 +2,7 @@
 title: "Six Weeks of Building and Rebuilding the Medidata XML Schema"
 description: "The Medidata XML schema went through six versions in six weeks. Each clearinghouse validation attempt revealed fields no documentation had mentioned yet."
 pubDate: 2026-06-10
-tags: ["engineering", "backend"]
+tags: ["engineering", "backend", "need assessment"]
 draft: true
 ---
 

@@ -2,7 +2,7 @@
 title: "I Proposed a Gradual Refactor. They Chose a Big Bang. I Built It Anyway."
 description: "I proposed a gradual refactor for a duplicated billing system. The team chose a big bang rewrite. I built it anyway — and here's what that looked like."
 pubDate: 2026-06-10
-tags: ["engineering", "backend"]
+tags: ["engineering", "backend", "need assessment"]
 draft: true
 ---
 
