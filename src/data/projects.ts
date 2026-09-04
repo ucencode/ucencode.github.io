@@ -227,7 +227,84 @@ export const projects: Project[] = [
       },
     ],
     links: [{ label: "Company Website", url: "https://pitcar.co.id" }],
-  }
+  },{
+    id: "study-ai-tools",
+    title: "Study AI Toolkit",
+    description:
+      "A local-first document pipeline that turns lecture slides into structured Markdown and a curriculum into a generated textbook. Job-based backend over a local Ollama: submit, get an id, poll, read the output — with checkpointed resume, a content-addressed OCR cache, and a single-worker queue that keeps one GPU honest.",
+    image: {
+      src: "/projects/study-ai-tools-preview.webp",
+      alt: "Study AI Toolkit job detail view",
+    },
+    slides: [
+      // { path: "slides/study-ai-tools/slide-01.webp", caption: "Job detail — named stages, live output, chapter outline" },
+      // { path: "slides/study-ai-tools/slide-02.webp", caption: "Jobs rail — 1 running · N waiting, the queue the backend actually has" },
+      // { path: "slides/study-ai-tools/slide-03.webp", caption: "Curriculum form with saved presets" },
+      // { path: "slides/study-ai-tools/slide-04.webp", caption: "Generated chapter — dependencies declared, Obsidian-ready Markdown" },
+      // { path: "slides/study-ai-tools/slide-05.webp", caption: "Architecture — the API enqueues, a single worker executes, the CLI bypasses both" },
+    ],
+    projectStack: [
+      "Python",
+      "FastAPI",
+      "Pydantic",
+      "asyncio",
+      "Ollama",
+      "Vision LLM / OCR",
+      "pypdfium2",
+      "React",
+      "Vite",
+      "Tailwind CSS",
+      "pytest",
+      "uv",
+    ],
+    additionalInfo: [
+      {
+        title: "Problem",
+        bullets: [
+          "Lecture slides and syllabi arrive as PDFs and PPTX — text trapped in images, no structure, nothing searchable or linkable in a note system.",
+          "Long-running local model work is the awkward case: an OCR pass over 200 pages or a 20-chapter textbook takes far longer than a request should live, and a crash halfway through should not cost the whole run.",
+          "Sending course material and personal notes to a hosted model was not something I wanted to do by default, so everything had to be able to run against a local Ollama.",
+        ],
+      },
+      {
+        title: "What I Built",
+        bullets: [
+          "Two pipelines on one job-based backend: slides → render → per-page OCR → refinement into Markdown, and curriculum → study plan → outline → generated textbook.",
+          "A FastAPI service where submitting returns 202 and a job id; a single FIFO asyncio worker executes jobs and writes progress into job.json, which the UI polls. Uploads are streamed to disk and capped, so an oversized file is rejected while it is still arriving.",
+          "Crash-resumable runs: job.json — not the files on disk — is the resume authority, so a half-written chapter from a killed process is ignored and rewritten rather than counted as done.",
+          "A content-addressed OCR cache keyed on the SHA-256 of the upload plus model and dpi, so re-running a deck with different refinement settings skips the expensive pass entirely and two different files named lecture.pdf never collide.",
+          "Full textbook mode makes exactly one model call per chapter: an outline stage distills the curriculum once into {topic, scope, depends_on}, and each chapter closes with a machine-read ledger of the terms it established, so the raw curriculum is never resent and the context stays flat as chapter count grows. That stage does not appear anywhere in the original design sketch — it exists because the obvious implementation resends the whole curriculum per chapter, and costs grow with chapters multiplied by curriculum size.",
+          "A React + Vite + Tailwind UI on a deliberate six-dependency budget — no state library, no component library, no icon pack, and a hand-written API module — that polls instead of streaming and stops polling when a job is terminal.",
+          "A CLI that calls the same service layer directly, with no HTTP and no worker in the path, so the pipelines are usable headless.",
+        ],
+      },
+      {
+        title: "Design Decisions",
+        bullets: [
+          "Dropped the database the plan called for. The design sketch had SQLite alongside local storage and job metadata in a separate directory from the artifacts; what shipped is one directory per job holding job.json and every file the run produced. A database would have been a second source of truth to keep in sync with the files, for one user on one machine — and keeping the record beside its artifacts is what makes delete a single rmtree, resume a matter of reading the directory, and the path-traversal check one line.",
+          "Deleted the complicated version. An earlier implementation (tag legacy-web) used a JSONL event log, SSE with replay cursors, and subscriber de-duplication. It worked, and it bought resilience a single-user offline tool does not need — so it was replaced with polling a status field in a JSON file, and the reasoning is written down rather than lost.",
+          "Model output is treated as an untrusted upstream, not as data. Invented and forward-referencing chapter dependencies are pruned before use, a page that fails OCR becomes [missing page N] instead of killing the run, and every saved document goes through a normalizer that repairs the LaTeX delimiters, unescaped currency, and unquoted Mermaid labels that a prompt asks for but cannot guarantee.",
+          "One worker, on purpose. There is one GPU; two queues feeding it would only make every job slower while looking like throughput. The constraint is documented as an invariant and surfaced in the UI as '1 running · N waiting' rather than hidden behind a generic 'active' count.",
+          "Cost is a design input. The stable prefix of every chapter prompt is byte-identical across a job so Ollama's prompt cache actually hits; breaking that silently doubles the cost of a full run, so it is an invariant with a stated reason.",
+          "Every stored record is immutable after creation and validated with extra=\"forbid\", which turns schema drift into a loud failure instead of a quiet one — with the migration cost of that choice written down next to it.",
+          "The architecture document is a table of invariants, each with the failure it prevents. Anything deliberately not built — job cancellation, frontend test tooling — is listed with the cost that kept it out, so the reader can tell a decision from an omission.",
+        ],
+      },
+      {
+        title: "Outcome",
+        bullets: [
+          "A finished, runnable tool: one setup script, one process serving both the API and the built UI, and two pipelines usable from a browser or a terminal across 21 output languages.",
+          "73 tests covering both pipelines end to end, resume, the OCR cache, the conflict responses, the repository rules and presets — running in well under a second, because the model layer is stubbed at the module boundary instead of over the transport.",
+          "Interrupted textbook runs resume from the next chapter rather than the first, and repeat OCR of an already-transcribed deck costs nothing.",
+          "Roughly 2,800 lines of Python and 2,400 of frontend, with the reasoning for the shape of it — including what was removed and why — kept in the repository.",
+        ],
+      },
+    ],
+    links: [
+      { label: "Source", url: "https://github.com/ucencode/study-ai-tools" },
+      { label: "Architecture & invariants", url: "https://github.com/ucencode/study-ai-tools/blob/main/CLAUDE.md" },
+    ],
+  },
 ];
 
 export interface Client {
