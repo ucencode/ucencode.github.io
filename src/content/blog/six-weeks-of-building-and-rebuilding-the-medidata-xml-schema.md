@@ -6,6 +6,23 @@ tags: ["engineering", "backend", "need assessment"]
 draft: true
 ---
 
+contexts: 
+In first i am not familiar with the business flow, because i never in user perspective of the feature (doctor using the service from trust center/insurance company or patient who billed and covered by insurance)
+
+i think i need to communicate better on my constraints to learn to cover unfamiliarness
+
+in the next i should document so i understand, next person handle this understands. then introduced it to user to easy to understand
+
+but in the middle way
+I turned the overengineered code into simple and lightweight and strictly validate the input with tighter bar
+the result i developed a much time but it fast, code very readable and stupidly boring and very easy to understand
+
+here come cto added library for processing that and vibe coded it and now the delay is noticable and now the microservice cant handle many request at once, and unlucky i didnt add observability yet that makes me hard to counter.
+
+because in the end what i expect is not invoice automatically sent, but stacking invoices then they checked all 100~200 invoices and sent it in the same time bulky. its surprising for me, i dont prepare it for that way and didnt know if the doctor usually does this or does that and i asked to my requirement giver and they just ask make it done without specifying what user need it exactly, nobody tells me, so i learned it in hard way and painful way.
+
+---
+
 17. "Six Weeks of Building and Rebuilding the Medidata XML Schema"
 
 Summary: The billing-xml-service Medidata endpoint went through at least six distinct schema versions between August 28 and November 26. Starting from a Swiss billing scaffold, the schema grew progressively: first appVersion and transport refactor (Sep 12), then lawtype and payment structures (Sep 14), then insurance and physician elements (Sep 12 and 15), then balance structure (Sep 16), then email and phone fields (Sep 18), then the final ILQ alignment (Sep 22–25). Each change was a discovery that the clearinghouse expected a field Ahmad hadn't encountered yet. The final schema was substantially different from the first one — not because the first was wrong, but because understanding a complex billing specification is a process, not a document read. The commit sequence is a learning curve made visible in git history.
@@ -21,3 +38,5 @@ Lessons: For external format integrations with poor documentation, treat every s
 Educational value: 9/10 | Authenticity as diary: 9/10
 Audience: Engineers integrating with external regulatory APIs, anyone working with poorly-documented specifications | Reading time: 7 min
 Recommended structure: The first commit's confidence → each schema change and what revealed it → the learning curve in git log → a methodology for building against opaque specifications
+
+I should have communicated that domain unfamiliarity as a project risk instead of treating it as something I could silently learn along the way.
