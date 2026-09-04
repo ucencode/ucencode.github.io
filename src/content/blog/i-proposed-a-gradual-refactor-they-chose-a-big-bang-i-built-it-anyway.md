@@ -6,6 +6,16 @@ tags: ["engineering", "backend", "need assessment"]
 draft: true
 ---
 
+At first i had doing several refactors that vibe coded development at core level, the flow how code processes it so redundant as fuck
+
+but i cant simplify it simply in one change. it will affect ALL domain
+
+when we all proposed to stakeholder to have a time stabilize the development environment. but again it still new requirement and so on. even clearly new feature that violates his own what he said at the beginning
+
+then i proposed for untangle logic at core before it goes worse, because its already terrible and consuming so much resources such as unused value after db fetches, like select all in sql query producing a lot of nested data. but what they made a risky move. such as merging table with item is merged too. 
+
+since i dont have power for that and too junior to join opinion war. i did it anyway. and after that i quitted my job bcs too stressful
+
 # I Proposed a Gradual Refactor. They Chose a Big Bang. I Built It Anyway.
 
 ## Summary
@@ -47,3 +57,5 @@ Educational value: 10/10 | Authenticity as diary: 10/10
 Audience: Engineers who've been overruled on a design, anyone facing a large-scale refactor decision | Reading time: 9 min
 Recommended structure: The redundancy problem → the gradual proposal → what got decided instead → the "four personalities" argument →
 building it anyway → the exit and handover → the lesson about tech debt before restructuring
+
+recap: "I saw a codebase accumulating complexity. I wanted to reduce it incrementally. The team chose structural consolidation instead. I disagreed, couldn't change the decision, implemented it anyway, and years later I can finally articulate what bothered me about it."
