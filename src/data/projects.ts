@@ -61,7 +61,10 @@ export const projects: Project[] = [
       alt: "ClinicOS project preview",
     },
     slides: [
-      { path: "slides/clinic-os/slide-01.webp", caption: "ClinicOS dashboard overview" },
+      {
+        path: "slides/clinic-os/slide-01.webp",
+        caption: "ClinicOS dashboard overview",
+      },
     ],
     projectStack: [
       "Node.js",
@@ -113,9 +116,12 @@ export const projects: Project[] = [
       },
     ],
     links: [
-      { label: "Product Snapshot During My Work", url: "https://web.archive.org/web/20251210015016/https://www.clinicos.de/" },
+      {
+        label: "Product Snapshot During My Work",
+        url: "https://web.archive.org/web/20251210015016/https://www.clinicos.de/",
+      },
       { label: "Current Product Page", url: "https://clinicos.de" },
-    ]
+    ],
   },
 
   {
@@ -128,7 +134,10 @@ export const projects: Project[] = [
       alt: "BookYourGP project preview",
     },
     slides: [
-      { path: "slides/book-your-gp/slide-01.webp", caption: "BookYourGP interface" },
+      {
+        path: "slides/book-your-gp/slide-01.webp",
+        caption: "BookYourGP interface",
+      },
     ],
     projectStack: [
       "Laravel",
@@ -180,7 +189,8 @@ export const projects: Project[] = [
       {
         label: "Product Page Snapshot",
         url: "https://web.archive.org/web/20231219084755/https://www.hummingbirdsmedical.com/",
-      }, {
+      },
+      {
         label: "Current Website",
         url: "https://www.hummingbirdsmedical.com/",
       },
@@ -196,7 +206,10 @@ export const projects: Project[] = [
       alt: "Pitcar project preview",
     },
     slides: [
-      { path: "slides/pitcar/slide-01.webp", caption: "Pitcar sale table overview" },
+      {
+        path: "slides/pitcar/slide-01.webp",
+        caption: "Pitcar sale table overview",
+      },
     ],
     projectStack: ["Odoo", "Python", "Custom Addons", "PostgreSQL"],
     additionalInfo: [
@@ -227,7 +240,8 @@ export const projects: Project[] = [
       },
     ],
     links: [{ label: "Company Website", url: "https://pitcar.co.id" }],
-  },{
+  },
+  {
     id: "study-ai-tools",
     title: "Study AI Toolkit",
     description:
@@ -286,7 +300,7 @@ export const projects: Project[] = [
           "Model output is treated as an untrusted upstream, not as data. Invented and forward-referencing chapter dependencies are pruned before use, a page that fails OCR becomes [missing page N] instead of killing the run, and every saved document goes through a normalizer that repairs the LaTeX delimiters, unescaped currency, and unquoted Mermaid labels that a prompt asks for but cannot guarantee.",
           "One worker, on purpose. There is one GPU; two queues feeding it would only make every job slower while looking like throughput. The constraint is documented as an invariant and surfaced in the UI as '1 running · N waiting' rather than hidden behind a generic 'active' count.",
           "Cost is a design input. The stable prefix of every chapter prompt is byte-identical across a job so Ollama's prompt cache actually hits; breaking that silently doubles the cost of a full run, so it is an invariant with a stated reason.",
-          "Every stored record is immutable after creation and validated with extra=\"forbid\", which turns schema drift into a loud failure instead of a quiet one — with the migration cost of that choice written down next to it.",
+          'Every stored record is immutable after creation and validated with extra="forbid", which turns schema drift into a loud failure instead of a quiet one — with the migration cost of that choice written down next to it.',
           "The architecture document is a table of invariants, each with the failure it prevents. Anything deliberately not built — job cancellation, frontend test tooling — is listed with the cost that kept it out, so the reader can tell a decision from an omission.",
         ],
       },
@@ -302,7 +316,10 @@ export const projects: Project[] = [
     ],
     links: [
       { label: "Source", url: "https://github.com/ucencode/study-ai-tools" },
-      { label: "Architecture & invariants", url: "https://github.com/ucencode/study-ai-tools/blob/main/CLAUDE.md" },
+      {
+        label: "Architecture & invariants",
+        url: "https://github.com/ucencode/study-ai-tools/blob/main/CLAUDE.md",
+      },
     ],
   },
 ];
