@@ -64,24 +64,13 @@ recap: "I saw a codebase accumulating complexity. I wanted to reduce it incremen
 
 POLISHED
 
----
-
-title: "I Proposed a Gradual Refactor. They Chose a Big Bang. I Built It Anyway."
-description: "I wanted to untangle a duplicated billing system gradually. The team chose to consolidate the architecture instead. I disagreed with the approach, but I was still the engineer who had to build it."
-pubDate: 2026-06-22
-tags: ["backend", "refactoring", "architecture", "engineering"]
-draft: true
------------
-
 I had already done several smaller refactors around our billing system before we decided to restructure it.
 
 The code had accumulated quickly during development, and some of the core flows had become unnecessarily complicated. There were redundant transformations, repeated calculations, large database queries fetching nested structures only for a small portion of the result to actually be used, and similar business logic implemented separately across several services.
 
 Some of it was exactly the kind of code you get when the priority for a long time is simply to keep delivering.
 
-That was understandable.
-
-The problem was that we never really stopped delivering.
+That was understandable. but the problem was that we never really stopped delivering.
 
 ## We Kept Building on Top of It
 
@@ -91,7 +80,7 @@ New requirements kept arriving instead.
 
 Some were normal extensions of the product. Others changed assumptions that had been established earlier, including features that contradicted constraints we had previously been told to design around.
 
-The code adapted every time.
+The code changed every time.
 
 Another requirement meant another condition. Another exception meant another branch. Existing data had to travel through another layer because some new behavior needed a small part of it later.
 
@@ -251,23 +240,31 @@ They could form their own opinion about the architecture later.
 
 My responsibility was to make sure they were not inheriting a black box.
 
-## Then I Left
+## Then the Job Ended Before I Resigned
 
-By the time this was happening, the environment had become exhausting for me.
+By the beginning of December, I had already lost most of the energy I had for the job.
 
-The refactor itself was not the only reason. It was part of a longer period of continuous requirements, accumulated technical debt, architectural disagreement, and the feeling that we were restructuring systems while still running at the same development pace that had created much of the complexity in the first place.
+The refactor itself was not the only reason. It came after a longer period of continuous requirements, accumulated technical debt, architectural disagreement, and the feeling that we were restructuring systems while still moving at the same pace that had created much of the complexity in the first place.
 
-Eventually, I left the job.
+By December 1, I had already decided internally that I would resign. My plan was to send the resignation letter in January. I never told the company that, although I think the change in my behavior during that month was probably noticeable.
 
-But I did not want leaving to mean abandoning the work.
+I never got to send the letter.
 
-The implementation still needed to be understandable. The migrations still needed to be safe. The tests still needed to work. The person taking over still needed enough context to continue without reconstructing months of decisions from Git history.
+On 3rd week of December, I was told that my employment would end. My final working day was December 31.
 
-I disagreed with the architecture.
+In a strange way, the decision had already happened on my side before the company made theirs. I had stopped imagining myself staying there long-term; they simply reached the ending before I formally did.
 
-I still wanted the architecture I built to be maintainable.
+But I still had two weeks of work left, and by then another engineer was taking over ownership of the codebase.
 
-Those two things were never contradictory to me.
+I did not want those final weeks to become a countdown where I simply stopped caring. We continued pair programming through the important parts of the refactor, and I focused more heavily on transferring context: how the billing architecture was structured, which decisions had been deliberate, where the implementation had diverged from the original plan, and which parts were likely to cause trouble later.
+
+The implementation still needed to be understandable. The migrations still needed to be safe. The tests still needed to work. The engineer taking over still needed enough context to continue without reconstructing months of decisions from Git history.
+
+By then, I had already decided I did not want to stay, and the company had already decided I would not.
+
+I still wanted the code I left behind to be maintainable.
+
+Those things were never contradictory to me.
 
 ## What I Would Do Differently Now
 
