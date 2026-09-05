@@ -54,7 +54,7 @@ That was another mistake I carried forward from the project. If performance is p
 
 But even that was not the biggest surprise.
 
-## Then hundred of Invoices Arrived at Once
+## Then hundred of Invoice Documents Arrived at Once
 
 The mental model I had been using was relatively simple. An invoice is completed, the system processes it, and the invoice is submitted. Then another invoice comes later.
 
