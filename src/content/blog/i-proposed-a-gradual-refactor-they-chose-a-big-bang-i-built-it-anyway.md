@@ -1,323 +1,163 @@
 ---
-title: "I Proposed a Gradual Refactor. They Chose a Big Bang. I Built It Anyway."
-description: "I proposed a gradual refactor for a duplicated billing system. The team chose a big bang rewrite. I built it anyway — and here's what that looked like."
+title: "I Wanted to Clean the Code Before Changing the Architecture"
+description: "The billing system had accumulated duplicated logic, expensive data flows, and unclear boundaries. I wanted to clean those problems up first, but we chose a larger architectural refactor instead."
 pubDate: 2026-06-10
-tags: ["engineering", "backend", "need assessment"]
-draft: true
+tags: ["engineering", "backend"]
+draft: false
 ---
 
-At first i had doing several refactors that vibe coded development at core level, the flow how code processes it so redundant as fuck
+Before we decided to restructure our billing system, I had already done several refactors around it.
 
-but i cant simplify it simply in one change. it will affect ALL domain
+A lot of the code had been written while we were moving fast and trying to keep delivering. Over time, the core flow became more complicated than it needed to be. We had repeated calculations, similar logic implemented in different services, and database queries that fetched large nested structures even though we only used a small part of the result.
 
-when we all proposed to stakeholder to have a time stabilize the development environment. but again it still new requirement and so on. even clearly new feature that violates his own what he said at the beginning
+Some queries did not explicitly select the columns we actually needed, so TypeORM defaulted to fetching the columns defined by the entity, sometimes together with nested relations. We would get a lot of data back, pass it through several layers, and then use only a few values from it. Some of that data was not even used at all.
 
-then i proposed for untangle logic at core before it goes worse, because its already terrible and consuming so much resources such as unused value after db fetches, like select all in sql query producing a lot of nested data. but what they made a risky move. such as merging table with item is merged too. 
+There was also business logic that had been implemented separately in different places. It was the kind of code that happens when the priority for a long time is simply to keep delivering. That was understandable, but the problem was that we never really stopped delivering.
 
-since i dont have power for that and too junior to join opinion war. i did it anyway. and after that i quitted my job bcs too stressful
+## We Kept Adding More
 
-# I Proposed a Gradual Refactor. They Chose a Big Bang. I Built It Anyway.
+At some point, several of us proposed taking some time to stabilize the development environment and clean up what had accumulated, but new requirements kept coming. I also understood why. There were client commitments, revenue targets, deadlines, certifications, and other business reasons why development could not simply stop while engineering cleaned everything up.
 
-## Summary
+I did not expect the business to wait until the codebase was perfect before we built another feature. What concerned me was that stabilization kept being postponed while the complexity continued growing. We were still delivering, but we were also spending more time dealing with problems created by the way the system had grown.
 
-The billing system had four services — draft, invoice, extern, and correction — each doing roughly similar things: CRUD, PDF generation, totals calculation, event emission. The duplication wasn't subtle. The same logic for calculating totals appeared in three places. The same pattern for handling line items was written four times, slightly differently each time. The codebase had accumulated this debt gradually, and it showed.
+Some requirements were normal product changes, while others changed things we had already built around. There were even new features that went against constraints we had been given earlier, so something we had designed around one assumption suddenly had to support the opposite.
 
-Ahmad's read: the problem was the redundancy, not the separation. His proposal was to go gradual — first extract the shared logic into utilities both services could use, eliminate the duplication, and make each service's actual responsibility clear. Once the noise was gone, you'd see what really needed to be restructured. Clean first, then decide.
+Every change added something else to the existing flow. We would add another condition, another exception, or another piece of data that had to pass through several layers because something might need it later. This was happening while bugs were already common, which made me more concerned about continuing to add changes without first stabilizing some of the core flow.
 
-What got handed down instead was a unified BillingDocument architecture — consolidate all four entities into one table, one service layer, one handler per document type. On paper it looked clean: fewer tables, fewer API endpoints, one place to make changes.
+The billing system eventually had four main parts: draft, invoice, external billing, and correction. They were separate, but they also had a lot of duplicated logic between them. Totals were calculated in several places, line items were processed in similar ways, CRUD operations followed almost the same patterns, and things like PDF generation and events appeared across multiple services.
 
-Ahmad disagreed. Not because the goal was wrong, but because the four entities aren't actually the same thing wearing different hats. A draft is a mutable workspace — it can be edited freely, it has no legal weight. A finalized invoice is a legal document — it must be immutable, it carries payment status, it gets sent to patients. An extern is a third-party billing submission with its own numbering rules and no payment tracking. A correction is always anchored to an existing invoice and can chain onto itself. Putting them in the same table doesn't make them the same thing — it just hides their differences inside nullable columns, branching enumerations, and handler conditionals that end up recreating the original separation at the application layer instead of the schema layer. His framing: it's like putting four different personalities in the same room and expecting them to behave as one.
+It was already difficult to work with, but I also knew we could not simplify everything in one small change. Anything we changed at the core could affect almost the entire billing domain, so I wanted to reduce that complexity in smaller steps.
 
-The concern with the big bang approach was also practical. The tech debt — the redundant logic, the unclear boundaries — was still there. Merging the entities without resolving it first meant carrying that debt into the new architecture, just harder to see. A gradual refactor would have surfaced each piece of shared logic explicitly, letting you decide consciously whether to extract it or remove it. The unified approach submerged it.
+## I Wanted to Untangle the Logic First
 
-The proposal was heard. The decision went the other way.
+My proposal was to do it gradually. Before changing the whole structure, I wanted to clean up the logic we already had and understand which parts were actually shared.
 
-So Ahmad built it — wrote the architecture doc, implemented the abstract base services, scaffolded the handlers, wrote the data migration that transformed six different ID prefixes across thousands of rows, tracked progress in a living status document, wrote the tests. Did the work properly. And then left.
+If three services calculated totals in almost the same way, we could start there and extract the common calculation. If several services handled line items similarly, we could identify which parts were really the same instead of maintaining several slightly different implementations.
 
-While building it, Ahmad was also pair programming with the person who would eventually own the codebase — working through the important parts of the refactor together in real time, not in a debrief after the fact. Teaching someone to navigate a codebase you're actively disagreeing with, on an architecture you didn't choose, requires a specific kind of discipline. You can't say "this is wrong" to the person who has to maintain it. You explain the decisions, the tradeoffs, the places where the implementation diverged from the plan and why — and you let them form their own view. The work of leaving well started before the leaving did.
+I also wanted to simplify how we fetched and moved data around. If a query fetched a large nested structure and we only needed a few fields, we should fetch only those fields. If some values traveled through several layers without contributing anything to the final result, we should remove them.
 
+Once the duplicated and unnecessary logic was reduced, each service would mostly contain the behavior that actually made it different. We could then look at what remained and decide whether having separate services was still necessary.
 
-The lesson isn't that big bang refactors are always wrong or that gradual is always right. It's that tech debt should be resolved before  restructuring, not after — because restructuring on top of debt just relocates it. And it's that building something you disagree with doesn't mean building it badly. The disagreement and the craftsmanship can coexist.
+Maybe after cleaning everything up, we would find that some of those services really should be merged. I was not against restructuring or abstraction. I just wanted us to understand what was actually shared before deciding which boundaries should be removed.
 
----
+My preferred order was to clean the implementation first, understand the remaining responsibilities, and then restructure what still needed to be restructured. The decision we made went in a different direction.
 
+## We Unified the Billing Documents Instead
 
-Original situation: Four billing services with significant redundant logic and unclear boundaries between their responsibilities.
-Ahmad's proposal: Gradual refactor — extract shared logic first, eliminate redundancy, then evaluate whether structural changes were still
-needed.
-What was decided: Unified BillingDocument architecture — consolidate all four entities into one.
-The core objection: The four entities have fundamentally different lifecycles and contracts. Unification pushes their differences from the
-schema layer into the application layer, making them invisible rather than resolved.
-What he built anyway: The full implementation — abstract services, handlers, factory, data migration, tests, status tracking.
-How it ended: Left the job. Did a thorough handover before leaving.
-Lessons: Resolve tech debt before restructuring. Entities with different lifecycles have different identities — forcing them into one shape
-doesn't unify them, it obscures them. You can disagree with a design and still execute it with integrity.
+The decision was to move toward one `BillingDocument` architecture. Drafts, invoices, external billing, and corrections would use a shared representation. Their tables and items would be consolidated, common behavior would move into shared services, and different document types would be handled by their own handlers.
 
-Educational value: 10/10 | Authenticity as diary: 10/10
-Audience: Engineers who've been overruled on a design, anyone facing a large-scale refactor decision | Reading time: 9 min
-Recommended structure: The redundancy problem → the gradual proposal → what got decided instead → the "four personalities" argument →
-building it anyway → the exit and handover → the lesson about tech debt before restructuring
+I understood the reason for doing this. There would be fewer tables and fewer places containing similar logic. Common operations could live in one place, and changes that really applied to every billing document would be easier to make.
 
-recap: "I saw a codebase accumulating complexity. I wanted to reduce it incrementally. The team chose structural consolidation instead. I disagreed, couldn't change the decision, implemented it anyway, and years later I can finally articulate what bothered me about it."
+I was not against the idea of unifying common behavior either. The duplicated behavior was already one of the problems I wanted to fix. What I disagreed with was starting from the data structure instead of starting from the service and business flow.
 
----
+I would rather have extracted the calculations, line item processing, PDF generation, event handling, and other behavior that was genuinely shared. Draft, invoice, external billing, and correction could still keep their own boundaries while using those shared abstractions.
 
-POLISHED
+After those flows became clearer and the system was more stable, we could evaluate the data model again. If consolidating the tables still made sense at that point, I would have been more comfortable doing it because we would have had a clearer understanding of what was actually shared.
 
-I had already done several smaller refactors around our billing system before we decided to restructure it.
+Instead, we were changing the service structure and the underlying data representation while the original implementation problems were still there. That was the part of the approach that concerned me.
 
-The code had accumulated quickly during development, and some of the core flows had become unnecessarily complicated. There were redundant transformations, repeated calculations, large database queries fetching nested structures only for a small portion of the result to actually be used, and similar business logic implemented separately across several services.
+## They Shared Data but Had Different Lifecycles
 
-Some of it was exactly the kind of code you get when the priority for a long time is simply to keep delivering.
+A draft was basically a workspace. You could change the line items, update information, recalculate things, and keep editing it until it was ready. Its main purpose was to hold something that was still being worked on.
 
-That was understandable. but the problem was that we never really stopped delivering.
+An invoice had a different lifecycle. Once it was finalized, it had financial and legal meaning. It had payment information, could be sent to a patient, and some parts of it should no longer behave like editable draft data.
 
-## We Kept Building on Top of It
+External billing had its own rules too. It went through a third-party billing system, had different numbering and submission behavior, and did not always use the same payment flow.
 
-At one point, several of us proposed having some time to stabilize the development environment and deal with the complexity that had accumulated.
+Corrections were different again because they existed in relation to another billing document. A correction could also be connected to another correction, so there could be a chain of related documents.
 
-New requirements kept arriving instead.
+They shared a lot of fields. Patient information, line items, totals, physician information, dates, and other billing information appeared across them. They also shared enough operations that having common services and utilities made sense to me.
 
-Some were normal extensions of the product. Others changed assumptions that had been established earlier, including features that contradicted constraints we had previously been told to design around.
+What I was less convinced about was whether sharing data and operations meant they should also share the same data representation. Their responsibilities were still different, and those differences had to be represented somewhere in the system.
 
-The code changed every time.
+I thought about it similarly to how a company can have sales, development, maintenance, and operations. They are all part of the same company and can share tools and processes, but we still separate their responsibilities because they are doing different kinds of work. I saw the billing concepts in a similar way. Sharing common behavior did not necessarily require removing their boundaries.
 
-Another requirement meant another condition. Another exception meant another branch. Existing data had to travel through another layer because some new behavior needed a small part of it later.
+When different lifecycles were put into one representation, we still needed to distinguish them. A field might only apply to some document types and become nullable. An enum might determine which behavior should run, or a handler might need to check whether an operation was allowed for a draft but not for a finalized invoice.
 
-Eventually, the billing system had four major concepts: drafts, invoices, external billing documents, and corrections.
+This was why I felt that some of the separation was not really being removed. Part of it was moving from the data model into application logic.
 
-Their implementations contained a significant amount of duplicated logic. Totals were calculated in several places. Line items were handled repeatedly with slightly different implementations. CRUD operations followed similar patterns. PDF generation and event emission appeared across multiple services.
+## The Database Tradeoff Also Concerned Me
 
-The duplication was obvious.
+I also had concerns about what the consolidation meant for how we accessed the data. Putting more billing documents into a shared structure made the schema look simpler because we could use a common structure and distinguish the documents by type.
 
-What was less obvious was what we should do about it.
+The tradeoff was that more document types and their items could now live inside the same tables. Queries needed to filter based on document type, state, relationships, and whatever information a particular operation needed. As the tables grew, indexes also became more important, especially for combinations of fields that were commonly used to find a specific type of document.
 
-## I Wanted to Remove the Noise First
+I did not see this as proof that the unified model was automatically bad. It was another cost that I thought we needed to consider. Reducing the number of tables could simplify one part of the architecture while requiring more filtering, indexing, and conditions in another part.
 
-My preferred approach was gradual.
+We also had autoscaling available, but I did not think adding more server resources addressed this particular concern. Autoscaling could help the application handle more load, but it would not make an inefficient query more efficient or reduce data that we did not need to fetch in the first place.
 
-Before changing the structure of the billing domain, I wanted to untangle the shared logic that already existed inside it.
+This was especially relevant because we already had places where TypeORM fetched more data than we needed. I wanted to reduce those patterns before putting more responsibility into a shared data structure.
 
-If three services calculated totals in almost the same way, extract that calculation first. If four services processed line items using variations of the same flow, identify what was genuinely shared and move it somewhere explicit.
+## Caching Was Not an Easy Option for This Data
 
-Then simplify the database access.
+This was also not mostly static master data where we could put a cache in front of it and expect the data to remain unchanged for a long time. These billing documents were transactional and changed as users worked with them.
 
-If a query fetched an entire nested structure and most of that data was never used, stop fetching it. If values travelled through several layers without contributing to the final result, remove them.
+Drafts could be edited, invoices could change state, payments could affect their data, and corrections could be created later. The database still needed to be the source of truth for those operations.
 
-My reasoning was that the duplication itself was hiding the actual boundaries of the domain.
+Something like Meilisearch could still be useful for a specific purpose, such as searching across billing documents. I did not see it as a solution to the main transactional data access, though, because the search index would still need to be synchronized with data that could change frequently.
 
-Once the repeated logic was gone, each service would contain mostly the behavior that made it different from the others. At that point, we could look at what remained and make a better decision about whether those services should still exist separately.
+That would give us another representation of the data to maintain without removing the need for efficient database queries. For this part of the system, I preferred to make the primary data access efficient rather than depend on another layer to hide the cost.
 
-Clean the implementation first.
+## The Existing Problems Were Still There
 
-Then restructure what was actually left.
+My bigger concern with the larger refactor was that the problems that originally made us want to clean the system were still there. We still had duplicated logic, unnecessary data flows, and responsibilities that were difficult to understand, while we were also changing the structure underneath all of them.
 
-That was the direction I proposed.
+With the gradual approach, I wanted to separate those problems. We could first remove the obvious redundancy and simplify the existing implementation, then look at what remained and decide whether the existing boundaries were actually wrong.
 
-It was not the direction we chose.
+The approach we chose required us to answer those questions at the same time. We had to understand the old behavior, decide what was actually shared, migrate the existing data, introduce the new abstraction, and make sure the current product continued working while development was still ongoing.
 
-## The Decision Was to Unify the Billing Documents
+I raised my concerns and explained why I preferred the gradual approach, but the decision went the other way. At the time, I was still relatively junior, so I did not have the authority to make the final architecture decision or enough experience to turn the disagreement into a long argument with people who had more influence over the system.
 
-Instead, the decision was to consolidate the billing architecture around a unified `BillingDocument`.
+The decision had already been made, and implementing it was still part of my responsibility. Even though it was not the approach I preferred, I wanted to make sure the implementation itself was done properly.
 
-Drafts, invoices, external billing documents, and corrections would move toward a shared representation. Tables would be consolidated, common behavior would move into shared service layers, and individual document types would be handled through specialized handlers.
+## Building the Chosen Architecture
 
-On paper, there were obvious advantages.
+I worked on the architecture documentation, abstract service layers, handlers for the different billing document types, and the migration from the old entities into the new representation. The database migration itself was not small because we had thousands of existing rows across different structures, including several ID prefixes that had accumulated in the billing domain.
 
-There would be fewer places to implement common behavior. Similar endpoints could be consolidated. Shared operations could live behind common abstractions. Future changes that genuinely applied to every billing document would have one obvious place to go.
+We could not lose existing data just because the new structure was different. The migration had to preserve that data while transforming it into the new representation, and tests had to make sure the existing behavior still worked after those changes.
 
-I understood why the architecture was attractive.
+Because the refactor was getting large, I also kept a status document to track what had already been migrated, what was still missing, and where we had problems. It was easier to maintain that document than to try to keep the entire migration state in my head.
 
-I still disagreed with it.
+Development also continued while we were doing this work. New requirements were still coming in while we were restructuring the system underneath them, which was one of the reasons I had originally preferred doing the refactor in smaller steps.
 
-The problem, to me, was that the four things we were combining were similar primarily when viewed from the implementation we already had.
+## Someone Else Had to Own It After Me
 
-Their actual lifecycles were different.
+During the refactor, I was also pair programming with the engineer who would eventually take over much of the codebase. That became more important later because I did not want them to inherit a system where the context behind the implementation disappeared when I left.
 
-## A Draft Is Not an Invoice
+We worked through the important parts together while I was still implementing them. I explained how the new architecture was supposed to work, why some decisions had been made, where the actual implementation was different from the original plan, and which assumptions were important to understand before changing things again.
 
-A draft is a workspace.
+I also tried to separate my disagreement with the architecture from explaining how it worked. The person taking over did not need me repeatedly telling them that I would have chosen another approach. They needed to understand what was actually there, why it worked that way, and where they needed to be careful.
 
-It is supposed to change. A user can modify its line items, update information, recalculate values, and continue working on it until it is ready.
+They could form their own opinion about the architecture after working with it. My responsibility during the handover was to make sure they had enough context and were not inheriting a black box.
 
-An invoice is different.
+## Leaving the Job
 
-Once finalized, it represents a billing document with legal and financial consequences. It has payment state. It can be sent to a patient. Some parts of it should no longer behave like mutable draft data.
+By that point, I was already exhausted with the job. The refactor was not the only reason. It came after a longer period of continuous requirements, growing technical debt, architectural disagreements, and the feeling that we were trying to fix complexity while still working at the same pace that had created a lot of it.
 
-External billing documents had another lifecycle. They were submitted through third-party billing systems, followed different numbering and submission rules, and did not necessarily share the same payment tracking behavior.
+I had already decided that I wanted to resign and planned to send my resignation later. Before I actually did that, I was told that my employment would end, so the company made its decision before I formally communicated mine.
 
-Corrections were different again. A correction existed in relation to another billing document. It could not be understood independently from the document it corrected, and corrections could themselves form chains.
+I still had some time left before my final day, and I continued pair programming with the engineer taking over. I focused more on transferring context because the code still needed to be understandable, the migrations still needed to be safe, and the tests still needed to work.
 
-They certainly shared data.
+The next person also needed enough information to continue without reconstructing months of decisions from Git history. Even though I no longer planned to stay, I still wanted the code I left behind to be maintainable.
 
-Patient information, line items, totals, physician information, dates, and other billing fields appeared repeatedly.
+## What I Think About It Now
 
-But sharing fields did not necessarily mean sharing identity.
+Looking back, I do not think a large refactor is always wrong or that a gradual refactor is always better. Sometimes replacing a large part of a system at once makes sense, and sometimes several concepts really are similar enough that putting them behind one abstraction removes unnecessary complexity.
 
-Putting those concepts into one representation did not remove their differences. It moved those differences somewhere else.
+I also understand why engineering work cannot be considered separately from business requirements. There can be client commitments, revenue targets, certification deadlines, and other reasons why a company needs to keep delivering. I never expected development to stop until the engineering team considered the codebase perfect.
 
-A column could become nullable because only two document types used it. An enum could determine which lifecycle applied. A handler could branch depending on the document type. A service could check whether an operation was legal for a draft but forbidden for an invoice.
+What concerned me was the order of the changes and where we chose to put the abstraction. We already had duplicated logic, unnecessary data being fetched and passed around, unclear responsibilities, frequent changes, and bugs that we were still dealing with.
 
-Eventually, the separation that had previously existed in the database could reappear as conditions in the application layer.
+In that situation, I would rather have started by making the business flow more structured and extracting behavior that was genuinely shared. That would not require the four billing concepts to remain separate forever. It would give us a clearer view of their responsibilities before deciding whether their data representation should also be consolidated.
 
-That was what bothered me.
+Maybe after doing that work, we would still have decided that one `BillingDocument` model was the better architecture. I would have been more comfortable with that decision if it came after reducing the existing implementation problems and understanding the boundaries more clearly.
 
-We could make four different things look structurally similar without actually making them behave the same.
+This experience also changed how I look at architectural simplicity. Having four tables become one table or several services become one abstraction is easy to see, but fewer components do not always mean fewer concepts.
 
-## My Bigger Concern Was the Existing Debt
+If those concepts still have different lifecycles, rules, and data-access patterns, those differences still need to be represented somewhere. They can appear as nullable fields, enums, handler conditions, query filters, or additional indexes, depending on how the system is designed.
 
-Even then, the unified model itself was not my largest concern.
+I also learned that disagreeing with a technical decision does not mean I should implement it badly. I can explain my concerns and propose another approach, but there will be times when the final decision is different from what I would choose.
 
-The old code still contained the redundancy that had motivated the refactor in the first place.
+In that situation, I still want to make the migration safe, write the tests, document the implementation, and make sure the next engineer understands what they are taking over. Disagreement with the design and responsibility for the implementation are two separate things.
 
-We were changing the structure while simultaneously trying to understand which parts of the existing behavior were accidental duplication and which parts represented genuine differences between the document types.
-
-That made the migration much larger.
-
-My gradual proposal had been an attempt to separate those questions.
-
-First, remove the obvious redundancy.
-
-Then inspect what remains.
-
-Then decide whether the remaining boundaries are wrong.
-
-The approach we chose answered the structural question first. We had decided what the new architecture should look like, and now the existing behavior had to be moved into it.
-
-That is a much bigger commitment.
-
-## I Wasn't Going to Win an Architecture War
-
-At that point in my career, I was still relatively junior.
-
-I could raise concerns. I could explain why I preferred another approach. I could point at specific pieces of code and show where I thought the actual complexity was coming from.
-
-But I did not have the authority to make the final architectural decision, and I also did not have enough experience to confidently turn the disagreement into a prolonged fight with people who had more influence over the system than I did.
-
-The proposal had been discussed.
-
-The decision had been made.
-
-So I built it.
-
-Not because I suddenly agreed with it, but because disagreement with an architectural decision did not change my responsibility for implementing it properly.
-
-## Building the Architecture I Had Argued Against
-
-The refactor was large.
-
-I wrote parts of the architecture documentation so we could keep track of what the new system was supposed to become. I implemented abstract service layers and the handlers responsible for different billing document types. I worked through the migration from the old entities into the unified representation.
-
-The database migration alone had to deal with existing data across several structures, including different ID prefixes that had accumulated around the billing domain.
-
-There were thousands of rows that could not simply disappear because we had decided the new schema looked cleaner.
-
-The migration had to preserve them.
-
-Tests had to continue proving that the behavior survived the structural changes. I maintained a living status document because the refactor was too large to reliably keep its progress in my head.
-
-And while doing all of this, the product did not freeze around us.
-
-Development continued.
-
-That was exactly the kind of situation I had originally hoped a gradual approach would make easier.
-
-## I Also Had to Make Sure Someone Else Could Own It
-
-During the refactor, I pair programmed with the engineer who would eventually take over much of the codebase.
-
-That became more important than I initially realized.
-
-It is one thing to write code you disagree with.
-
-It is another thing to teach someone else how that code works without turning the handover into a speech about why you think the architecture should never have existed.
-
-The person maintaining it afterward needed useful information, not my frustration.
-
-So we worked through the important parts together while the refactor was still happening. I explained the intended architecture, the implementation decisions, the places where reality had forced us away from the original plan, and the assumptions that were important to understand before changing things again.
-
-They could form their own opinion about the architecture later.
-
-My responsibility was to make sure they were not inheriting a black box.
-
-## Then the Job Ended Before I Resigned
-
-By the beginning of December, I had already lost most of the energy I had for the job.
-
-The refactor itself was not the only reason. It came after a longer period of continuous requirements, accumulated technical debt, architectural disagreement, and the feeling that we were restructuring systems while still moving at the same pace that had created much of the complexity in the first place.
-
-By December 1, I had already decided internally that I would resign. My plan was to send the resignation letter in January. I never told the company that, although I think the change in my behavior during that month was probably noticeable.
-
-I never got to send the letter.
-
-On 3rd week of December, I was told that my employment would end. My final working day was December 31.
-
-In a strange way, the decision had already happened on my side before the company made theirs. I had stopped imagining myself staying there long-term; they simply reached the ending before I formally did.
-
-But I still had two weeks of work left, and by then another engineer was taking over ownership of the codebase.
-
-I did not want those final weeks to become a countdown where I simply stopped caring. We continued pair programming through the important parts of the refactor, and I focused more heavily on transferring context: how the billing architecture was structured, which decisions had been deliberate, where the implementation had diverged from the original plan, and which parts were likely to cause trouble later.
-
-The implementation still needed to be understandable. The migrations still needed to be safe. The tests still needed to work. The engineer taking over still needed enough context to continue without reconstructing months of decisions from Git history.
-
-By then, I had already decided I did not want to stay, and the company had already decided I would not.
-
-I still wanted the code I left behind to be maintainable.
-
-Those things were never contradictory to me.
-
-## What I Would Do Differently Now
-
-Years later, I can articulate my objection better than I could at the time.
-
-I do not think the lesson is that a big-bang refactor is always wrong. There are systems where an incremental migration would preserve so many old constraints that replacing the structure directly is the better decision.
-
-I also do not think unifying similar entities is inherently wrong. Sometimes several domain concepts really are variations of one underlying abstraction, and representing them that way removes enormous amounts of unnecessary complexity.
-
-My concern was about the order of operations.
-
-We had substantial implementation debt: duplicated logic, expensive data flows, unclear responsibilities, and behavior that had accumulated under continuous feature pressure.
-
-I wanted to reduce that noise before deciding which domain boundaries were unnecessary.
-
-Instead, we restructured while carrying much of that noise with us.
-
-That experience made me much more cautious about architectural changes that promise simplicity primarily by reducing the number of visible components.
-
-Four tables becoming one table is measurable.
-
-Four services becoming one abstraction is measurable.
-
-Four endpoints becoming one is measurable.
-
-But fewer components do not automatically mean fewer concepts.
-
-Sometimes the complexity has genuinely disappeared.
-
-Sometimes it has only moved.
-
-## I Would Still Build It Properly
-
-There is another lesson from that period that has stayed with me.
-
-Engineers are going to lose design arguments.
-
-Sometimes the other proposal is genuinely better. Sometimes there is business context you do not have. Sometimes the decision maker values a different trade-off. Sometimes you still believe the decision is wrong after everyone has explained themselves.
-
-You document your concern. You make sure the important risks are understood.
-
-Then, if the decision is made and it is still your responsibility, you build it properly.
-
-I could disagree with consolidating the billing architecture and still write the migration carefully. I could dislike the abstraction and still test it. I could think the gradual approach was safer and still make sure the engineer inheriting the chosen approach understood how it worked.
-
-Craftsmanship does not require agreement.
-
-If I faced the same architectural problem now, I would still start by asking the question I was trying to answer back then:
-
-How much of this complexity comes from the domain, and how much comes from the way we currently implemented it?
-
-I would want to remove the second one before redesigning the first.
-
-Because restructuring technical debt does not necessarily remove it.
-
-Sometimes you just give it a nicer address.
+If I faced the same kind of problem now, I would still ask how much of the complexity actually belongs to the domain and how much comes from the way we currently implemented it. I would prefer to reduce the implementation complexity first, then use what remains to decide which domain boundaries are actually unnecessary.
