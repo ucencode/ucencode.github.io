@@ -3,7 +3,7 @@ title: "I Thought I Only Needed to Add a Notification"
 description: "I only needed to add a new notification. Following its CTA into the frontend taught me more about the API contract I was designing from the backend."
 pubDate: 2026-06-10
 tags: ["backend", "frontend", "react", "typescript"]
-draft: true
+draft: false
 ---
 
 I know the basics of frontend development, and I have some familiarity with React. I can read components, follow state through an application, and make small changes when I need to.
