@@ -3,79 +3,51 @@ title: "TypeScript Habits That Actually Saved Me"
 description: "A few practical patterns I keep reaching for — not from a style guide, but from bugs I've already shipped."
 pubDate: 2026-05-11
 tags: ["typescript", "dev"]
-draft: true
+draft: false
 ---
 
-In my past i code in php laravel, i remember i need to revisit where this variable flows and console logging too many for each step to ensure nothing i missed.
+Before I worked primarily with TypeScript, most of my backend work was in PHP and Laravel. I remember spending a lot of time tracing where a variable came from, where it changed, and what shape it had at each point in the flow. When something behaved unexpectedly, I would often add logs at several steps just to make sure I had not missed something along the way.
 
-when i moved stack to typescript + I started to implement the type. especially when it comes to arrays and objects.
+That approach worked, but it also meant I spent a lot of development time checking assumptions manually. I had to keep the state of the data in my head while reading through the code, and the deeper the flow became, the more effort it took to be confident that I understood what was actually happening.
 
-I continued my peer's code which any variable was flooding and using babel as js compiler. then we as a team refactored it to typescript and using native tsc compiler. The result the code is more deterministic, easier to maintain and expand the feature, and also of course the build time trimmed from 100s to 80s cutting 20% of it.
-
-since now when i code i dont spend too much on checking variables too deep because by defining type, i can catch in compiler will give me error, even my IDE extension already flag my code line if this is error.
-
-That was the biggest impact that affect my way to code and develop. beside that there's still several impacts that makes development easier
-
-I dont need to strictly give type check, I just need to check if value specific or if the result went falsy
-
-These patterns are useless if you only use them to fix TypeScript errors.
-The right way is to write types first before you write the code. Think about the data shape first, then think how to process it. That is the real benefit of TypeScript.
-
----
-
-POLISHED
-
----
-
-title: "TypeScript Habits That Actually Saved Me"
-description: "A few practical patterns I keep reaching for — not from a style guide, but from bugs I've already shipped."
-pubDate: 2026-05-11
-tags: ["typescript", "dev"]
-draft: true
------------
-
-Before I worked primarily with TypeScript, most of my backend work was in PHP and Laravel. I remember spending a lot of time tracing where a variable came from, where it changed, and what shape it had at each point in the flow. When something behaved unexpectedly, I often ended up adding logs at several steps just to make sure I had not missed anything.
-
-That worked, but it also meant a lot of development time was spent verifying assumptions that the language itself could not verify for me.
-
-When I moved more of my work to TypeScript, one of the first habits I picked up was defining types properly, especially for arrays and objects. That gradually changed how I approached code. Instead of asking what a variable might contain after the code had already been written, I started defining what the data was supposed to look like before deciding how to process it.
+When I moved more of my work to TypeScript, one of the habits that had the biggest impact on me was defining types properly, especially for arrays and objects. I started thinking less about figuring out what a variable contained after the code was already written and more about defining what the data was supposed to look like before I wrote the logic around it.
 
 ## From JavaScript to TypeScript
 
-At one point, I continued working on a codebase where variables were passed around quite freely and Babel was being used as the JavaScript compiler. As a team, we eventually refactored the codebase to TypeScript and moved the build process to the native TypeScript compiler.
+At one point, I continued working on a codebase where variables were being passed around quite freely, and Babel was being used to compile the JavaScript. Eventually, our team decided to refactor the codebase to TypeScript and move the build process to the native TypeScript compiler.
 
-The difference was noticeable beyond just having type annotations. The code became more deterministic because the expected shape of data was visible and enforceable. It became easier to maintain existing features, easier to expand them, and easier to understand what another part of the system expected without tracing the entire flow manually.
+The biggest difference was not simply that the code now had type annotations everywhere. The structure of the data became much more visible, and the compiler could enforce those expectations for us. The code became more deterministic because I could see what a function expected to receive and what it was supposed to return without having to trace every possible path manually.
 
-The build process also became faster. What previously took around 100 seconds dropped to roughly 80 seconds after the migration, cutting about 20% from the build time.
+That also made the codebase easier to maintain and extend. When adding a feature, I could rely more on the compiler to point out places that needed to be updated instead of discovering those problems later while manually testing the application.
 
-That performance improvement was useful, but the larger benefit for me was how much less mental effort I had to spend checking variables manually.
+There was also a measurable improvement in the build process. What previously took around 100 seconds dropped to roughly 80 seconds after the migration, cutting around 20% from the build time. That was a nice improvement, but for me, the bigger change was how much less time I had to spend manually investigating variables.
 
 ## Let the Compiler Check the Boring Parts
 
-These days, I rarely need to trace a variable several layers deep just to confirm whether a field exists or whether a function returns the shape I expect. If the types are defined properly, the compiler already catches a large part of that for me. In many cases, my IDE flags the problem before I even run the code.
+These days, I do not spend nearly as much time tracing variables several layers deep just to figure out whether a field exists or what a function returns. When the types are defined properly, the compiler can catch a large part of those problems for me, and my IDE will often highlight the issue before I even run the code.
 
-That does not mean TypeScript prevents every bug. Runtime data can still be wrong, external APIs can still return unexpected values, and business logic can still be incorrect. But it removes an entire category of mistakes that I used to spend time finding manually.
+That does not mean TypeScript catches everything. Runtime data can still be wrong, external APIs can still return unexpected values, and business logic can still be incorrect. What it does give me is a way to eliminate a whole category of mistakes before they become something I have to investigate manually.
 
-This also changed the way I write conditions. I do not need to fill the code with defensive type checks when the type system has already established what a value can be. Most of the time, I only need to check whether a value matches a specific case or whether the result is falsy.
+It also changed how I write conditions. I do not need to repeatedly write defensive checks for every possible type when the type system has already established what a value can be. Most of the time, I only need to handle the cases that are actually meaningful for the data, such as checking whether a value matches a specific condition or whether the result is falsy.
 
-The type system handles the rest.
+## Types Should Come Before the Implementation
 
-## Types Should Describe the Data Before the Code
+This is probably the most important habit TypeScript gave me. I do not think adding types after the implementation is finished is particularly useful when the only goal is to make the compiler stop complaining. In that situation, TypeScript becomes another thing you have to satisfy instead of something that helps you structure the code.
 
-For me, this is where TypeScript becomes genuinely useful.
+I prefer to think about the data shape first. What does this function receive? What should it return? Which fields are required? Which values are optional? Can the object have several valid states, and if it can, should those states be represented explicitly?
 
-These patterns are almost pointless if types are only added afterward to make compiler errors disappear. At that point, TypeScript becomes another obstacle to satisfy rather than something that helps with the design of the code.
+Once those questions are clear, the implementation usually becomes easier to write. I am no longer discovering the structure of the data while debugging the code because I already decided what that structure should be before writing the logic.
 
-I prefer to think about the data shape first.
+That is also why I find types particularly useful for arrays and objects. A loosely structured object can force me to repeatedly inspect what might be inside it, while a properly defined type gives me a clear boundary around the data. When I pass that object somewhere else, the receiving code already has a contract for what it is supposed to get.
 
-What does this function receive? What should it return? Which fields are required? Which values are optional? Can this object exist in several valid states? If it can, should those states be represented explicitly?
+## The Habit Changed How I Debug
 
-Once those questions are answered, the implementation usually becomes much easier to reason about.
+The biggest impact was not that TypeScript gave me more syntax to write. It changed where I spent my time.
 
-Instead of writing the code first and discovering the structure while debugging it, I define the structure and then write the code that operates on it.
+Before, a lot of debugging involved following data through the application and checking whether my assumptions about that data were correct. Now, many of those assumptions are represented directly in the type system, so the compiler or my IDE can tell me when I am violating them.
 
-That is probably the biggest habit TypeScript changed for me. I use types less as documentation attached to code and more as boundaries around the data flowing through the system.
+That means I can spend more time thinking about whether the code is actually correct instead of repeatedly asking myself what shape a variable might have.
 
-The compiler catching mistakes is useful.
+There are still plenty of bugs that only exist at runtime, and no type system is going to replace testing or understanding the business rules. But having the compiler handle the mechanical parts of data validation removes a lot of unnecessary investigation from the development process.
 
-Having fewer mistakes to investigate in the first place is much better.
+> It is not just that the compiler catches mistakes. It is that by defining the data shape first, I have fewer assumptions to verify manually in the first place.
