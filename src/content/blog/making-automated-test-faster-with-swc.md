@@ -12,7 +12,7 @@ Once we started implementing tests across all the packages, though, the cost beg
 
 ## When More Hardware Seemed Like the Answer
 
-I asked one of my senior engineers about the resource usage because I wanted to know whether there was something obvious I was missing. His answer was that there was no problem when he ran the tests, so I looked at his machine and noticed that he had 96 GB of RAM. His suggestion was simple: expand my RAM. From his environment, that made perfect sense because he was not experiencing the same limitation.
+I asked one of my senior engineers about the resource usage because I wanted to know whether there was something obvious I was missing. His answer was that there was no problem when he ran the tests, what i know is that he had 96 GB of RAM. His suggestion was simple: expand the RAM. From his environment, that made perfect sense because he was not experiencing the same limitation.
 
 At the time, that was probably the most practical solution to the problem I was seeing. I just did not stop thinking about whether giving the test suite more hardware was really the only way to make it manageable.
 
