@@ -252,9 +252,10 @@ export const projects: Project[] = [
     //   alt: "Study AI Toolkit job detail view",
     // },
     slides: [
-      // { path: "slides/study-ai-tools/slide-01.webp", caption: "Job detail — named stages, live output, chapter outline" },
-      // { path: "slides/study-ai-tools/slide-02.webp", caption: "Jobs rail — 1 running · N waiting, the queue the backend actually has" },
-      // { path: "slides/study-ai-tools/slide-03.webp", caption: "Curriculum form with saved presets" },
+      { path: "slides/study-ai-tools/slide-00.webp", caption: "Architecture of the tool" },
+      { path: "slides/study-ai-tools/slide-01.webp", caption: "Main flow of the tool" },
+      { path: "slides/study-ai-tools/slide-02.webp", caption: "Flow of Slide Summary" },
+      { path: "slides/study-ai-tools/slide-03.webp", caption: "Flow of Study material generation" },
       // { path: "slides/study-ai-tools/slide-04.webp", caption: "Generated chapter — dependencies declared, Obsidian-ready Markdown" },
       // { path: "slides/study-ai-tools/slide-05.webp", caption: "Architecture — the API enqueues, a single worker executes, the CLI bypasses both" },
     ],
