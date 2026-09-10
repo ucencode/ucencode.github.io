@@ -26,7 +26,7 @@ export interface Project {
   description: string;
 
   /** Preview image displayed on the project card. */
-  image: {
+  image?: {
     /** Path relative to `public/`, e.g. `/projects/clinicos-preview.webp`. */
     src: string;
     alt: string;
@@ -246,10 +246,10 @@ export const projects: Project[] = [
     title: "AI Study Tool",
     description:
       "A local-first AI study tool for summarizing lecture slides and generating structured learning content from curricula using LLMs.",
-    image: {
-      src: "/projects/study-ai-tools-preview.webp",
-      alt: "Study AI Toolkit job detail view",
-    },
+    // image: {
+    //   src: "/projects/study-ai-tools-preview.webp",
+    //   alt: "Study AI Toolkit job detail view",
+    // },
     slides: [
       // { path: "slides/study-ai-tools/slide-01.webp", caption: "Job detail — named stages, live output, chapter outline" },
       // { path: "slides/study-ai-tools/slide-02.webp", caption: "Jobs rail — 1 running · N waiting, the queue the backend actually has" },
