@@ -1,7 +1,7 @@
 ---
 title: "TypeScript Habits That Actually Saved Me"
-description: "A few practical patterns I keep reaching for — not from a style guide, but from bugs I've already shipped."
-pubDate: 2026-05-11
+description: "I tried to put static typing to my code."
+pubDate: 2026-02-02
 tags: ["typescript", "dev"]
 draft: false
 ---

@@ -1,7 +1,7 @@
 ---
 title: "When Encoding isn't Compatible"
-description: "A service requires ISO-8859-15 encoding. Writing UTF-8 and declaring ISO-8859-15 in the XML header passes some validators but corrupts umlauts at the clearinghouse."
-pubDate: 2026-05-18
+description: "A service requires ISO-8859-15 encoding. Writing UTF-8 and declaring ISO-8859-15 in the XML header passes some validators but corrupts some characters."
+pubDate: 2026-06-10
 tags: ["backend", "encoding", "xml", "typescript"]
 draft: false
 ---

@@ -1,7 +1,7 @@
 ---
 title: "I Started Sharing My Work"
 description: "Sharing my work in public started as a simple habit, but it changed how I learn, write, and think about my work"
-pubDate: 2026-04-28
+pubDate: 2026-01-27
 tags: ["career", "writings"]
 draft: false
 ---
