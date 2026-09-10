@@ -67,6 +67,7 @@ export const projects: Project[] = [
       },
     ],
     projectStack: [
+      "AI-Powered",
       "Node.js",
       "TypeScript",
       "PostgreSQL",
@@ -258,6 +259,7 @@ export const projects: Project[] = [
       // { path: "slides/study-ai-tools/slide-05.webp", caption: "Architecture — the API enqueues, a single worker executes, the CLI bypasses both" },
     ],
     projectStack: [
+      "AI-Powered",
       "Python",
       "FastAPI",
       "LLM",
