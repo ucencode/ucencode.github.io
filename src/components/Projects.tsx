@@ -25,7 +25,7 @@ const Projects = () => {
         <div className="space-y-6">
           {projects.map((project, i) => {
             const isReversed = i % 2 !== 0;
-            const imageSrc = `${import.meta.env.BASE_URL}${project.image.src.replace(
+            const imageSrc = `${import.meta.env.BASE_URL}${project.image?.src.replace(
               /^\//,
               "",
             )}`;
@@ -37,18 +37,21 @@ const Projects = () => {
                   className="group w-full text-left bg-card border border-border rounded-xl overflow-hidden hover:border-primary/40 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-background md:min-h-[280px]"
                 >
                   <div
-                    className={`flex flex-col md:flex-row md:items-stretch ${
-                      isReversed ? "md:flex-row-reverse" : ""
-                    }`}
+                    className={`flex flex-col md:flex-row md:items-stretch ${isReversed ? "md:flex-row-reverse" : ""
+                      }`}
                   >
                     <div className="relative w-full md:w-5/12 h-60 sm:h-64 md:h-auto md:min-h-[280px] overflow-hidden bg-secondary/40">
-                      <img
-                        src={imageSrc}
-                        alt={project.image.alt}
-                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-                        loading="lazy"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-tr from-black/35 via-transparent to-transparent opacity-70" />
+                      {project.image && (
+                        <>
+                          <img
+                            src={imageSrc}
+                            alt={project.image.alt}
+                            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                            loading="lazy"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-tr from-black/35 via-transparent to-transparent opacity-70" />
+                        </>
+                      )}
                     </div>
 
                     <div className="flex-1 p-6 md:p-7">

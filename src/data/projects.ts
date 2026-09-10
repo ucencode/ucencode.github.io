@@ -26,7 +26,7 @@ export interface Project {
   description: string;
 
   /** Preview image displayed on the project card. */
-  image: {
+  image?: {
     /** Path relative to `public/`, e.g. `/projects/clinicos-preview.webp`. */
     src: string;
     alt: string;
@@ -61,9 +61,13 @@ export const projects: Project[] = [
       alt: "ClinicOS project preview",
     },
     slides: [
-      { path: "slides/clinic-os/slide-01.webp", caption: "ClinicOS dashboard overview" },
+      {
+        path: "slides/clinic-os/slide-01.webp",
+        caption: "ClinicOS dashboard overview",
+      },
     ],
     projectStack: [
+      "AI-Powered",
       "Node.js",
       "TypeScript",
       "PostgreSQL",
@@ -113,9 +117,12 @@ export const projects: Project[] = [
       },
     ],
     links: [
-      { label: "Product Snapshot During My Work", url: "https://web.archive.org/web/20251210015016/https://www.clinicos.de/" },
+      {
+        label: "Product Snapshot During My Work",
+        url: "https://web.archive.org/web/20251210015016/https://www.clinicos.de/",
+      },
       { label: "Current Product Page", url: "https://clinicos.de" },
-    ]
+    ],
   },
 
   {
@@ -128,7 +135,10 @@ export const projects: Project[] = [
       alt: "BookYourGP project preview",
     },
     slides: [
-      { path: "slides/book-your-gp/slide-01.webp", caption: "BookYourGP interface" },
+      {
+        path: "slides/book-your-gp/slide-01.webp",
+        caption: "BookYourGP interface",
+      },
     ],
     projectStack: [
       "Laravel",
@@ -180,7 +190,8 @@ export const projects: Project[] = [
       {
         label: "Product Page Snapshot",
         url: "https://web.archive.org/web/20231219084755/https://www.hummingbirdsmedical.com/",
-      }, {
+      },
+      {
         label: "Current Website",
         url: "https://www.hummingbirdsmedical.com/",
       },
@@ -196,7 +207,10 @@ export const projects: Project[] = [
       alt: "Pitcar project preview",
     },
     slides: [
-      { path: "slides/pitcar/slide-01.webp", caption: "Pitcar sale table overview" },
+      {
+        path: "slides/pitcar/slide-01.webp",
+        caption: "Pitcar sale table overview",
+      },
     ],
     projectStack: ["Odoo", "Python", "Custom Addons", "PostgreSQL"],
     additionalInfo: [
@@ -227,7 +241,76 @@ export const projects: Project[] = [
       },
     ],
     links: [{ label: "Company Website", url: "https://pitcar.co.id" }],
-  }
+  },
+  {
+    id: "study-ai-tools",
+    title: "AI Study Tool",
+    description:
+      "A local-first AI study tool for summarizing lecture slides and generating structured learning content from curricula using LLMs.",
+    // image: {
+    //   src: "/projects/study-ai-tools-preview.webp",
+    //   alt: "Study AI Toolkit job detail view",
+    // },
+    slides: [
+      { path: "slides/study-ai-tools/slide-00.webp", caption: "Architecture of the tool" },
+      { path: "slides/study-ai-tools/slide-01.webp", caption: "Main flow of the tool" },
+      { path: "slides/study-ai-tools/slide-02.webp", caption: "Flow of Slide Summary" },
+      { path: "slides/study-ai-tools/slide-03.webp", caption: "Flow of Study material generation" },
+      // { path: "slides/study-ai-tools/slide-04.webp", caption: "Generated chapter — dependencies declared, Obsidian-ready Markdown" },
+      // { path: "slides/study-ai-tools/slide-05.webp", caption: "Architecture — the API enqueues, a single worker executes, the CLI bypasses both" },
+    ],
+    projectStack: [
+      "AI-Powered",
+      "Python",
+      "FastAPI",
+      "LLM",
+      "Vision LLM / OCR",
+      "React",
+      "Vite",
+      "Tailwind CSS",
+      "pytest",
+    ],
+    additionalInfo: [
+      {
+        title: "Why I built it",
+        bullets: [
+          "University lecture slides often compress complex topics into short summaries, leaving important context unexplained.",
+          "Course material can also become outdated, while newer explanations and references are available online.",
+          "I wanted a tool that could turn existing learning material into a personalized study plan instead of simply summarizing it.",
+        ],
+      },
+      {
+        title: "Constraints",
+        bullets: [
+          "Designed primarily for personal use.",
+          "Keep infrastructure simple and local-first.",
+          "Minimize maintenance and external dependencies.",
+          "Run efficiently with local LLMs, focusing on inference speed and resource usage.",
+        ],
+      },
+      {
+        title: "Design decisions",
+        bullets: [
+          "File-based JSON storage instead of introducing a database for a single-user application.",
+          "Polling the job status and progress to keep the API and client architecture simple.",
+          "A single worker by default because local LLM inference is the primary bottleneck.",
+          "Sanitize and validate output due to non-deterministic output from LLM.",
+          "Cache OCR results so repeated processing of the same material does not require another vision-model invocation.",
+        ],
+      },
+      {
+        title: "Outcome",
+        bullets: [
+          "A personal study tool that turns lecture slides and textbooks into structured learning material tailored to my study goals.",
+          "Supports both slide-based and textbook-based learning workflows.",
+          "Most importantly, it evolved from an experiment into a tool I can genuinely use in my own learning workflow.",
+        ],
+      },
+    ],
+    links: [
+      { label: "Source", url: "https://github.com/ucencode/study-ai-tools" },
+    ],
+  },
 ];
 
 export interface Client {
