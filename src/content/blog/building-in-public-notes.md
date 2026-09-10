@@ -1,31 +1,23 @@
 ---
-title: "Notes on Building in Public"
-description: "Six months of sharing work online — what I expected, what surprised me, and what I'd do differently."
-pubDate: 2026-04-28
-tags: ["meta", "career"]
-draft: true
+title: "I Started Sharing My Work"
+description: "Sharing my work in public started as a simple habit, but it changed how I learn, write, and think about my work"
+pubDate: 2026-01-27
+tags: ["career", "writings"]
+draft: false
 ---
 
-I started sharing my work online six months ago. Not a formal commitment — just posting what I was building, sometimes with explanations, sometimes just screenshots. Here's what I've learned.
+I started sharing my work online six months ago. I am posting what I was building and my experience, and my thought, or what i learned from mistakes.
 
-## What I expected
+I might revisit what i did in my past and see it in different way / perspective. You may think you understand something, but when you try to explain it clearly to other people, you discover how well you really understand it.
 
-I expected feedback on the work itself. Code review, design critique, "have you considered X." That does happen, but it's not the main thing.
+The people who read my posts were mostly learning the same things I was writing about. Many of them were discovering these ideas for the first time. This changed the way I thought about being useful. I was no longer trying to impress people. I wanted to write the kind of helpful things I wish I had found when I was stuck.
 
-## What surprised me
+So I started writing and publishing sooner. I tried not to let my drafts sit for too long and pile up into a bunch of unfinished posts that might never get published. A focused observation about one thing is often more useful and much easier to share.
 
-Most of the value came from the act of writing, not the responses. When you commit to explaining something publicly, you find out quickly whether you actually understand it. Vague intuitions don't survive the requirement to put them into words.
+I also stopped treating "building in public" as a branding exercise. The useful version is simply a development log with honest notes about what worked, what did not, and what I am trying next. I believe people value that honesty more than something that looks perfectly polished.
 
-The second surprise was who reads it. Not other developers, mostly. The audience that showed up was people learning the same things I was writing about — people a step or two behind where I was six months ago. That reframed what "useful" means. I'm not trying to impress senior engineers. I'm trying to write the thing I wish I'd found when I was stuck.
+Sometimes you share something that is wrong, and someone points it out. This has happened to me a few times. It feels uncomfortable for a few seconds, but then it is fine. Most of the time, the correction is useful. Sometimes, it even starts a conversation that would not have happened otherwise.
 
-## What I'd do differently
+The other choice is to wait until everything is perfect before sharing. But if you do that, you may never share anything at all.
 
-I'd write shorter posts sooner. I spent weeks on the first few, trying to make them comprehensive. Nobody needs comprehensive. A focused observation about one thing is more useful and much easier to ship.
-
-I'd also stop treating "building in public" as a brand exercise. The useful version is just a development log — honest notes about what worked, what didn't, and what you're trying next. The audience finds the authenticity more valuable than the polish.
-
-## The uncomfortable part
-
-You do occasionally share something wrong, and someone will point it out. That's happened a few times. It's uncomfortable for about ten minutes and then it's fine — usually the correction is useful, and occasionally a conversation comes out of it that wouldn't have happened otherwise.
-
-The alternative is not sharing until everything is perfect, which means not sharing at all.
+I hope that by doing this, I can keep learning and growing. I have also heard that journaling can be a good part of personal growth, and I think sharing what I learn is becoming a kind of journal for me too.
