@@ -46,7 +46,7 @@ const { Content } = await post.render();
       </div>
     </nav>
 
-    <div data-reveal>
+    <div>
       <time class="block text-xs font-mono text-muted-foreground">
         {post.data.pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
       </time>
@@ -61,7 +61,7 @@ const { Content } = await post.render();
       )}
     </div>
 
-    <article data-reveal class="mt-12 prose prose-invert prose-sm max-w-none
+    <article class="mt-12 prose prose-invert prose-sm max-w-none
       prose-headings:font-semibold prose-headings:text-foreground
       prose-p:text-muted-foreground prose-p:leading-relaxed
       prose-a:text-primary prose-a:no-underline hover:prose-a:underline

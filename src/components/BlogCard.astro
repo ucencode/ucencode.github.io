@@ -4,15 +4,17 @@ import type { CollectionEntry } from 'astro:content';
 interface Props {
   post: CollectionEntry<'blog'>;
   index?: number;
+  /** Scroll-reveal entry animation. Off on the /blog listing, on for the homepage section. */
+  reveal?: boolean;
 }
 
-const { post, index = 0 } = Astro.props;
+const { post, index = 0, reveal = true } = Astro.props;
 ---
 
 <a
   href={`/blog/${post.slug}`}
-  data-reveal
-  data-reveal-delay={String(index * 80)}
+  data-reveal={reveal ? '' : undefined}
+  data-reveal-delay={reveal ? String(index * 80) : undefined}
   class="group flex flex-col gap-3 p-6 rounded-xl border border-border bg-card hover:border-primary/40 transition-colors duration-200"
 >
   <div class="flex items-center gap-3">
