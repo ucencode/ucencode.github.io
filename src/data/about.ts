@@ -2,7 +2,7 @@ export const profile = {
   name: "Ahmad Husein Hambali",
   role: "Fullstack Engineer",
   headline: "Fullstack & Product Engineer",
-  intro: "Backend-focused Fullstack Engineer experienced in Node.js and TypeScript. I design reliable systems, make thoughtful architectural decisions, and write maintainable code that works in production.",
+  intro: "I build reliable products end to end, from backend workflows to the interfaces people use every day. I shape features around real workflows and the feedback of the people who use them.",
   metaDescription: "Ahmad Husein Hambali is a backend-focused Fullstack Engineer with 6 years of production experience building reliable Node.js and TypeScript systems with architectural clarity and long-term maintainability.",
 };
 
