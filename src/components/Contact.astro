@@ -1,17 +1,18 @@
 ---
 import { Mail, Linkedin, Github } from 'lucide-react';
 import { socialLinks } from '@/data/about';
+import { sections } from '@/data/sections';
 ---
 <section id="contact" class="py-24 md:py-32 section-alt">
   <div class="max-w-5xl mx-auto px-6">
     <div class="grid place-items-center">
       <div data-reveal>
         <div class="w-full max-w-lg rounded-2xl border border-border bg-card/70 px-8 py-10 text-center shadow-sm">
-          <p class="font-mono text-primary text-sm mb-3 tracking-wide">Contact</p>
-          <h2 class="text-2xl md:text-3xl font-bold text-foreground mb-3">Let's Connect</h2>
+          <p class="font-mono text-primary text-sm mb-3 tracking-wide">{sections.contact.label}</p>
+          <h2 class="text-2xl md:text-3xl font-bold text-foreground mb-3">{sections.contact.title}</h2>
           <p class="text-muted-foreground mb-8">
             <span class="block">
-              Feel free to reach out via email, LinkedIn, or GitHub.
+              {sections.contact.intro}
             </span>
           </p>
           <div class="flex flex-col sm:flex-row items-center justify-center gap-3">

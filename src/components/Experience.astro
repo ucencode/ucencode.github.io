@@ -1,10 +1,11 @@
 ---
 import { experience, experienceSummary } from '@/data/experience';
+import { sections } from '@/data/sections';
 ---
 <section id="experience" class="py-24 md:py-32 section-alt">
   <div class="max-w-5xl mx-auto px-6">
     <div data-reveal>
-      <p class="font-mono text-primary text-sm mb-3 tracking-wide">Experience</p>
+      <p class="font-mono text-primary text-sm mb-3 tracking-wide">{sections.experience.label}</p>
       <h2 class="text-2xl md:text-3xl font-bold text-foreground mb-4">
         {experienceSummary.title}
       </h2>
@@ -39,7 +40,7 @@ import { experience, experienceSummary } from '@/data/experience';
       <div class="space-y-6">
         <div data-reveal data-reveal-delay="150">
           <div class="rounded-lg border border-border bg-card p-6">
-            <p class="font-mono text-xs text-primary mb-2 tracking-wide">Highlights</p>
+            <p class="font-mono text-xs text-primary mb-2 tracking-wide">{sections.experience.highlightsLabel}</p>
             <h3 class="text-base font-semibold text-foreground mb-3">{experienceSummary.subtitle}</h3>
             <ul class="space-y-2 text-sm text-muted-foreground leading-relaxed">
               {experienceSummary.points.map((point) => (

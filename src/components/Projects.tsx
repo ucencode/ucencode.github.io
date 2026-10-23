@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { projects, type Project } from "@/data/projects";
+import { sections } from "@/data/sections";
 import ProjectModal from "./ProjectModal";
 
 const Projects = () => {
@@ -11,14 +12,13 @@ const Projects = () => {
       <div className="max-w-5xl mx-auto px-6">
         <div>
           <p className="font-mono text-primary text-sm mb-3 tracking-wide">
-            Projects
+            {sections.projects.label}
           </p>
           <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
-            Selected Work
+            {sections.projects.title}
           </h2>
           <p className="text-muted-foreground max-w-lg mb-12">
-            A selection of projects I've built — from freelance work to
-            enterprise systems.
+            {sections.projects.intro}
           </p>
         </div>
 

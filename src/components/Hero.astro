@@ -1,5 +1,8 @@
 ---
 import { ArrowRight, ArrowDown } from 'lucide-react';
+import { profile } from '@/data/about';
+
+const lastSpace = profile.name.lastIndexOf(' ');
 ---
 
 <section
@@ -14,20 +17,18 @@ import { ArrowRight, ArrowDown } from 'lucide-react';
     <!-- Left: Text -->
     <div>
       <p class="font-mono text-primary text-sm md:text-base mb-4 tracking-wide animate-fade-in">
-        Backend &amp; Systems Engineer
+        {profile.headline}
       </p>
 
       <h1 class="text-4xl sm:text-5xl font-bold text-foreground leading-[1.1] mb-6 animate-fade-up">
-        Ahmad Husein<br />Hambali
+        {profile.name.slice(0, lastSpace)}<br />{profile.name.slice(lastSpace + 1)}
       </h1>
 
       <p
         class="text-base md:text-lg text-muted-foreground max-w-xl mb-10 leading-relaxed animate-fade-up"
         style="animation-delay: 150ms"
       >
-        Backend Engineer experienced in Node.js and TypeScript.
-        I design reliable systems, make thoughtful architectural decisions,
-        and write maintainable code that works in production.
+        {profile.intro}
       </p>
 
       <div
