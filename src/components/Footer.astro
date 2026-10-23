@@ -1,6 +1,6 @@
 ---
 import { Github, Linkedin, Mail } from 'lucide-react';
-import { socialLinks } from '@/data/about';
+import { profile, socialLinks } from '@/data/about';
 const year = new Date().getFullYear();
 ---
 <footer class="border-t border-border pt-12 pb-8">
@@ -9,8 +9,8 @@ const year = new Date().getFullYear();
 
       <!-- Brand -->
       <div>
-        <p class="text-sm font-semibold text-foreground mb-1">Ahmad Husein Hambali</p>
-        <p class="text-xs text-muted-foreground">Backend Engineer</p>
+        <p class="text-sm font-semibold text-foreground mb-1">{profile.name}</p>
+        <p class="text-xs text-muted-foreground">{profile.role}</p>
       </div>
 
       <!-- Connect -->
@@ -50,7 +50,7 @@ const year = new Date().getFullYear();
 
     <div class="border-t border-border pt-6">
       <p class="text-xs text-muted-foreground/60 text-center">
-        © {year} Ahmad Husein Hambali. All rights reserved.
+        © {year} {profile.name}. All rights reserved.
       </p>
     </div>
   </div>

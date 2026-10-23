@@ -2,13 +2,14 @@ export const experience = [
   {
     year: "Jan 2024 - Dec 2025",
     company: "NoscAi GmbH",
-    position: "Backend Engineer",
+    position: "Founding Engineer",
     location: "Hamburg, Germany - Remote - 2 Years",
     bullets: [
       "Joined as the first full-time engineer on ClinicOS, an AI-powered clinic management system, and helped scale the engineering team to 9 engineers.",
       "Established foundational backend practices including code review standards, testing, formatting conventions, CI/CD workflows, and onboarding support for new engineers.",
+      "Reworked the generic Medusa.js admin into a clinic-specific interface, designing role-based navigation around clinical workflows to keep core tasks within three clicks.",
       "Owned core clinical workflows across invoicing, insurance, billing-provider submissions, external lab integrations, appointment flows, and sensitive medical data processing.",
-      "Built asynchronous and event-driven integrations that replaced manual billing and external lab submission workflows, reducing data-entry errors to near zero.",
+      "Reduced data-entry errors to near zero and eliminated manual submissions by developing asynchronous API and event-driven workflows across invoicing, insurance, external labs, and wearable devices.",
       "Proposed and led a plugin architecture refactor that eliminated a deeply coupled inheritance chain and reduced build times by 25%.",
       "Built dedicated microservices for document processing, XML-based billing integrations, and GDPR-conscious medical imaging metadata anonymization.",
     ],
@@ -64,12 +65,12 @@ export const experience = [
 
 export const experienceSummary = {
   title: "Professional Experience",
-  subtitle: "Backend-focused roles with product-minded delivery.",
+  subtitle: "Backend depth, fullstack delivery, product-minded decisions.",
   points: [
     "Scalable backend systems and integrations",
     "Performance tuning and query optimization",
     "Production readiness and incident response",
     "Clear communication with stakeholders",
   ],
-  note: "Available for backend roles with strong engineering culture.",
+  note: "Open to backend-focused fullstack roles on product teams building SaaS and AI-enabled products.",
 };

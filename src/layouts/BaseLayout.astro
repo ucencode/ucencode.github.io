@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import { profile, socialLinks } from '@/data/about';
 
 interface Props {
   title?: string;
@@ -8,8 +9,8 @@ interface Props {
 }
 
 const {
-  title = 'Ahmad Husein Hambali — Backend Engineer',
-  description = 'Ahmad Husein Hambali is a Backend Engineer with 5+ years of production experience building reliable Node.js and TypeScript systems with architectural clarity and long-term maintainability.',
+  title = `${profile.name} — ${profile.role}`,
+  description = profile.metaDescription,
   ogType = 'website',
 } = Astro.props;
 ---
@@ -21,7 +22,7 @@ const {
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <meta name="author" content="Ahmad Husein Hambali" />
+    <meta name="author" content={profile.name} />
 
     <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site).toString()} />
     <meta name="robots" content="index, follow" />
@@ -30,12 +31,12 @@ const {
     <meta property="og:description" content={description} />
     <meta property="og:type" content={ogType} />
     <meta property="og:url" content={new URL(Astro.url.pathname, Astro.site).toString()} />
-    <meta property="og:site_name" content="Ahmad Husein Hambali" />
+    <meta property="og:site_name" content={profile.name} />
     <meta property="og:locale" content="en_US" />
     <meta property="og:image" content={new URL('/og-image.png', Astro.site).toString()} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Ahmad Husein Hambali — Backend Engineer" />
+    <meta property="og:image:alt" content={`${profile.name} — ${profile.role}`} />
 
     <meta name="twitter:card" content="summary_large_image" />
 
@@ -44,15 +45,15 @@ const {
     <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
       "@type": "Person",
-      "name": "Ahmad Husein Hambali",
-      "jobTitle": "Backend Engineer",
+      "name": profile.name,
+      "jobTitle": profile.role,
       "url": "https://ucencode.github.io",
-      "email": "ahmadhuseinh.03@gmail.com",
+      "email": socialLinks.email,
       "sameAs": [
-        "https://github.com/ucencode",
-        "https://www.linkedin.com/in/ahmadhuseinhambali03/",
-        "https://www.instagram.com/ucenintheworld/",
-        "https://www.facebook.com/ahmad.husein.hambali/",
+        socialLinks.github,
+        socialLinks.linkedin,
+        socialLinks.instagram,
+        socialLinks.facebook,
       ],
     })} />
 

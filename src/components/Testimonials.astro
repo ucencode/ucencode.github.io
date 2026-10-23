@@ -1,5 +1,7 @@
 ---
 import { socialLinks } from '@/data/about';
+import { testimonials } from '@/data/testimonials';
+import { sections } from '@/data/sections';
 
 const linkedinBase = socialLinks.linkedin.endsWith('/')
   ? socialLinks.linkedin
@@ -9,34 +11,37 @@ const recommendationsUrl = `${linkedinBase}details/recommendations/?detailScreen
 <section id="testimonials" class="py-24 md:py-32">
   <div class="max-w-5xl mx-auto px-6">
     <div data-reveal>
-      <p class="font-mono text-primary text-sm mb-3 tracking-wide">Peer Recognition</p>
-      <h2 class="text-2xl md:text-3xl font-bold text-foreground mb-10">What Colleagues Say</h2>
+      <p class="font-mono text-primary text-sm mb-3 tracking-wide">{sections.testimonials.label}</p>
+      <h2 class="text-2xl md:text-3xl font-bold text-foreground mb-10">{sections.testimonials.title}</h2>
     </div>
 
-    <div data-reveal data-reveal-delay="120">
-      <div class="bg-[rgba(0,255,163,0.05)] border-l-[3px] border-[#00ffa3] p-6 rounded-lg my-5">
-        <p class="italic text-[#e0e0e0] leading-relaxed text-[1.1rem]">
-          "I had the privilege of leading Husein at Nosc AI, where he served
-          as a Backend Engineer. Husein is the kind of engineer you want in
-          your corner when building complex, high-performance systems. He
-          built the billing, invoicing system and many core functionalities
-          which were crucial for us. He is a fantastic asset to any
-          engineering team that values code quality and integrity."
-        </p>
-        <div class="mt-6">
-          <a
-            href="https://www.linkedin.com/in/suryasurakhman/?locale=en"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="text-primary font-semibold hover:text-primary/80 hover:underline transition-colors"
-          >
-            -- Surya Surakhman
-          </a>
-          <p class="text-sm text-muted-foreground">Senior Fullstack Engineer</p>
-          <p class="text-sm text-muted-foreground">Ex-Coupang &amp; HOOQ | Distributed Systems &amp; AI</p>
+    {testimonials.map((item, i) => (
+      <div data-reveal data-reveal-delay={String(120 + i * 40)}>
+        <div class="bg-[rgba(0,255,163,0.05)] border-l-[3px] border-[#00ffa3] p-6 rounded-lg my-5">
+          {item.paragraphs.map((paragraph, j) => (
+            <p class:list={['italic text-[#e0e0e0] leading-relaxed text-[1.1rem]', { 'mt-4': j > 0 }]}>
+              {j === 0 && '"'}{paragraph}{j === item.paragraphs.length - 1 && '"'}
+            </p>
+          ))}
+          <div class="mt-6">
+            {item.url ? (
+              <a
+                href={item.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-primary font-semibold hover:text-primary/80 hover:underline transition-colors"
+              >
+                -- {item.name}
+              </a>
+            ) : (
+              <p class="text-primary font-semibold">-- {item.name}</p>
+            )}
+            <p class="text-sm text-muted-foreground">{item.title}</p>
+            {item.subtitle && <p class="text-sm text-muted-foreground">{item.subtitle}</p>}
+          </div>
         </div>
       </div>
-    </div>
+    ))}
 
     <div data-reveal data-reveal-delay="200">
       <a
@@ -45,7 +50,7 @@ const recommendationsUrl = `${linkedinBase}details/recommendations/?detailScreen
         rel="noopener noreferrer"
         class="inline-flex items-center text-primary hover:text-primary/80 transition-colors"
       >
-        View all recommendations on LinkedIn -&gt;
+        {sections.testimonials.linkText}
       </a>
     </div>
   </div>
