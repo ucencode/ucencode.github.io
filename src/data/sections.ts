@@ -7,7 +7,7 @@ export const sections = {
   projects: {
     label: "Projects",
     title: "Selected Work",
-    intro: "A selection of projects I've built — from freelance work to enterprise systems.",
+    intro: "A selection of projects I've built.",
   },
   experience: {
     label: "Experience",

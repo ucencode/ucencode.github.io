@@ -3,7 +3,7 @@ export const profile = {
   role: "Fullstack Engineer",
   headline: "Fullstack & Product Engineer",
   intro: "I build reliable products end to end, from backend workflows to the interfaces people use every day. I shape features around real workflows and the feedback of the people who use them.",
-  metaDescription: "Ahmad Husein Hambali is a backend-focused Fullstack Engineer with 6 years of production experience building reliable Node.js and TypeScript systems with architectural clarity and long-term maintainability.",
+  metaDescription: "Ahmad Husein Hambali is a backend-focused Fullstack Engineer with 6 years of experience building healthcare SaaS, ERP, and AI-enabled products with a product-minded approach.",
 };
 
 export const description = [
@@ -13,11 +13,13 @@ export const description = [
 ];
 
 export const coreStrengths = [
-  "Backend Engineering — Node.js, TypeScript, Express.js, Laravel",
-  "System Architecture — API design, asynchronous workflows, event-driven systems",
-  "Data & Persistence — PostgreSQL, Redis, query optimization, indexing, data modeling",
-  "Infrastructure & Delivery — Docker, GitHub Actions, CI/CD, Google Cloud, Linux",
+  "Product Engineering — Turning user needs into features, refining them with feedback",
+  "Backend Engineering — Node.js, TypeScript, Express.js, Laravel, FastAPI, Go (Gin)",
+  "Frontend — React, Tailwind CSS, building complete features across the stack",
+  "System Architecture — REST APIs, asynchronous workflows, event-driven systems, microservices",
+  "Data & Infrastructure — PostgreSQL, TimescaleDB, Redis, Docker, CI/CD, Google Cloud",
   "Integrations & Automation — Billing systems, ERP workflows, external APIs",
+  "AI Integrations — Local LLM inference, OCR pipelines, LLM output validation",
 ];
 
 export const socialLinks = {

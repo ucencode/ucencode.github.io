@@ -12,6 +12,7 @@ export const experience = [
       "Reduced data-entry errors to near zero and eliminated manual submissions by developing asynchronous API and event-driven workflows across invoicing, insurance, external labs, and wearable devices.",
       "Proposed and led a plugin architecture refactor that eliminated a deeply coupled inheritance chain and reduced build times by 25%.",
       "Built dedicated microservices for document processing, XML-based billing integrations, and GDPR-conscious medical imaging metadata anonymization.",
+      "Supported AI-driven features, including LLM diagnostic workflows, doctor-letter generation, and OCR-to-health-record pipelines, through code review, testing, and local iteration.",
     ],
   },
   {
@@ -47,13 +48,13 @@ export const experience = [
     location: "Surabaya, Indonesia - On-site - 1 Year 2 Months",
     bullets: [
       "Maintained and improved a WordPress-based media website, ensuring stability, compatibility, and reliable production operation.",
-      "Built a CodeIgniter-based online competition platform with participant registration, submission workflows, and an admin portal for managing entries and follow-ups.",
+      "Built a CodeIgniter-based online competition platform with up to 1500 participant registrations, submission workflows, and an admin portal for managing entries and follow-ups.",
     ],
   },
   {
     year: "Jul 2018 - Jun 2019",
     company: "PT. Hyperdata Solusindo Mandiri",
-    position: "Assistant Software Engineer",
+    position: "Software Engineer Intern",
     location: "Tangerang, Indonesia - On-site - 1 Year",
     bullets: [
       "Developed and maintained backend logic for web applications using PHP and CodeIgniter.",
