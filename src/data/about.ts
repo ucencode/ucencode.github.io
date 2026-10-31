@@ -3,7 +3,7 @@ export const profile = {
   role: "Fullstack Engineer",
   headline: "Fullstack & Product Engineer",
   intro: "I build reliable products end to end, from backend workflows to the interfaces people use every day. I shape features around real workflows and the feedback of the people who use them.",
-  metaDescription: "Ahmad Husein Hambali is a backend-focused Fullstack Engineer with 6 years of experience building healthcare SaaS, ERP, and AI-enabled products with a product-minded approach.",
+  metaDescription: "Ahmad Husein Hambali is a backend-focused Fullstack Engineer with 5+ years of experience building healthcare SaaS, ERP, and AI-enabled products with a product-minded approach.",
 };
 
 export const description = [
