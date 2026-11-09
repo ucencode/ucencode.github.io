@@ -71,7 +71,7 @@ Single-page portfolio site. `src/pages/index.astro` composes all sections inside
 
 **Astro vs React split** — most sections are static `.astro` components (Hero, About, Projects, Experience, Testimonials, Blog, Contact, Footer). Two React Islands remain:
 - `Header.tsx` (`client:load`) — fixed nav with scroll-detection, active-section highlight, mobile hamburger, and homepage-vs-route active state.
-- `ProjectSlides.tsx` (`client:visible`) — screenshot carousel with zoom on each project page.
+- `ProjectSlides.tsx` (`client:visible`) — screenshot carousel on each project page, with a fullscreen view in a native `<dialog>`.
 
 **Project pages** — `Projects.astro` renders the homepage cards as links to `src/pages/projects/[id].astro`, which builds one static page per project at `/projects/{id}/` (title, description, stack, links, slides, then the `additionalInfo` case-study sections). Each page passes its own title, description and `ogImage` (the card image, or the first slide) to `BaseLayout`, so link previews and crawlers see the full case study.
 
