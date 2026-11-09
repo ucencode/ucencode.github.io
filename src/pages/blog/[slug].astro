@@ -1,5 +1,5 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Header from '../../components/Header.tsx';
 import Footer from '../../components/Footer.astro';
@@ -10,7 +10,7 @@ export async function getStaticPaths() {
     .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
   return posts.map((post, index) => ({
-    params: { slug: post.slug },
+    params: { slug: post.id },
     props: {
       post,
       prev: posts[index + 1] ?? null,
@@ -20,7 +20,7 @@ export async function getStaticPaths() {
 }
 
 const { post, prev, next } = Astro.props;
-const { Content } = await post.render();
+const { Content } = await render(post);
 ---
 
 <BaseLayout title={`${post.data.title} — ${profile.name}`} description={post.data.description} ogType="article">
@@ -35,12 +35,12 @@ const { Content } = await post.render();
       </div>
       <div class="flex items-center gap-2">
         {prev && (
-          <a href={`/blog/${prev.slug}`} class="px-4 py-2 rounded-lg border border-border text-muted-foreground hover:text-foreground hover:border-primary/40 transition-colors duration-200">
+          <a href={`/blog/${prev.id}`} class="px-4 py-2 rounded-lg border border-border text-muted-foreground hover:text-foreground hover:border-primary/40 transition-colors duration-200">
             ← Previous
           </a>
         )}
         {next && (
-          <a href={`/blog/${next.slug}`} class="px-4 py-2 rounded-lg border border-border text-muted-foreground hover:text-foreground hover:border-primary/40 transition-colors duration-200">
+          <a href={`/blog/${next.id}`} class="px-4 py-2 rounded-lg border border-border text-muted-foreground hover:text-foreground hover:border-primary/40 transition-colors duration-200">
             Next →
           </a>
         )}
@@ -81,12 +81,12 @@ const { Content } = await post.render();
       </div>
       <div class="flex items-center gap-2">
         {prev && (
-          <a href={`/blog/${prev.slug}`} class="px-4 py-2 rounded-lg border border-border text-muted-foreground hover:text-foreground hover:border-primary/40 transition-colors duration-200">
+          <a href={`/blog/${prev.id}`} class="px-4 py-2 rounded-lg border border-border text-muted-foreground hover:text-foreground hover:border-primary/40 transition-colors duration-200">
             ← Previous
           </a>
         )}
         {next && (
-          <a href={`/blog/${next.slug}`} class="px-4 py-2 rounded-lg border border-border text-muted-foreground hover:text-foreground hover:border-primary/40 transition-colors duration-200">
+          <a href={`/blog/${next.id}`} class="px-4 py-2 rounded-lg border border-border text-muted-foreground hover:text-foreground hover:border-primary/40 transition-colors duration-200">
             Next →
           </a>
         )}
