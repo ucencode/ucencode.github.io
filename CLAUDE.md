@@ -91,7 +91,7 @@ Default to static `.astro`. Only reach for a React Island when a component needs
 
 ### Blog
 
-Markdown files in `src/content/blog/`, via Astro content collections (Zod schema in `src/content/config.ts`). Frontmatter:
+Markdown files in `src/content/blog/`, via Astro content collections (`glob` loader and Zod schema in `src/content.config.ts`; the post slug is `post.id`). Frontmatter:
 
 ```markdown
 ---
@@ -112,7 +112,7 @@ draft: true                  # optional, defaults to false; true hides from list
 
 ## Styling
 
-Tailwind CSS v4 via PostCSS. Design tokens are CSS custom properties in `src/styles/global.css` (dark-only theme, emerald-green primary `hsl(160 84% 39%)`). Tailwind color names (`primary`, `muted`, `card`, etc.) map to those variables.
+Tailwind CSS v4 via the `@tailwindcss/vite` plugin (registered in `astro.config.mjs`). Design tokens are CSS custom properties in `src/styles/global.css` (dark-only theme, emerald-green primary `hsl(160 84% 39%)`). Tailwind color names (`primary`, `muted`, `card`, etc.) map to those variables.
 
 Custom utilities in `global.css`:
 - `.section-alt` — alternating section background.
