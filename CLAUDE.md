@@ -57,7 +57,7 @@ Common scopes: `projects`, `blog`, `header`, `layout`, `contact`, `footer`, `dat
 | ----------------------------------- | -------------------------------------------------- | ------------------------ |
 | Bio / strengths / social links      | `src/data/about.ts`                                | No                       |
 | Work history / experience summary   | `src/data/experience.ts`                           | No                       |
-| Projects (cards, modals, slides)    | `src/data/projects.ts` + images in `public/`       | No                       |
+| Projects (cards, pages, slides)     | `src/data/projects.ts` + images in `public/`       | No                       |
 | Blog posts                          | `src/content/blog/*.md`                             | No                       |
 | Page section order                  | `src/pages/index.astro`                             | Yes                      |
 | Site-wide `<head>` / meta / GA      | `src/layouts/BaseLayout.astro`                      | Yes                      |
@@ -69,9 +69,11 @@ Prefer the data files. Only edit components for structural or behavioral changes
 
 Single-page portfolio site. `src/pages/index.astro` composes all sections inside `BaseLayout.astro`, in this order: Header → Hero → About → Projects → Experience → Testimonials → Blog → Contact → Footer.
 
-**Astro vs React split** — most sections are static `.astro` components (Hero, About, Experience, Testimonials, Blog, Contact, Footer). Two are React Islands hydrated with `client:load`:
-- `Header.tsx` — fixed nav with scroll-detection, active-section highlight, mobile hamburger, and homepage-vs-route active state.
-- `Projects.tsx` + `ProjectModal.tsx` — project card grid opening a Radix Dialog modal with a slide carousel + an info slide.
+**Astro vs React split** — most sections are static `.astro` components (Hero, About, Projects, Experience, Testimonials, Blog, Contact, Footer). Two React Islands remain:
+- `Header.tsx` (`client:load`) — fixed nav with scroll-detection, active-section highlight, mobile hamburger, and homepage-vs-route active state.
+- `ProjectSlides.tsx` (`client:visible`) — screenshot carousel with zoom on each project page.
+
+**Project pages** — `Projects.astro` renders the homepage cards as links to `src/pages/projects/[id].astro`, which builds one static page per project at `/projects/{id}/` (title, description, stack, links, slides, then the `additionalInfo` case-study sections). Each page passes its own title, description and `ogImage` (the card image, or the first slide) to `BaseLayout`, so link previews and crawlers see the full case study.
 
 Default to static `.astro`. Only reach for a React Island when a component needs client-side interactivity or state.
 
@@ -85,7 +87,7 @@ Default to static `.astro`. Only reach for a React Island when a component needs
 - `id` is the slug — it's the React key AND the slide directory name: slides live at `public/slides/{id}/slide-NN.webp`.
 - `slides` is an explicit `Slide[]` (`{ path, caption? }`) — **no glob inference**; every slide must be listed. `path` is relative to `public/` (e.g. `"slides/clinic-os/slide-01.webp"`). An optional `caption` renders as a gradient overlay at the bottom of the slide.
 - `image.src` is the card preview (`.webp` in `public/projects/`, path like `/projects/clinicos-preview.webp`).
-- `projectStack` labels render as `.tech-tag` pills on the card and in the modal.
+- `projectStack` labels render as `.tech-tag` pills on the card and on the project page.
 
 ### Blog
 
@@ -106,7 +108,7 @@ draft: true                  # optional, defaults to false; true hides from list
 - Each post sets `ogType="article"` and its own OG title/description via `BaseLayout`.
 - Open items are tracked in `TODO.md` (syntax highlighting, reading time, tag filter).
 
-**`BaseLayout.astro`** owns the HTML shell: `<head>` meta/OG/Twitter tags, canonical URL, JSON-LD `Person` structured data, Google Analytics (`G-LS7KXT6E9R`), Inter + JetBrains Mono fonts, and the `IntersectionObserver` that drives scroll-reveal animations.
+**`BaseLayout.astro`** owns the HTML shell: `<head>` meta/OG/Twitter tags (props: `title`, `description`, `ogType`, `ogImage`, `ogImageAlt`), canonical URL, JSON-LD `Person` structured data, Google Analytics (`G-LS7KXT6E9R`), Inter + JetBrains Mono fonts, and the `IntersectionObserver` that drives scroll-reveal animations.
 
 ## Styling
 
@@ -115,7 +117,7 @@ Tailwind CSS v4 via PostCSS. Design tokens are CSS custom properties in `src/sty
 Custom utilities in `global.css`:
 - `.section-alt` — alternating section background.
 - `.tech-tag` — monospace pill for tech-stack labels.
-- `.hero-grid` / `.hero-glow` — decorative hero background effects.
+- `.hero-grid` / `.hero-glow` — decorative hero background effects (the hero is text-only; there is no code/terminal window).
 - `[data-reveal]` — scroll-reveal entry animation; add `data-reveal-delay="<ms>"` to stagger (read by the observer in `BaseLayout.astro`).
 
 Path alias `@` → `./src` (configured in both `astro.config.mjs` and `tsconfig.json`).

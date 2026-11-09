@@ -6,13 +6,21 @@ interface Props {
   title?: string;
   description?: string;
   ogType?: 'website' | 'article';
+  /** Path relative to the site root, e.g. `/projects/clinicos-preview.webp`. Defaults to `/og-image.png`. */
+  ogImage?: string;
+  ogImageAlt?: string;
 }
 
 const {
   title = `${profile.name} — ${profile.role}`,
   description = profile.metaDescription,
   ogType = 'website',
+  ogImage,
+  ogImageAlt,
 } = Astro.props;
+
+const ogImageUrl = new URL(ogImage ?? '/og-image.png', Astro.site).toString();
+const ogImageAltText = ogImageAlt ?? `${profile.name} — ${profile.role}`;
 ---
 <!doctype html>
 <html lang="en">
@@ -33,10 +41,10 @@ const {
     <meta property="og:url" content={new URL(Astro.url.pathname, Astro.site).toString()} />
     <meta property="og:site_name" content={profile.name} />
     <meta property="og:locale" content="en_US" />
-    <meta property="og:image" content={new URL('/og-image.png', Astro.site).toString()} />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content={`${profile.name} — ${profile.role}`} />
+    <meta property="og:image" content={ogImageUrl} />
+    {!ogImage && <meta property="og:image:width" content="1200" />}
+    {!ogImage && <meta property="og:image:height" content="630" />}
+    <meta property="og:image:alt" content={ogImageAltText} />
 
     <meta name="twitter:card" content="summary_large_image" />
 
