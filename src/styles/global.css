@@ -102,3 +102,9 @@
     }
   }
 }
+
+/* "Figure N." label inside Markdown figure captions (see src/lib/rehype-figure.mjs). */
+.figure-label {
+  font-weight: 600;
+  color: hsl(var(--foreground));
+}

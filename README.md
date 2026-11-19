@@ -75,6 +75,39 @@ draft: true                    # optional — hides from listing when true
 
 Each post gets its own OG metadata (`og:title`, `og:description`, `og:type: article`) via `BaseLayout`. See `TODO.md` for planned improvements.
 
+### Add a post through GitHub Issues
+
+1. In the repository, choose **Issues → New issue → New Blog Post**. The template supplies the required fields and the `blog-post` label. Only issues authored by the repository owner are processed; issues from other authors are ignored.
+2. Fill in the title, short description, optional comma-separated tags, draft choice (`false` to publish, `true` to keep it hidden), and the full post body in Markdown.
+3. Submit the issue. The **Publish Blog Post** workflow creates `src/content/blog/<title-slug>.md` on the `content/blog-writings` branch. The title must not already exist as a post.
+4. After the workflow succeeds, merge `content/blog-writings` into `main` to publish the post on the site. The workflow comments on and closes the issue after committing.
+
+If you create an issue without the template, its body must contain these exact Markdown headings, each followed by a blank line. The workflow requires non-empty `Title` and `Content` sections:
+
+```markdown
+### Title
+
+Your post title
+
+### Description
+
+A short summary
+
+### Tags
+
+engineering, debugging
+
+### Publish as draft?
+
+false
+
+### Content
+
+Write the full post in Markdown.
+```
+
+Add the `blog-post` label to trigger the workflow. Only the repository owner's issues are eligible. A regular issue body without these headings will fail validation; the workflow does not infer the title or content from free-form text.
+
 ## Deploy
 
 ```bash

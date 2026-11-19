@@ -57,7 +57,7 @@ Common scopes: `projects`, `blog`, `header`, `layout`, `contact`, `footer`, `dat
 | ----------------------------------- | -------------------------------------------------- | ------------------------ |
 | Bio / strengths / social links      | `src/data/about.ts`                                | No                       |
 | Work history / experience summary   | `src/data/experience.ts`                           | No                       |
-| Projects (cards, pages, slides)     | `src/data/projects.ts` + images in `public/`       | No                       |
+| Projects (cards, case studies)      | `src/content/projects/*.md` + images in `public/`  | No                       |
 | Blog posts                          | `src/content/blog/*.md`                             | No                       |
 | Page section order                  | `src/pages/index.astro`                             | Yes                      |
 | Site-wide `<head>` / meta / GA      | `src/layouts/BaseLayout.astro`                      | Yes                      |
@@ -71,22 +71,38 @@ Single-page portfolio site. `src/pages/index.astro` composes all sections inside
 
 **Astro vs React split** — most sections are static `.astro` components (Hero, About, Projects, Experience, Testimonials, Blog, Contact, Footer). Two React Islands remain:
 - `Header.tsx` (`client:load`) — fixed nav with scroll-detection, active-section highlight, mobile hamburger, and homepage-vs-route active state.
-- `ProjectSlides.tsx` (`client:visible`) — screenshot carousel on each project page, with a fullscreen view in a native `<dialog>`.
+- `ImageViewer.tsx` (`client:idle`) — fullscreen viewer for the figures on a project page, in a native `<dialog>` with wheel and pinch zoom, drag to pan and prev/next navigation.
 
-**Project pages** — `Projects.astro` renders the homepage cards as links to `src/pages/projects/[id].astro`, which builds one static page per project at `/projects/{id}/` (title, description, stack, links, slides, then the `additionalInfo` case-study sections). Each page passes its own title, description and `ogImage` (the card image, or the first slide) to `BaseLayout`, so link previews and crawlers see the full case study.
+**Project pages** — `Projects.astro` renders the homepage cards as links to `src/pages/projects/[id].astro`, which builds one static page per project at `/projects/{id}/` (title, description, stack and links, then the Markdown case study). Each page passes its own title, description and `ogImage` (the card image, or the first figure in the body) to `BaseLayout`, so link previews and crawlers see the full case study.
 
 Default to static `.astro`. Only reach for a React Island when a component needs client-side interactivity or state.
 
-**Content is data-driven** — all portfolio content lives in `src/data/`:
+**Content is data-driven** — profile content lives in `src/data/`, while projects and blog posts are Markdown content collections:
 - `about.ts` — `description` (bio paragraphs), `coreStrengths`, and a `socialLinks` object.
 - `experience.ts` — work-history entries and summary blurb.
-- `projects.ts` — exported `Project[]`. Each entry has `id`, `title`, `description`, `image: { src, alt }`, `slides: Slide[]`, `projectStack: string[]`, optional `links`, and optional `additionalInfo: Metadata[]` (deep-dive sections: Problem / My Role / What I Built / Outcome). Types are JSDoc-documented at the top of the file — follow them exactly.
 
-### Projects & slides
+### Projects
 
-- `id` is the slug — it's the React key AND the slide directory name: slides live at `public/slides/{id}/slide-NN.webp`.
-- `slides` is an explicit `Slide[]` (`{ path, caption? }`) — **no glob inference**; every slide must be listed. `path` is relative to `public/` (e.g. `"slides/clinic-os/slide-01.webp"`). An optional `caption` renders as a gradient overlay at the bottom of the slide.
-- `image.src` is the card preview (`.webp` in `public/projects/`, path like `/projects/clinicos-preview.webp`).
+Each project is a Markdown file in `src/content/projects/`, loaded as the `projects` content collection (schema in `src/content.config.ts`). The file name is the project `id` and URL slug. Frontmatter:
+
+```markdown
+---
+title: "ClinicOS"
+description: "One-line summary — shown on the card, the page header and link previews"
+order: 1                     # position on the homepage and in prev/next navigation
+image:                       # optional card preview, path relative to this file
+  src: "../../assets/projects/clinicos-preview.webp"
+  alt: "ClinicOS project preview"
+projectStack: ["Node.js", "PostgreSQL"]
+links:                       # optional, defaults to []
+  - label: "Website"
+    url: "https://clinicos.de"
+---
+```
+
+- The body is the case study, written as sections with `##` headings (Problem / My Role / What I Built / Outcome).
+- Figures are written as `![alt](../../assets/projects/{id}/slide-NN.webp "Caption")`. The `rehype-figure` plugin in `src/lib/rehype-figure.mjs` (registered in `astro.config.mjs`) turns an image with a title on its own line into a `<figure>` numbered "Figure N." per page; an image without a title stays a plain image. The plugin runs on the unified processor, which requires `@astrojs/markdown-remark`. The first figure on a page loads eagerly and later ones lazily. Rendered Markdown is cached by the content layer, so after editing the plugin, delete `node_modules/.astro` and `.astro/data-store.json` (or restart the dev server after deleting them) to see the change.
+- All project images live in `src/assets/projects/`: card previews at the top level, figures in `src/assets/projects/{id}/`. Astro optimizes both at build time and adds `width`/`height`; a wrong path fails the build. The `image()` schema helper validates card previews, and `Projects.astro` renders them with `<Image>` and a `srcset`. When a project has no card image, the project page resolves its first figure through `import.meta.glob` for `ogImage`.
 - `projectStack` labels render as `.tech-tag` pills on the card and on the project page.
 
 ### Blog
