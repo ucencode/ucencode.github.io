@@ -6,7 +6,7 @@ interface Props {
   title?: string;
   description?: string;
   ogType?: 'website' | 'article';
-  /** Path relative to the site root, e.g. `/projects/clinicos-preview.webp`. Defaults to `/og-image.png`. */
+  /** Path relative to the site root, or a built asset URL from `ImageMetadata.src`. Defaults to `/og-image.png`. */
   ogImage?: string;
   ogImageAlt?: string;
 }

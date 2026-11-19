@@ -3,15 +3,16 @@ import { ExternalLink } from 'lucide-react';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Header from '../../components/Header.tsx';
 import Footer from '../../components/Footer.astro';
-import ProjectSlides from '../../components/ProjectSlides.tsx';
-import { projects, type Project } from '@/data/projects';
+import ImageViewer from '../../components/ImageViewer.tsx';
+import { getCollection, render, type CollectionEntry } from 'astro:content';
 import { profile } from '@/data/about';
 
-export function getStaticPaths() {
-  return projects.map((project, index) => ({
-    params: { id: project.id },
+export async function getStaticPaths() {
+  const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
+  return projects.map((entry, index) => ({
+    params: { id: entry.id },
     props: {
-      project,
+      entry,
       prev: projects[index - 1] ?? null,
       next: projects[index + 1] ?? null,
     },
@@ -19,14 +20,21 @@ export function getStaticPaths() {
 }
 
 interface Props {
-  project: Project;
-  prev: Project | null;
-  next: Project | null;
+  entry: CollectionEntry<'projects'>;
+  prev: CollectionEntry<'projects'> | null;
+  next: CollectionEntry<'projects'> | null;
 }
 
-const { project, prev, next } = Astro.props;
+const { entry, prev, next } = Astro.props;
+const project = entry.data;
+const { Content } = await render(entry);
 const base = import.meta.env.BASE_URL;
-const ogImage = project.image?.src ?? project.slides[0]?.path;
+// Fall back to the first figure in the body when the project has no card image.
+// Figure paths are relative to src/content/projects/, so resolve them to the built asset.
+const figureImages = import.meta.glob<{ default: ImageMetadata }>('/src/assets/projects/**/*.{webp,png,jpg,jpeg}', { eager: true });
+const firstFigure = entry.body?.match(/!\[[^\]]*\]\(([^\s)]+)/)?.[1];
+const firstFigureKey = firstFigure && new URL(firstFigure, 'file:///src/content/projects/').pathname;
+const ogImage = project.image?.src.src ?? (firstFigureKey ? figureImages[firstFigureKey]?.default.src : undefined);
 ---
 
 <BaseLayout
@@ -66,7 +74,7 @@ const ogImage = project.image?.src ?? project.slides[0]?.path;
         ))}
       </div>
 
-      {project.links && project.links.length > 0 && (
+      {project.links.length > 0 && (
         <div class="mt-5 flex flex-wrap gap-x-5 gap-y-2">
           {project.links.map((link) => (
             <a
@@ -83,38 +91,33 @@ const ogImage = project.image?.src ?? project.slides[0]?.path;
       )}
     </header>
 
-    {project.slides.length > 0 && (
-      <div class="mt-10">
-        <ProjectSlides client:visible title={project.title} slides={project.slides} />
-      </div>
-    )}
+    <article
+      data-figures
+      class="mt-12 prose prose-invert max-w-none
+        prose-headings:font-semibold prose-headings:text-foreground
+        prose-h2:font-mono prose-h2:text-xs prose-h2:text-primary prose-h2:tracking-wide prose-h2:uppercase prose-h2:mt-10 prose-h2:mb-3
+        prose-p:text-muted-foreground prose-p:leading-relaxed
+        prose-li:text-muted-foreground prose-li:leading-relaxed prose-li:marker:text-primary
+        prose-a:text-primary prose-a:no-underline hover:prose-a:underline
+        prose-strong:text-foreground
+        prose-figure:my-8 prose-img:rounded-xl prose-img:border prose-img:border-border prose-img:cursor-zoom-in prose-img:w-full
+        prose-figcaption:text-center prose-figcaption:text-sm prose-figcaption:text-muted-foreground">
+      <Content />
+    </article>
 
-    {project.additionalInfo && project.additionalInfo.length > 0 && (
-      <article class="mt-12 space-y-10">
-        {project.additionalInfo.map((section) => (
-          <section>
-            <h2 class="font-mono text-xs text-primary mb-3 tracking-wide uppercase">{section.title}</h2>
-            <ul class="space-y-2 list-disc pl-5 marker:text-primary">
-              {section.bullets.map((bullet) => (
-                <li class="text-muted-foreground leading-relaxed">{bullet}</li>
-              ))}
-            </ul>
-          </section>
-        ))}
-      </article>
-    )}
+    <ImageViewer client:idle />
 
     <nav class="flex items-center justify-between mt-16 pt-8 border-t border-border text-sm">
       <a href={`${base}#projects`} class="text-muted-foreground hover:text-primary transition-colors">← All projects</a>
       <div class="flex items-center gap-2">
         {prev && (
           <a href={`${base}projects/${prev.id}/`} class="px-4 py-2 rounded-lg border border-border text-muted-foreground hover:text-foreground hover:border-primary/40 transition-colors duration-200">
-            ← {prev.title}
+            ← {prev.data.title}
           </a>
         )}
         {next && (
           <a href={`${base}projects/${next.id}/`} class="px-4 py-2 rounded-lg border border-border text-muted-foreground hover:text-foreground hover:border-primary/40 transition-colors duration-200">
-            {next.title} →
+            {next.data.title} →
           </a>
         )}
       </div>

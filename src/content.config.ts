@@ -13,4 +13,18 @@ const blog = defineCollection({
   }),
 });
 
-export const collections = { blog };
+const projects = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/projects' }),
+  schema: ({ image }) => z.object({
+    title: z.string(),
+    description: z.string(),
+    /** Position on the homepage and in prev/next navigation, ascending. */
+    order: z.number(),
+    /** Card preview image; `src` is relative to the Markdown file, inside `src/assets/projects/`. */
+    image: z.object({ src: image(), alt: z.string() }).optional(),
+    projectStack: z.array(z.string()),
+    links: z.array(z.object({ label: z.string(), url: z.url() })).optional().default([]),
+  }),
+});
+
+export const collections = { blog, projects };
