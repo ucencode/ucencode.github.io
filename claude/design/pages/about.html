@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!--
+  /about — E2 theme
+  REFERENCE SNAPSHOT at 1440px wide — not a layout spec. Rules and tokens: DESIGN.md.
+  Images point at the repo's existing public/ paths; they load when served by the Astro dev server, not when opened as a file.
+  Content structure is the reference; inner pages use the "spec sheet" style (numbered sections, margin notes).
+-->
+<meta charset="utf-8">
+<title>About — Ahmad Husein Hambali</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#1e1e1e}
+a{color:#cdd6f4}a:hover{color:#ffffff}
+a:focus-visible{outline:2px solid #cdd6f4;outline-offset:3px}
+</style>
+</head>
+<body>
+<div style="background: #1e1e1e; min-height: 100vh; font-family: Inter, system-ui, sans-serif; color: #cdd6f4">
+<div style="box-sizing: border-box; max-width: 1160px; margin: 0 auto; padding: 24px clamp(16px, 4vw, 48px) 56px; display: flex; flex-direction: column">
+
+  <!-- masthead -->
+  <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 4px 24px; padding-bottom: 4px; border-bottom: 1px solid #333333; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #a6adc8">
+    <div style="display: flex; align-items: center; gap: 4px">
+      <a href="/" aria-label="Home" style="display: inline-flex; align-items: center; height: 44px; padding-right: 4px; text-decoration: none; color: #a6adc8">~</a><span style="color: #585b70">/</span><span aria-current="page" style="padding-left: 4px; color: #fab387">about</span>
+    </div>
+    <nav aria-label="Main" style="display: flex; flex-wrap: wrap; gap: 0 18px">
+      <a href="/about" style="display: inline-flex; align-items: center; height: 44px; text-decoration: none; color: #fab387">about</a>
+      <a href="/projects" style="display: inline-flex; align-items: center; height: 44px; text-decoration: none; color: #a6adc8">projects</a>
+      <a href="/experience" style="display: inline-flex; align-items: center; height: 44px; text-decoration: none; color: #a6adc8">experience</a>
+      <a href="/blog" style="display: inline-flex; align-items: center; height: 44px; text-decoration: none; color: #a6adc8">blog</a>
+      <a href="/recommendations" style="display: inline-flex; align-items: center; height: 44px; text-decoration: none; color: #a6adc8">recommendations</a>
+    </nav>
+  </div>
+
+  <!-- title block -->
+  <header style="display: flex; flex-wrap: wrap; gap: 32px 64px; padding: 56px 0 40px; border-bottom: 1px solid #333333">
+    <div style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 18px">
+      <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #a6adc8">doc README</span>
+      <h1 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: clamp(40px, 4.4vw, 64px); line-height: 0.9; letter-spacing: -0.045em; font-weight: 700">Ahmad Husein<br>Hambali</h1>
+      <p style="margin: 0; font-family: 'JetBrains Mono', monospace; font-size: 16px; font-weight: 500; color: #fab387">Fullstack &amp; Product Engineer</p>
+    </div>
+    <div style="flex: 1 1 280px; display: flex; flex-direction: column; justify-content: flex-end; gap: 20px">
+      <dl style="margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 10px 20px; font-size: 14px">
+        <dt style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #a6adc8; padding-top: 2px">status</dt><dd style="margin: 0; color: #fab387">open to roles</dd>
+        <dt style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #a6adc8; padding-top: 2px">based</dt><dd style="margin: 0; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #a6adc8">[ city · timezone ]</dd>
+        <dt style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #a6adc8; padding-top: 2px">since</dt><dd style="margin: 0">2018 · 5 roles</dd>
+        <dt style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #a6adc8; padding-top: 2px">latest</dt><dd style="margin: 0">Founding Engineer, NoscAi GmbH</dd>
+      </dl>
+      <a href="#cv" style="display: flex; align-items: center; justify-content: space-between; gap: 12px; height: 48px; box-sizing: border-box; padding: 0 16px; border-radius: 3px; border: 1px solid #444444; text-decoration: none; font-size: 14px; font-weight: 600">
+        <span>Download CV <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 400; color: #a6adc8">· pdf</span></span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#cdd6f4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v12M6 11l6 6 6-6M5 20h14"></path></svg>
+      </a>
+    </div>
+  </header>
+
+  <!-- contents -->
+  <nav aria-label="Contents" style="display: flex; flex-wrap: wrap; gap: 4px 28px; padding: 14px 0; border-bottom: 1px solid #333333; font-family: 'JetBrains Mono', monospace; font-size: 13px">
+    <a href="#s1" style="display: inline-flex; align-items: center; height: 36px; text-decoration: none; color: #a6adc8"><span style="color: #fab387">§1</span>&#160;summary</a>
+    <a href="#s2" style="display: inline-flex; align-items: center; height: 36px; text-decoration: none; color: #a6adc8"><span style="color: #fab387">§2</span>&#160;how i work</a>
+    <a href="#s3" style="display: inline-flex; align-items: center; height: 36px; text-decoration: none; color: #a6adc8"><span style="color: #fab387">§3</span>&#160;current focus</a>
+    <a href="#s4" style="display: inline-flex; align-items: center; height: 36px; text-decoration: none; color: #a6adc8"><span style="color: #fab387">§4</span>&#160;capabilities</a>
+    <a href="#s5" style="display: inline-flex; align-items: center; height: 36px; text-decoration: none; color: #a6adc8"><span style="color: #fab387">§5</span>&#160;availability</a>
+  </nav>
+
+  <section id="s1" aria-labelledby="h1s" style="display: flex; flex-wrap: wrap; gap: 16px 40px; padding: 48px 0; border-bottom: 1px solid #333333">
+    <h2 id="h1s" style="flex: 0 0 120px; margin: 0; font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: 500; color: #fab387">§1 summary</h2>
+    <p style="flex: 999 1 480px; min-width: 0; max-width: 640px; margin: 0; font-size: 22px; line-height: 1.55; color: #cdd6f4">I’m a software engineer building products that make everyday work easier. I recently worked as a founding engineer on an AI-enabled clinic management platform, and I’m exploring AI-powered learning tools through my personal project, Study AI Tools.</p>
+    <aside style="flex: 1 1 200px; align-self: flex-start; padding-left: 14px; border-left: 1px solid #333333; font-family: 'JetBrains Mono', monospace; font-size: 12px; line-height: 1.6; color: #a6adc8">see → <a href="/projects/clinic-os" style="color: #bac2de">CS-001 ClinicOS</a></aside>
+  </section>
+
+  <section id="s2" aria-labelledby="h2s" style="display: flex; flex-wrap: wrap; gap: 16px 40px; padding: 48px 0; border-bottom: 1px solid #333333">
+    <h2 id="h2s" style="flex: 0 0 120px; margin: 0; font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: 500; color: #fab387">§2 how i work</h2>
+    <p style="flex: 999 1 480px; min-width: 0; max-width: 640px; margin: 0; font-size: 18px; line-height: 1.7; color: #bac2de">I work end to end, from understanding user needs and translating them into features to implementation and refinement based on feedback. I have a strong backend focus, but I’m comfortable working across the stack to deliver complete features. I care about removing unnecessary constraints, automating repetitive work, and keeping software reliable and maintainable without removing the human judgment that makes it useful.</p>
+    <aside style="flex: 1 1 200px; align-self: flex-start; padding-left: 14px; border-left: 1px solid #333333; font-family: 'JetBrains Mono', monospace; font-size: 12px; line-height: 1.6; color: #a6adc8">strong backend focus · works across the stack</aside>
+  </section>
+
+  <section id="s3" aria-labelledby="h3s" style="display: flex; flex-wrap: wrap; gap: 16px 40px; padding: 48px 0; border-bottom: 1px solid #333333">
+    <h2 id="h3s" style="flex: 0 0 120px; margin: 0; font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: 500; color: #fab387">§3 current focus</h2>
+    <p style="flex: 999 1 480px; min-width: 0; max-width: 640px; margin: 0; font-size: 18px; line-height: 1.7; color: #bac2de">I’m currently exploring AI integrations to understand where AI can meaningfully help with human work and where human involvement remains important. Beyond engineering, I’m reflective and try to understand situations from different perspectives. To me, empathy is fundamental to how we work with others and build things for them.</p>
+    <aside style="flex: 1 1 200px; align-self: flex-start; padding-left: 14px; border-left: 1px solid #333333; font-family: 'JetBrains Mono', monospace; font-size: 12px; line-height: 1.6; color: #a6adc8">see → <a href="#study-ai-tools" style="color: #bac2de">CS-004 AI Study Tool</a></aside>
+  </section>
+
+  <section id="s4" aria-labelledby="h4s" style="display: flex; flex-wrap: wrap; gap: 16px 40px; padding: 48px 0; border-bottom: 1px solid #333333">
+    <h2 id="h4s" style="flex: 0 0 120px; margin: 0; font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: 500; color: #fab387">§4 capabilities</h2>
+    <div style="flex: 999 1 720px; min-width: 0; overflow-x: auto">
+      <table style="width: 100%; min-width: 560px; border-collapse: collapse; font-size: 15px">
+        <thead>
+          <tr style="border-bottom: 1px solid #333333; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #a6adc8; text-align: left">
+            <th scope="col" style="padding: 10px 24px 10px 0; font-weight: 400; width: 34%">area</th>
+            <th scope="col" style="padding: 10px 0; font-weight: 400">detail</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom: 1px solid #333333"><th scope="row" style="padding: 14px 24px 14px 0; text-align: left; font-weight: 600">Product Engineering</th><td style="padding: 14px 0; color: #bac2de">Turning user needs into features, refining them with feedback</td></tr>
+          <tr style="border-bottom: 1px solid #333333"><th scope="row" style="padding: 14px 24px 14px 0; text-align: left; font-weight: 600">Backend Engineering</th><td style="padding: 14px 0; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #bac2de">Node.js, TypeScript, Express.js, Laravel, FastAPI, Go (Gin)</td></tr>
+          <tr style="border-bottom: 1px solid #333333"><th scope="row" style="padding: 14px 24px 14px 0; text-align: left; font-weight: 600">Frontend</th><td style="padding: 14px 0; color: #bac2de">React, Tailwind CSS, building complete features across the stack</td></tr>
+          <tr style="border-bottom: 1px solid #333333"><th scope="row" style="padding: 14px 24px 14px 0; text-align: left; font-weight: 600">System Architecture</th><td style="padding: 14px 0; color: #bac2de">REST APIs, asynchronous workflows, event-driven systems, microservices</td></tr>
+          <tr style="border-bottom: 1px solid #333333"><th scope="row" style="padding: 14px 24px 14px 0; text-align: left; font-weight: 600">Data &amp; Infrastructure</th><td style="padding: 14px 0; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #bac2de">PostgreSQL, TimescaleDB, Redis, Docker, CI/CD, Google Cloud</td></tr>
+          <tr style="border-bottom: 1px solid #333333"><th scope="row" style="padding: 14px 24px 14px 0; text-align: left; font-weight: 600">Integrations &amp; Automation</th><td style="padding: 14px 0; color: #bac2de">Billing systems, ERP workflows, external APIs</td></tr>
+          <tr style="border-bottom: 1px solid #333333"><th scope="row" style="padding: 14px 24px 14px 0; text-align: left; font-weight: 600">AI Integrations</th><td style="padding: 14px 0; color: #bac2de">Local LLM inference, OCR pipelines, LLM output validation</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="s5" aria-labelledby="h5s" style="display: flex; flex-wrap: wrap; gap: 16px 40px; padding: 48px 0; border-bottom: 1px solid #333333">
+    <h2 id="h5s" style="flex: 0 0 120px; margin: 0; font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: 500; color: #fab387">§5 availability</h2>
+    <div style="flex: 999 1 480px; min-width: 0; max-width: 640px; display: flex; flex-direction: column; gap: 20px">
+      <p style="margin: 0; font-size: 20px; line-height: 1.55; color: #cdd6f4">Open to backend-focused fullstack roles on product teams building SaaS and AI-enabled products.</p>
+      <div style="display: flex; flex-wrap: wrap; gap: 8px">
+        <a href="mailto:ahmadhuseinh.03@gmail.com" style="height: 44px; box-sizing: border-box; padding: 0 18px; border-radius: 3px; background: #fab387; color: #11111b; font-weight: 600; font-size: 14px; text-decoration: none; display: flex; align-items: center; gap: 10px">Email me <span aria-hidden="true">→</span></a>
+        <a href="https://www.linkedin.com/in/ahmadhuseinhambali03/" style="height: 44px; box-sizing: border-box; padding: 0 16px; border-radius: 3px; border: 1px solid #444444; font-size: 14px; font-weight: 500; text-decoration: none; display: flex; align-items: center">LinkedIn</a>
+        <a href="https://github.com/ucencode" style="height: 44px; box-sizing: border-box; padding: 0 16px; border-radius: 3px; border: 1px solid #444444; font-size: 14px; font-weight: 500; text-decoration: none; display: flex; align-items: center">GitHub</a>
+      </div>
+    </div>
+    <aside style="flex: 1 1 200px; align-self: flex-start; padding-left: 14px; border-left: 1px solid #333333; font-family: 'JetBrains Mono', monospace; font-size: 12px; line-height: 1.6; color: #a6adc8">mailto: ahmadhuseinh.03@gmail.com</aside>
+  </section>
+
+</div>
+</div>
+</body>
+</html>

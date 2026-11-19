@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!--
+  /projects (My Work) — E2 theme
+  REFERENCE SNAPSHOT at 1440px wide — not a layout spec. Rules and tokens: DESIGN.md.
+  Images point at the repo's existing public/ paths; they load when served by the Astro dev server, not when opened as a file.
+  Content structure is the reference; inner pages use the "spec sheet" style (numbered sections, margin notes).
+-->
+<meta charset="utf-8">
+<title>My Work — Ahmad Husein Hambali</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#1e1e1e}
+a{color:#cdd6f4}a:hover{color:#ffffff}
+a:focus-visible{outline:2px solid #cdd6f4;outline-offset:3px}
+</style>
+</head>
+<body>
+<div style="background: #1e1e1e; min-height: 100vh; font-family: Inter, system-ui, sans-serif; color: #cdd6f4">
+<div style="box-sizing: border-box; max-width: 1160px; margin: 0 auto; padding: 24px clamp(16px, 4vw, 48px) 56px; display: flex; flex-direction: column">
+
+  <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 4px 24px; padding-bottom: 4px; border-bottom: 1px solid #333333; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #a6adc8">
+    <div style="display: flex; align-items: center; gap: 4px">
+      <a href="/" aria-label="Home" style="display: inline-flex; align-items: center; height: 44px; padding-right: 4px; text-decoration: none; color: #a6adc8">~</a><span style="color: #585b70">/</span><span aria-current="page" style="padding-left: 4px; color: #b4befe">projects</span>
+    </div>
+    <nav aria-label="Main" style="display: flex; flex-wrap: wrap; gap: 0 18px">
+      <a href="/about" style="display: inline-flex; align-items: center; height: 44px; text-decoration: none; color: #a6adc8">about</a>
+      <a href="/projects" style="display: inline-flex; align-items: center; height: 44px; text-decoration: none; color: #b4befe">projects</a>
+      <a href="/experience" style="display: inline-flex; align-items: center; height: 44px; text-decoration: none; color: #a6adc8">experience</a>
+      <a href="/blog" style="display: inline-flex; align-items: center; height: 44px; text-decoration: none; color: #a6adc8">blog</a>
+      <a href="/recommendations" style="display: inline-flex; align-items: center; height: 44px; text-decoration: none; color: #a6adc8">recommendations</a>
+    </nav>
+  </div>
+
+  <header style="display: flex; flex-wrap: wrap; gap: 32px 64px; padding: 56px 0 40px; border-bottom: 1px solid #333333">
+    <div style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 18px">
+      <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #a6adc8">doc INDEX</span>
+      <h1 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: clamp(32px, 3.4vw, 48px); line-height: 0.9; letter-spacing: -0.045em; font-weight: 700">My Work</h1>
+      <p style="margin: 0; max-width: 58ch; font-size: 19px; line-height: 1.55; color: #bac2de">A selection of projects I’ve built. Each one has a case study: the problem, my role, what I built, and how it turned out.</p>
+    </div>
+    <dl style="flex: 1 1 260px; margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 10px 20px; align-content: end; font-size: 14px">
+      <dt style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #a6adc8; padding-top: 2px">entries</dt><dd style="margin: 0">4</dd>
+      <dt style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #a6adc8; padding-top: 2px">professional</dt><dd style="margin: 0">3</dd>
+      <dt style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #a6adc8; padding-top: 2px">personal</dt><dd style="margin: 0">1</dd>
+      <dt style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #a6adc8; padding-top: 2px">domains</dt><dd style="margin: 0">healthcare · ERP · AI</dd>
+    </dl>
+  </header>
+
+  <section aria-label="Project index" style="padding: 40px 0; border-bottom: 1px solid #333333; overflow-x: auto">
+    <table style="width: 100%; min-width: 880px; border-collapse: collapse; font-size: 15px">
+      <thead>
+        <tr style="border-bottom: 1px solid #333333; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #a6adc8; text-align: left">
+          <th scope="col" style="padding: 10px 20px 10px 0; font-weight: 400; width: 84px">id</th>
+          <th scope="col" style="padding: 10px 20px 10px 0; font-weight: 400; width: 152px"><span style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">preview</span></th>
+          <th scope="col" style="padding: 10px 20px 10px 0; font-weight: 400">project</th>
+          <th scope="col" style="padding: 10px 20px 10px 0; font-weight: 400; width: 170px">period (my role)</th>
+          <th scope="col" style="padding: 10px 0; font-weight: 400; width: 220px">core stack</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-bottom: 1px solid #333333; vertical-align: top">
+          <td style="padding: 20px 20px 20px 0; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #b4befe">CS-001</td>
+          <td style="padding: 20px 20px 20px 0"><img src="/projects/clinicos-preview.webp" alt="" style="width: 132px; height: 80px; object-fit: cover; object-position: top left; display: block; border-radius: 3px; border: 1px solid #333333"></td>
+          <td style="padding: 20px 20px 20px 0">
+            <a href="/projects/clinic-os" style="display: flex; flex-direction: column; gap: 6px; text-decoration: none">
+              <span style="font-family: 'Space Grotesk', sans-serif; font-size: 24px; font-weight: 700; letter-spacing: -0.025em">ClinicOS →</span>
+              <span style="font-size: 14px; line-height: 1.55; color: #a6adc8">AI-assisted healthcare operations platform for medical practices.</span>
+              <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #a6adc8">professional · healthcare SaaS · NoscAi GmbH</span>
+            </a>
+          </td>
+          <td style="padding: 20px 20px 20px 0; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #bac2de">Jan 2024 – Dec 2025</td>
+          <td style="padding: 20px 0; font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 1.7; color: #bac2de">Node.js · TypeScript<br>PostgreSQL · Redis<br><span style="color: #a6adc8">+10</span></td>
+        </tr>
+        <tr style="border-bottom: 1px solid #333333; vertical-align: top">
+          <td style="padding: 20px 20px 20px 0; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #b4befe">CS-002</td>
+          <td style="padding: 20px 20px 20px 0"><img src="/projects/bygp-preview.webp" alt="" style="width: 132px; height: 80px; object-fit: cover; object-position: top left; display: block; border-radius: 3px; border: 1px solid #333333"></td>
+          <td style="padding: 20px 20px 20px 0">
+            <a href="#book-your-gp" style="display: flex; flex-direction: column; gap: 6px; text-decoration: none">
+              <span style="font-family: 'Space Grotesk', sans-serif; font-size: 24px; font-weight: 700; letter-spacing: -0.025em">BookYourGP →</span>
+              <span style="font-size: 14px; line-height: 1.55; color: #a6adc8">Automated recall and appointment coordination for UK GP practices.</span>
+              <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #a6adc8">professional · UK healthcare · Indokoding</span>
+            </a>
+          </td>
+          <td style="padding: 20px 20px 20px 0; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #bac2de">Sep 2021 – Jan 2024</td>
+          <td style="padding: 20px 0; font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 1.7; color: #bac2de">Laravel · PHP<br>MySQL · Twilio<br><span style="color: #a6adc8">+5</span></td>
+        </tr>
+        <tr style="border-bottom: 1px solid #333333; vertical-align: top">
+          <td style="padding: 20px 20px 20px 0; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #b4befe">CS-003</td>
+          <td style="padding: 20px 20px 20px 0"><img src="/projects/pitcar-preview.webp" alt="" style="width: 132px; height: 80px; object-fit: cover; object-position: top left; display: block; border-radius: 3px; border: 1px solid #333333"></td>
+          <td style="padding: 20px 20px 20px 0">
+            <a href="#pitcar" style="display: flex; flex-direction: column; gap: 6px; text-decoration: none">
+              <span style="font-family: 'Space Grotesk', sans-serif; font-size: 24px; font-weight: 700; letter-spacing: -0.025em">Pitcar Service Management →</span>
+              <span style="font-size: 14px; line-height: 1.55; color: #a6adc8">Odoo-based operations system for a car repair service company.</span>
+              <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #a6adc8">professional · ERP · freelance</span>
+            </a>
+          </td>
+          <td style="padding: 20px 20px 20px 0; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #bac2de">Aug 2023 – Oct 2024</td>
+          <td style="padding: 20px 0; font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 1.7; color: #bac2de">Odoo · Python<br>PostgreSQL <span style="color: #a6adc8">+1</span></td>
+        </tr>
+        <tr style="border-bottom: 1px solid #333333; vertical-align: top">
+          <td style="padding: 20px 20px 20px 0; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #b4befe">CS-004</td>
+          <td style="padding: 20px 20px 20px 0"><div style="width: 132px; height: 80px; box-sizing: border-box; border-radius: 3px; border: 1px solid #333333; background: #f3f3f1; display: flex; align-items: center; justify-content: center; overflow: hidden"><img src="/slides/study-ai-tools/slide-00.webp" alt="" style="max-width: 120px; max-height: 70px; object-fit: contain; display: block"></div></td>
+          <td style="padding: 20px 20px 20px 0">
+            <a href="#study-ai-tools" style="display: flex; flex-direction: column; gap: 6px; text-decoration: none">
+              <span style="font-family: 'Space Grotesk', sans-serif; font-size: 24px; font-weight: 700; letter-spacing: -0.025em">AI Study Tool →</span>
+              <span style="font-size: 14px; line-height: 1.55; color: #a6adc8">Local-first tool that turns lecture slides into structured learning content using LLMs.</span>
+              <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #a6adc8">personal · local-first AI · source on GitHub</span>
+            </a>
+          </td>
+          <td style="padding: 20px 20px 20px 0; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #a6adc8">—</td>
+          <td style="padding: 20px 0; font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 1.7; color: #bac2de">Python · FastAPI<br>LLM · React<br><span style="color: #a6adc8">+5</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 20px; padding-top: 32px">
+    <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #a6adc8">a selection, not the full list</span>
+    <div style="display: flex; flex-wrap: wrap; gap: 8px">
+      <a href="mailto:ahmadhuseinh.03@gmail.com" style="height: 44px; box-sizing: border-box; padding: 0 18px; border-radius: 3px; background: #fab387; color: #11111b; font-weight: 600; font-size: 14px; text-decoration: none; display: flex; align-items: center; gap: 10px">Email me <span aria-hidden="true">→</span></a>
+      <a href="https://www.linkedin.com/in/ahmadhuseinhambali03/" style="height: 44px; box-sizing: border-box; padding: 0 16px; border-radius: 3px; border: 1px solid #444444; font-size: 14px; font-weight: 500; text-decoration: none; display: flex; align-items: center">LinkedIn</a>
+      <a href="https://github.com/ucencode" style="height: 44px; box-sizing: border-box; padding: 0 16px; border-radius: 3px; border: 1px solid #444444; font-size: 14px; font-weight: 500; text-decoration: none; display: flex; align-items: center">GitHub</a>
+    </div>
+  </div>
+
+</div>
+</div>
+</body>
+</html>
