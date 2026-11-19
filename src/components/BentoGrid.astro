@@ -1,0 +1,405 @@
+---
+import { getCollection } from 'astro:content';
+import ExperienceTimeline from './ExperienceTimeline.astro';
+import { tiles, type TileId } from '@/data/tiles';
+import { testimonials } from '@/data/testimonials';
+import { socialLinks } from '@/data/about';
+
+const posts = await getCollection('blog', ({ data }) => !data.draft);
+const quote = testimonials[0];
+
+const tile = (id: TileId) => tiles.find((t) => t.id === id)!;
+const about = tile('about');
+const work = tile('work');
+const experience = tile('experience');
+const blog = tile('blog');
+const recs = tile('recommendations');
+const contact = tile('contact');
+const blogLine = `${posts.length} posts · ${blog.line}`;
+---
+<div class="hub">
+  <div class="row row1">
+  <a href={about.href} class="tile tile-about">
+    <div class="tile-top">
+      <span class="label" style="color: var(--peach)">{about.label}</span>
+      <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"></path></svg>
+    </div>
+    <div class="tile-body">
+      <h1 class="display-xl name">{about.title}</h1>
+      <p class="role" style="color: var(--peach)">{about.line}</p>
+    </div>
+  </a>
+
+  <a href={work.href} class="tile tile-work">
+    <div class="tile-top">
+      <span class="label" style="color: var(--lavender)">{work.label}</span>
+      <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"></path></svg>
+    </div>
+    <div class="tile-body">
+      <h2 class="headline-lg title">{work.title}</h2>
+      <p class="line mono">{work.line}</p>
+    </div>
+  </a>
+
+  <a href={experience.href} class="tile tile-experience">
+    <div class="tile-top">
+      <span class="label" style="color: var(--lavender)">{experience.label}</span>
+      <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"></path></svg>
+    </div>
+    <div class="tile-body">
+      <div class="visual"><ExperienceTimeline /></div>
+      <h2 class="headline-md title">{experience.title}</h2>
+      <p class="line">{experience.line}</p>
+    </div>
+  </a>
+  </div>
+
+  <div class="row row2">
+  <a href={blog.href} class="tile tile-blog">
+    <div class="tile-top">
+      <span class="label" style="color: var(--lavender)">{blog.label}</span>
+      <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"></path></svg>
+    </div>
+    <div class="tile-body">
+      <h2 class="headline-md title">{blog.title}</h2>
+      <p class="line mono">{blogLine}</p>
+    </div>
+  </a>
+
+  <section class="tile tile-recs" aria-labelledby="tile-recs-h">
+    <div class="tile-top">
+      <h2 id="tile-recs-h" class="label" style="color: var(--mauve)">{recs.label}</h2>
+      <span class="quote-mark" aria-hidden="true">“</span>
+    </div>
+    <blockquote class="visual quote">
+      {quote.highlight.before}<span style="color: var(--mauve)">{quote.highlight.phrase}</span>{quote.highlight.after}”
+    </blockquote>
+    <div class="recs-foot">
+      <span class="line by"><span class="by-name">{quote.name}</span> · {quote.title}</span>
+      <a href="/recommendations/" class="recs-link">{recs.title} <span aria-hidden="true">→</span></a>
+    </div>
+  </section>
+
+  <section class="tile tile-contact" aria-labelledby="tile-contact-h">
+    <div class="contact-head">
+      <span class="label" style="color: var(--peach)">{contact.label}</span>
+      <h2 id="tile-contact-h" class="headline-md title">{contact.title}</h2>
+    </div>
+    <div class="contact-actions">
+      <a href={`mailto:${socialLinks.email}`} class="btn-primary email"><span>Email me</span><span aria-hidden="true">→</span></a>
+      <div class="contact-row">
+        <a href={socialLinks.linkedin} class="btn-secondary" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href={socialLinks.github} class="btn-secondary" target="_blank" rel="noopener noreferrer">GitHub</a>
+      </div>
+    </div>
+  </section>
+  </div>
+</div>
+
+<style>
+  .hub {
+    display: grid;
+    gap: var(--gap);
+    grid-template-columns: 1fr;
+  }
+
+  /* Tile base */
+  .tile {
+    container-type: inline-size;
+    min-width: 0;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 24px;
+    border-radius: var(--radius-tile);
+    background: var(--tile);
+    border: 1px solid var(--border);
+    color: var(--text);
+    text-decoration: none;
+  }
+  a.tile {
+    transition: border-color 150ms ease-out;
+  }
+  a.tile:hover {
+    border-color: var(--border-strong);
+  }
+  .tile-about {
+    padding: 32px;
+  }
+  .tile-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+  }
+  .label {
+    margin: 0;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 13px;
+    font-weight: 400;
+  }
+  .arrow {
+    flex: 0 0 20px;
+    width: 20px;
+    height: 20px;
+    fill: none;
+    stroke: var(--subtext);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .tile-body {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .title,
+  .name {
+    margin: 0;
+  }
+  .name {
+    max-width: 9em;
+  }
+  .role {
+    margin: 0;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 16px;
+    font-weight: 500;
+  }
+  .line {
+    margin: 0;
+    font-size: 14px;
+    color: var(--subtext);
+  }
+  .mono {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 13px;
+  }
+  .tile-experience .visual {
+    margin-bottom: 4px;
+  }
+
+  /* Recommendations */
+  .quote-mark {
+    font-family: var(--font-display);
+    font-size: 48px;
+    line-height: 0.6;
+    font-weight: 700;
+    color: var(--mauve);
+  }
+  .quote {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+  .recs-foot {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 8px 16px;
+  }
+  .by {
+    font-size: 13px;
+  }
+  .by-name {
+    font-weight: 600;
+    color: var(--text);
+  }
+  .recs-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    margin-bottom: -12px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--chip-text);
+    text-underline-offset: 4px;
+  }
+  .recs-link:hover {
+    color: var(--text);
+  }
+
+  /* Contact */
+  .contact-head {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .contact-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .email {
+    justify-content: space-between;
+    padding: 0 20px;
+  }
+  .contact-row {
+    display: flex;
+    gap: 8px;
+  }
+  .contact-row > a {
+    flex: 1 1 0;
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  /* A narrow tile keeps its label, title and arrow only. Phone rows always keep their line. */
+  @media (min-width: 700px) {
+    @container (max-width: 300px) {
+      .line {
+        display: none;
+      }
+    }
+  }
+
+  /* Phone: About block, then navigation rows */
+  @media (max-width: 699px) {
+    .tile-about {
+      min-height: clamp(185px, 28vh, 240px);
+      padding: 24px;
+    }
+    .tile:not(.tile-about) {
+      height: 84px;
+      flex-direction: row;
+      align-items: center;
+      padding: 0 16px;
+    }
+    .tile:not(.tile-about) .tile-body {
+      order: -1;
+      flex: 1 1 auto;
+      min-width: 0;
+      gap: 4px;
+    }
+    .tile:not(.tile-about) .tile-top {
+      flex: 0 0 auto;
+    }
+    .tile:not(.tile-about) .title,
+    .visual,
+    .quote-mark {
+      display: none;
+    }
+    .tile:not(.tile-about) .line {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    /* Label sits above the line in each row. */
+    .tile-work,
+    .tile-experience,
+    .tile-blog {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      grid-template-rows: auto auto;
+      align-content: center;
+      column-gap: 12px;
+      row-gap: 4px;
+    }
+    .tile-work .tile-top,
+    .tile-experience .tile-top,
+    .tile-blog .tile-top {
+      display: contents;
+    }
+    .tile-work .label,
+    .tile-experience .label,
+    .tile-blog .label {
+      grid-column: 1;
+      grid-row: 1;
+    }
+    .tile-work .arrow,
+    .tile-experience .arrow,
+    .tile-blog .arrow {
+      grid-column: 2;
+      grid-row: 1 / 3;
+    }
+    .tile-work .tile-body,
+    .tile-experience .tile-body,
+    .tile-blog .tile-body {
+      grid-column: 1;
+      grid-row: 2;
+    }
+    .tile-recs {
+      justify-content: space-between;
+    }
+    .tile-recs .by {
+      display: none;
+    }
+    .recs-link {
+      margin-bottom: 0;
+      white-space: nowrap;
+    }
+    .tile.tile-contact {
+      flex-direction: column;
+      align-items: stretch;
+      justify-content: center;
+      gap: 6px;
+      padding: 0 12px;
+    }
+    .tile-contact .contact-actions {
+      flex-direction: row;
+      gap: 6px;
+    }
+    .tile-contact .email {
+      flex: 1 1 0;
+      min-height: 44px;
+      padding: 0 12px;
+    }
+    .tile-contact .email span[aria-hidden] {
+      display: none;
+    }
+    .contact-row {
+      flex: 2 1 0;
+      gap: 6px;
+    }
+    .contact-row > a {
+      padding: 0 8px;
+    }
+  }
+
+  @media (max-width: 359px) {
+    .tile:not(.tile-about) {
+      height: 92px;
+    }
+  }
+
+  /* Phone and tablet: the row wrappers drop out and tiles flow in DOM order. */
+  .row {
+    display: contents;
+  }
+
+  /* Tablet: two columns in pairs */
+  @media (min-width: 700px) and (max-width: 1199px) {
+    .hub {
+      grid-template-columns: 1.2fr 1fr;
+      grid-auto-rows: minmax(260px, auto);
+    }
+  }
+
+  /* Desktop: two rows with their own column tracks, Blog in the corner */
+  @media (min-width: 1200px) {
+    .hub {
+      display: flex;
+      flex-direction: column;
+      min-height: min(100dvh - 2 * var(--page-pad), 760px);
+    }
+    .row {
+      display: grid;
+      flex: 1 1 0;
+      gap: var(--gap);
+      grid-template-rows: minmax(260px, auto);
+    }
+    .row1 {
+      grid-template-columns: 4fr 5fr minmax(280px, 3fr);
+    }
+    .row2 {
+      grid-template-columns: minmax(280px, 3fr) 3fr 4.4fr;
+      grid-template-areas: "contact recs blog";
+    }
+    .tile-contact { grid-area: contact; }
+    .tile-recs { grid-area: recs; }
+    .tile-blog { grid-area: blog; }
+  }
+</style>

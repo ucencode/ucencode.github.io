@@ -1,9 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import Header from '../../components/Header.tsx';
+import PageLayout from '../../layouts/PageLayout.astro';
 import BlogCard from '../../components/BlogCard.astro';
-import Footer from '../../components/Footer.astro';
 import { profile } from '@/data/about';
 import { sections } from '@/data/sections';
 
@@ -11,12 +9,12 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 ---
 
-<BaseLayout
+<PageLayout
+  width="64rem"
   title={`Blog — ${profile.name}`}
   description={sections.blog.metaDescription}
 >
-  <Header client:load />
-  <main class="max-w-5xl mx-auto px-6 py-24 md:py-32">
+  <div class="pt-12">
     <div>
       <p class="font-mono text-primary text-sm mb-3 tracking-wide">{sections.blog.label}</p>
       <h1 class="text-2xl md:text-3xl font-bold text-foreground mb-4">
@@ -36,6 +34,5 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft))
         ))}
       </div>
     )}
-  </main>
-  <Footer />
-</BaseLayout>
+  </div>
+</PageLayout>

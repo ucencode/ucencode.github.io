@@ -1,8 +1,6 @@
 ---
 import { getCollection, render } from 'astro:content';
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import Header from '../../components/Header.tsx';
-import Footer from '../../components/Footer.astro';
+import PageLayout from '../../layouts/PageLayout.astro';
 import { profile } from '@/data/about';
 
 export async function getStaticPaths() {
@@ -23,9 +21,9 @@ const { post, prev, next } = Astro.props;
 const { Content } = await render(post);
 ---
 
-<BaseLayout title={`${post.data.title} — ${profile.name}`} description={post.data.description} ogType="article">
-  <Header client:load />
-  <main class="max-w-2xl mx-auto px-6 py-24">
+<PageLayout
+  width="42rem" title={`${post.data.title} — ${profile.name}`} description={post.data.description} ogType="article">
+  <div class="pt-12">
 
     <nav class="flex items-center justify-between mb-10 text-sm">
       <div class="flex items-center gap-3">
@@ -93,6 +91,5 @@ const { Content } = await render(post);
       </div>
     </nav>
 
-  </main>
-  <Footer />
-</BaseLayout>
+  </div>
+</PageLayout>

@@ -1,0 +1,35 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+type Props = {
+  title?: string;
+  description?: string;
+  ogType?: 'website' | 'article';
+  ogImage?: string;
+  ogImageAlt?: string;
+  /** Max content width; defaults to the spec-sheet width. */
+  width?: string;
+};
+
+const { width = '1160px', ...rest } = Astro.props;
+---
+<BaseLayout {...rest}>
+  <div class="page" style={`--page-width: ${width}`}>
+    <Header />
+    <main>
+      <slot />
+    </main>
+  </div>
+  <Footer />
+</BaseLayout>
+
+<style>
+  .page {
+    box-sizing: border-box;
+    max-width: var(--page-width);
+    margin: 0 auto;
+    padding: 24px var(--page-pad) 56px;
+  }
+</style>

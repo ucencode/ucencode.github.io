@@ -1,0 +1,162 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+import PageLayout from '../../layouts/PageLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import { profile } from '@/data/about';
+
+const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
+const count = (kind: string) => projects.filter((p) => p.data.kind === kind).length;
+const domains = [...new Set(projects.map((p) => p.data.domain).filter(Boolean))];
+const caseId = (order: number) => `CS-${String(order).padStart(3, '0')}`;
+const STACK_SHOWN = 4;
+---
+<PageLayout title={`My Work — ${profile.name}`} description="A selection of projects with case studies: the problem, my role, what I built, and the outcome.">
+  <PageHeader
+    doc="doc INDEX"
+    title="My Work"
+    lead="A selection of projects I’ve built. Each one has a case study: the problem, my role, what I built, and how it turned out."
+    group="lavender"
+    meta={[
+      { term: 'entries', value: String(projects.length) },
+      { term: 'professional', value: String(count('professional')) },
+      { term: 'personal', value: String(count('personal')) },
+      { term: 'domains', value: domains.join(' · ') },
+    ]}
+  />
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">id</th>
+          <th scope="col">preview</th>
+          <th scope="col">project</th>
+          <th scope="col">period (my role)</th>
+          <th scope="col">core stack</th>
+        </tr>
+      </thead>
+      <tbody>
+        {projects.map(({ id, data }) => (
+          <tr>
+            <td class="mono id">{caseId(data.order)}</td>
+            <td>
+              {data.image ? (
+                <Image src={data.image.src} alt="" width={264} class="preview" />
+              ) : (
+                <span class="preview preview-empty" aria-hidden="true"></span>
+              )}
+            </td>
+            <td>
+              <a href={`/projects/${id}/`} class="project">
+                <span class="project-title">{data.title} <span aria-hidden="true">→</span></span>
+                <span class="project-desc">{data.description}</span>
+                <span class="mono project-meta">{[data.kind, data.domain, data.org].filter(Boolean).join(' · ')}</span>
+              </a>
+            </td>
+            <td class="mono period">{data.period ?? '—'}</td>
+            <td class="mono stack">
+              {data.projectStack.slice(0, STACK_SHOWN).join(' · ')}
+              {data.projectStack.length > STACK_SHOWN && <span class="more"> +{data.projectStack.length - STACK_SHOWN}</span>}
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p class="mono note">a selection, not the full list</p>
+</PageLayout>
+
+<style>
+  .table-wrap {
+    overflow-x: auto;
+  }
+  table {
+    width: 100%;
+    min-width: 760px;
+    border-collapse: collapse;
+  }
+  thead tr {
+    border-bottom: 1px solid var(--border);
+  }
+  th {
+    padding: 14px 20px 14px 0;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--subtext);
+    text-align: left;
+  }
+  tbody tr {
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  td {
+    padding: 20px 20px 20px 0;
+  }
+  td:last-child {
+    padding-right: 0;
+  }
+  .mono {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 13px;
+  }
+  .id {
+    color: var(--lavender);
+  }
+  .preview {
+    display: block;
+    width: 132px;
+    height: 80px;
+    object-fit: cover;
+    object-position: top left;
+    border-radius: var(--radius-chip);
+    border: 1px solid var(--border);
+  }
+  .preview-empty {
+    background: var(--track);
+  }
+  .project {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    max-width: 440px;
+    color: var(--text);
+    text-decoration: none;
+  }
+  .project-title {
+    font-family: var(--font-display);
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+  }
+  .project:hover .project-title {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+  .project-desc {
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--subtext);
+  }
+  .project-meta {
+    font-size: 12px;
+    color: var(--subtext);
+  }
+  .period,
+  .stack {
+    color: var(--chip-text);
+    line-height: 1.7;
+  }
+  .period {
+    white-space: nowrap;
+  }
+  .more {
+    color: var(--subtext);
+  }
+  .note {
+    margin: 24px 0 0;
+    font-size: 12px;
+    color: var(--subtext);
+  }
+</style>

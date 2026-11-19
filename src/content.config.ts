@@ -23,6 +23,13 @@ const projects = defineCollection({
     /** Card preview image; `src` is relative to the Markdown file, inside `src/assets/projects/`. */
     image: z.object({ src: image(), alt: z.string() }).optional(),
     projectStack: z.array(z.string()),
+    /** Period of my role, e.g. "Jan 2024 – Dec 2025"; shown on /projects. */
+    period: z.string().optional(),
+    kind: z.enum(['professional', 'personal']).optional(),
+    /** Short domain label, e.g. "healthcare SaaS". */
+    domain: z.string().optional(),
+    /** Organisation or context, e.g. "NoscAi GmbH" or "freelance". */
+    org: z.string().optional(),
     links: z.array(z.object({ label: z.string(), url: z.url() })).optional().default([]),
   }),
 });

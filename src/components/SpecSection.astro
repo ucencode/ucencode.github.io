@@ -1,0 +1,59 @@
+---
+import type { Group } from '@/lib/routes';
+
+type Props = {
+  id: string;
+  /** Section heading shown in the left column, e.g. "§1 summary". */
+  heading: string;
+  group: Group;
+};
+
+const { id, heading, group } = Astro.props;
+const hasNote = Astro.slots.has('note');
+---
+<section id={id} aria-labelledby={`${id}-h`} class="spec">
+  <h2 id={`${id}-h`} class="spec-h" style={`color: var(--${group})`}>{heading}</h2>
+  <div class="spec-body">
+    <slot />
+  </div>
+  {hasNote && (
+    <aside class="spec-note">
+      <slot name="note" />
+    </aside>
+  )}
+</section>
+
+<style>
+  .spec {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px 40px;
+    padding: 48px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .spec-h {
+    flex: 0 0 160px;
+    margin: 0;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .spec-body {
+    flex: 999 1 480px;
+    min-width: 0;
+    max-width: 720px;
+  }
+  .spec-note {
+    flex: 1 1 180px;
+    align-self: flex-start;
+    padding-left: 14px;
+    border-left: 1px solid var(--border);
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 12px;
+    line-height: 1.6;
+    color: var(--subtext);
+  }
+  .spec-note :global(a) {
+    color: var(--chip-text);
+  }
+</style>

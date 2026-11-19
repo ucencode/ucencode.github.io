@@ -1,0 +1,105 @@
+---
+import { experience } from '@/data/experience';
+
+type Props = {
+  /** Show company names next to the lanes and a tick for every year. */
+  detailed?: boolean;
+};
+
+const { detailed = false } = Astro.props;
+
+const toMonths = (ym: string) => {
+  const [y, m] = ym.split('-').map(Number);
+  return y * 12 + (m - 1);
+};
+
+const startYear = Math.min(...experience.map((e) => Number(e.start.slice(0, 4))));
+const endYear = Math.max(...experience.map((e) => Number(e.end.slice(0, 4))));
+// The axis runs to the end of the last year, so a role ending in December fills its lane.
+const axisStart = startYear * 12;
+const axisSpan = (endYear + 1) * 12 - axisStart;
+const latestStart = Math.max(...experience.map((e) => toMonths(e.start)));
+
+const lanes = [...experience]
+  .sort((a, b) => toMonths(a.start) - toMonths(b.start))
+  .map((e) => ({
+    name: e.short,
+    left: ((toMonths(e.start) - axisStart) / axisSpan) * 100,
+    width: ((toMonths(e.end) - toMonths(e.start) + 1) / axisSpan) * 100,
+    current: toMonths(e.start) === latestStart,
+  }));
+
+const years = Array.from({ length: endYear - startYear + 2 }, (_, i) => startYear + i);
+const label = `Timeline of ${lanes.length} roles from ${startYear} to ${endYear}`;
+---
+<div class:list={['timeline', { detailed }]} role="img" aria-label={label}>
+  {lanes.map((lane) => (
+    <div class="lane-row">
+      {detailed && <span class="lane-name">{lane.name}</span>}
+      <div class="lane">
+        <div
+          class="bar"
+          style={`left: ${lane.left.toFixed(2)}%; width: ${lane.width.toFixed(2)}%; background: var(${lane.current ? '--lavender' : '--muted-bar'})`}
+        ></div>
+      </div>
+    </div>
+  ))}
+  <div class="lane-row">
+    {detailed && <span class="lane-name"></span>}
+    <div class="axis">
+      {detailed ? years.map((y) => <span>{y}</span>) : (
+        <>
+          <span>{startYear}</span>
+          <span>{endYear}</span>
+        </>
+      )}
+    </div>
+  </div>
+</div>
+
+<style>
+  .timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .detailed {
+    gap: 10px;
+  }
+  .lane-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .lane-name {
+    flex: 0 0 84px;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 12px;
+    color: var(--subtext);
+  }
+  .lane {
+    position: relative;
+    flex: 1 1 auto;
+    height: 6px;
+    border-radius: var(--radius-bar);
+    background: var(--track);
+  }
+  .detailed .lane {
+    height: 10px;
+  }
+  .bar {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    border-radius: var(--radius-bar);
+  }
+  .axis {
+    flex: 1 1 auto;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2px;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 11px;
+    color: var(--subtext);
+  }
+</style>

@@ -1,0 +1,150 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import { profile } from '@/data/about';
+import { testimonials } from '@/data/testimonials';
+
+const initials = (name: string) =>
+  name.split(' ').filter(Boolean).slice(0, 2).map((w) => w[0]).join('').toUpperCase();
+---
+<PageLayout
+  title={`Recommendations — ${profile.name}`}
+  description="What colleagues say about working with Ahmad Husein Hambali."
+>
+  <section class="intro" aria-labelledby="recs-h">
+    <span class="count">/recommendations · {testimonials.length} people</span>
+    <h1 id="recs-h" class="headline-lg">What colleagues say</h1>
+  </section>
+
+  <div class="grid">
+    {testimonials.map((t) => (
+      <figure class="card">
+        <blockquote lang="en">
+          “{t.highlight.before}<span class="phrase">{t.highlight.phrase}</span>{t.highlight.after}”
+        </blockquote>
+        {t.translatedFrom && <p class="translated">translated from {t.translatedFrom}</p>}
+        <figcaption>
+          <span class="person">
+            <span class="avatar" aria-hidden="true">{initials(t.name)}</span>
+            <span class="who">
+              <span class="name">{t.name}</span>
+              <span class="role">{t.title} · {t.relation}</span>
+            </span>
+          </span>
+          {t.url && (
+            <a href={t.url} class="full" target="_blank" rel="noopener noreferrer">
+              full text <span aria-hidden="true">↗</span>
+              <span class="sr-only">from {t.name} on LinkedIn</span>
+            </a>
+          )}
+        </figcaption>
+      </figure>
+    ))}
+  </div>
+</PageLayout>
+
+<style>
+  .intro {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 56px 0 40px;
+  }
+  .intro h1 {
+    margin: 0;
+  }
+  .count {
+    width: fit-content;
+    padding: 4px 10px;
+    border-radius: var(--radius-tile);
+    border: 1px solid var(--border);
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 12px;
+    color: var(--mauve);
+  }
+  .grid {
+    max-width: 772px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+    gap: var(--gap);
+  }
+  .card {
+    min-width: 0;
+    margin: 0;
+    padding: 22px;
+    border-radius: var(--radius-tile);
+    background: var(--tile);
+    border: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 24px;
+  }
+  blockquote {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: 19px;
+    line-height: 1.35;
+    letter-spacing: -0.02em;
+    font-weight: 500;
+    color: var(--text);
+  }
+  .phrase {
+    color: var(--mauve);
+  }
+  .translated {
+    margin: -12px 0 0;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 11px;
+    color: var(--subtext);
+  }
+  figcaption {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+  }
+  .person {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .avatar {
+    flex: 0 0 40px;
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-tile);
+    background: var(--track);
+    color: var(--mauve);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-size: 15px;
+    font-weight: 700;
+  }
+  .who {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .name {
+    font-size: 16px;
+    font-weight: 600;
+  }
+  .role {
+    font-size: 13px;
+    color: var(--subtext);
+  }
+  .full {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 12px;
+    color: var(--chip-text);
+  }
+  .full:hover {
+    color: var(--text);
+  }
+</style>
