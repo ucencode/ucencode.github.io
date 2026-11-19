@@ -6,7 +6,7 @@ export interface Testimonial {
   subtitle: string;
   /** Working relationship to Husein. */
   relation: string;
-  /** One key line with the name replaced by "[He]"; `phrase` is highlighted. */
+  /** One key line with the name replaced by "He"; `phrase` is highlighted. */
   highlight: { before: string; phrase: string; after: string };
   /** True when `highlight` is translated from the original language. */
   translatedFrom?: string;
@@ -21,7 +21,7 @@ export const testimonials: Testimonial[] = [
     subtitle: "",
     relation: "same team at NoscAi",
     highlight: {
-      before: "[He] was someone ",
+      before: "He was someone ",
       phrase: "others relied on",
       after: " because of his strong understanding of the product, engineering, and quality.",
     },
@@ -38,7 +38,7 @@ export const testimonials: Testimonial[] = [
     subtitle: "Ex-Coupang & HOOQ",
     relation: "managed Husein directly",
     highlight: {
-      before: "[He] is the kind of engineer ",
+      before: "He is the kind of engineer ",
       phrase: "you want in your corner",
       after: " when building complex, high-performance systems.",
     },
@@ -54,7 +54,7 @@ export const testimonials: Testimonial[] = [
     subtitle: "",
     relation: "different team",
     highlight: {
-      before: "[He] dove in, found the issue in the database query, and optimized it. That ",
+      before: "He dove in, found the issue in the database query, and optimized it. That ",
       phrase: "18-second lag dropped to just 1–2 seconds",
       after: ".",
     },
