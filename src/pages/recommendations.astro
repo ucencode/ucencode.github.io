@@ -1,4 +1,5 @@
 ---
+import { ArrowUpRight } from 'lucide-react';
 import PageLayout from '../layouts/PageLayout.astro';
 import { profile } from '@/data/about';
 import { testimonials } from '@/data/testimonials';
@@ -32,7 +33,7 @@ const initials = (name: string) =>
           </span>
           {t.url && (
             <a href={t.url} class="full" target="_blank" rel="noopener noreferrer">
-              full text <span aria-hidden="true">↗</span>
+              full text <ArrowUpRight size={14} aria-hidden="true" />
               <span class="sr-only">from {t.name} on LinkedIn</span>
             </a>
           )}
@@ -139,6 +140,7 @@ const initials = (name: string) =>
   .full {
     display: inline-flex;
     align-items: center;
+    gap: 4px;
     min-height: 44px;
     font-family: 'JetBrains Mono', ui-monospace, monospace;
     font-size: 12px;

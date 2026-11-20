@@ -1,5 +1,6 @@
 ---
 import { Image } from 'astro:assets';
+import { ArrowRight } from 'lucide-react';
 import { getCollection } from 'astro:content';
 import PageLayout from '../../layouts/PageLayout.astro';
 import PageHeader from '../../components/PageHeader.astro';
@@ -49,7 +50,7 @@ const STACK_SHOWN = 4;
             </td>
             <td>
               <a href={`/projects/${id}/`} class="project">
-                <span class="project-title">{data.title} <span aria-hidden="true">→</span></span>
+                <span class="project-title">{data.title} <ArrowRight size={20} aria-hidden="true" className="title-arrow" /></span>
                 <span class="project-desc">{data.description}</span>
                 <span class="mono project-meta">{[data.kind, data.domain, data.org].filter(Boolean).join(' · ')}</span>
               </a>
@@ -129,6 +130,9 @@ const STACK_SHOWN = 4;
     font-size: 24px;
     font-weight: 700;
     letter-spacing: -0.025em;
+  }
+  .project-title .title-arrow {
+    vertical-align: -0.1em;
   }
   .project:hover .project-title {
     text-decoration: underline;
