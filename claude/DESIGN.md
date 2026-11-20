@@ -85,15 +85,17 @@ spacing:
   tile-padding-lg: 32px
   page-margin: 48px
   side-tile-min: 280px      # Experience and Contact never narrower than this
-  tile-min-height: 260px
-  hub-max-height: 760px     # homepage hub cap; also limited by 100dvh
+  tile-min-height: 260px    # tablet rows; they grow to share the viewport height
+  hub-max-width: 1920px     # desktop hub fills the viewport up to this width
+  hub-max-height: 900px     # and up to this height
+  hub-min-height: 688px     # below this viewport height the page scrolls
   row1-about: 4             # grid fr ratios (desktop)
   row1-work: 5
   row1-experience: 3
   row2-contact: 3
   row2-recommendations: 3
   row2-blog: 4.4
-  tile-container-compact: 300px  # container-query width below which a tile drops its secondary line
+  tile-container-compact: 220px  # container-query content width below which a tile drops its secondary line
   phone-row: 84px
   phone-row-narrow: 92px
   tap-target: 44px
@@ -153,7 +155,7 @@ Text placed on a filled pastel always uses Crust (#11111b). No green anywhere.
 
 ## Typography
 
-Three heading sizes only; size follows priority, not taste. Sizes are **fluid**: each scales with viewport width between its `sm` minimum and its desktop maximum using `clamp()` — e.g. `clamp(40px, 4.4vw, 64px)`, `clamp(32px, 3.4vw, 48px)`, `clamp(22px, 2vw, 28px)` — so the three steps stay proportional at every width.
+Three heading sizes only; size follows priority, not taste. Sizes are **fluid**: each scales with viewport width between its `sm` minimum and its desktop maximum using `clamp()` — e.g. `clamp(40px, 4.4vw, 64px)`, `clamp(32px, 3.4vw, 48px)`, `clamp(22px, 2vw, 28px)` — so the three steps stay proportional at every width. On the desktop homepage the headings scale with the hub width instead of the viewport (hub width × 64/1440, 48/1440 and 28/1440) and stop at their full size, so text shrinks together with the tiles but does not grow past 64 / 48 / 28px on wide hubs.
 
 - **Display XL (64px):** the owner's name — used once.
 - **Headline LG (48px):** the top-priority destination (My Work).
@@ -167,11 +169,11 @@ Destination priority sets tile size: **Work > Experience > Blog**. About carries
 
 **Fluid, not fixed.** No pixel widths on tiles. Widths are grid fractions with minimums; heights are ranges; type uses `clamp()`; breakpoints only switch structure.
 
-- **Desktop (≥1200px):** two CSS-grid rows, 12px gap, page margin `clamp(16px, 3.3vw, 48px)`. Row 1: `4fr 5fr minmax(280px, 3fr)` (About · My Work · Experience). Row 2: `minmax(280px, 3fr) 3fr 4.4fr` (Contact · Recommendations · Blog in the corner). Rows use `minmax(260px, auto)`; the whole hub may be capped at `min(100dvh, 760px)` so it fits one screen on laptops.
-- **Tiles adapt to their own size:** each tile is a container (`container-type: inline-size`); below ~300px wide it drops its secondary line and keeps only label, title and arrow.
-- **Tablet (700–1199px):** two-column grid (1.2fr / 1fr) in pairs: About|Work · Experience|Blog · Recommendations|Contact.
+- **Desktop (≥1200px):** two CSS-grid rows of equal height, 12px gap, page margin `clamp(16px, 3.3vw, 48px)`. Row 1: `4fr 5fr minmax(280px, 3fr)` (About · My Work · Experience). Row 2: `minmax(280px, 3fr) 3fr 4.4fr` (Contact · Recommendations · Blog in the corner). The hub has no fixed ratio: it fills the viewport up to 1920px wide and 900px tall, and its tile shapes follow the window. Below a viewport height of 688px the page scrolls rather than squeezing the tiles. Beyond the maximum, as on ultrawide screens or very tall windows, the hub is centred horizontally and aligned to the top.
+- **Tiles adapt to their own size:** each tile is a container (`container-type: inline-size`); below ~220px of content width it drops its secondary line and keeps only label, title and arrow.
+- **Tablet (700–1199px):** two-column grid (1.2fr / 1fr) in pairs: About|Work · Experience|Blog · Recommendations|Contact. The three rows share the viewport height (`minmax(260px, 1fr)`), so a portrait tablet has no empty area below the grid; a landscape tablet scrolls.
 - **Phone (<700px):** a taller About block (`min-height: clamp(185px, 28vh, 240px)`), then five equal-height navigation rows (84px; 92px under 360px) in priority order: Work, Experience, Blog, Recommendations, Contact. Rows are navigation — label, one line, arrow — not shrunken tiles.
-- DOM order always matches visual order.
+- DOM order follows the phone and tablet order. Desktop row 2 places its tiles with `grid-template-areas`, so Blog comes first in the DOM but sits in the right corner.
 
 ## Elevation & Depth
 
@@ -179,7 +181,7 @@ Flat. Depth comes only from the step between background (#1e1e1e) and tile surfa
 
 ## Shapes
 
-Tight, near-sharp corners: 6px for tiles and buttons, 3px for chips, 1px for timeline bars. Icons are plain stroke arrows with no circular or boxed backgrounds.
+Tight, near-sharp corners: 6px for tiles and buttons, 3px for chips, 1px for timeline bars. Icons come from Lucide (`lucide-react`) at its default 2px stroke, with no circular or boxed backgrounds; tile corners use `ArrowUpRight`.
 
 ## Motion & Micro-interaction
 
@@ -220,4 +222,4 @@ Minimal and purposeful.
 - Don't add featured or hype layouts (oversized hero testimonials, "trusted by" claims).
 - Don't copy reference designs literally.
 - Don't show location, or anything that invites filtering people out.
-- Don't hard-code tile widths or heights in px (the canvas mockups are 1440px snapshots, not specs).
+- Don't hard-code tile widths or heights in px (the canvas mockups are 1440px snapshots, not specs). The only fixed sizes are the desktop hub's maximum and minimum and the phone row heights.
