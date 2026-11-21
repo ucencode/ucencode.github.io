@@ -141,7 +141,7 @@ draft: true                  # optional, defaults to false; true hides from list
 - Each post sets `ogType="article"` and its own OG title/description via `BaseLayout`.
 - Open items are tracked in `TODO.md` (syntax highlighting, reading time, tag filter).
 
-**`BaseLayout.astro`** owns the HTML shell: `<head>` meta/OG/Twitter tags (props: `title`, `description`, `ogType`, `ogImage`, `ogImageAlt`), canonical URL, JSON-LD `Person` structured data, Google Analytics (`G-LS7KXT6E9R`), Inter + Space Grotesk + JetBrains Mono fonts, and the `IntersectionObserver` that drives scroll-reveal animations (used by `BlogCard.astro` on `/blog`).
+**`BaseLayout.astro`** owns the HTML shell: `<head>` meta/OG/Twitter tags (props: `title`, `description`, `ogType`, `ogImage`, `ogImageAlt`), canonical URL, a `<link rel="sitemap">`, JSON-LD `Person` structured data, Google Analytics (`G-LS7KXT6E9R`), Inter + Space Grotesk + JetBrains Mono fonts, and the `IntersectionObserver` that drives scroll-reveal animations (used by `BlogCard.astro` on `/blog`).
 
 ## Styling
 
@@ -161,6 +161,6 @@ Path alias `@` → `./src` (configured in both `astro.config.mjs` and `tsconfig.
 
 ## Deployment
 
-`astro.config.mjs` sets `site: 'https://ucencode.github.io'`, static output, `assets/` build dir, and React + sitemap integrations.
+`astro.config.mjs` sets `site: 'https://ucencode.github.io'`, static output, `assets/` build dir, and React + sitemap integrations. The sitemap sets `lastmod` from each blog post's `pubDate` (read from the Markdown frontmatter) and uses the build date for every other page; `public/robots.txt` points to `sitemap-index.xml`. `public/sitemap.xml` is a static copy of that index, so the conventional `/sitemap.xml` URL also resolves.
 
 `npm run deploy` runs `predeploy` (a full build) then `gh-pages -d dist -t`, pushing `dist/` to the `gh-pages` branch that GitHub Pages serves at `https://ucencode.github.io`. The `-t` flag includes dotfiles so `public/.nojekyll` (which disables Jekyll processing) is published. Deployment is manual — CI only lints and builds, it does not deploy.
