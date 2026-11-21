@@ -2,6 +2,9 @@
 title: "AI Study Tool"
 description: "A local-first AI study tool for summarizing lecture slides and generating structured learning content from curricula using LLMs."
 order: 4
+kind: "personal"
+domain: "local-first AI"
+org: "source on GitHub"
 projectStack:
   - "AI-Powered"
   - "Python"

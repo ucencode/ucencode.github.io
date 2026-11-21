@@ -5,6 +5,10 @@ order: 3
 image:
   src: "../../assets/projects/pitcar-preview.webp"
   alt: "Pitcar project preview"
+period: "Aug 2023 – Oct 2024"
+kind: "professional"
+domain: "ERP"
+org: "freelance"
 projectStack:
   - "Odoo"
   - "Python"

@@ -1,0 +1,129 @@
+---
+import { ArrowDownToLine } from 'lucide-react';
+import type { Group } from '@/lib/routes';
+
+type Props = {
+  /** Mono label above the title, e.g. "doc README". */
+  doc: string;
+  title: string;
+  /** Short line under the title. */
+  lead?: string;
+  /** Show the lead in the group colour and mono type (identity line). */
+  leadAccent?: boolean;
+  group: Group;
+  meta?: { term: string; value: string; accent?: boolean }[];
+  cv?: boolean;
+};
+
+const { doc, title, lead, leadAccent = false, group, meta = [], cv = false } = Astro.props;
+const accent = `var(--${group})`;
+---
+<header class="title-block">
+  <div class="title-main">
+    <span class="doc">{doc}</span>
+    <h1 class="headline-lg title">{title}</h1>
+    {lead && <p class:list={['lead', { 'lead-accent': leadAccent }]} style={leadAccent ? `color: ${accent}` : undefined}>{lead}</p>}
+  </div>
+  {(meta.length > 0 || cv) && (
+    <div class="title-side">
+      {meta.length > 0 && (
+        <dl class="meta">
+          {meta.map((m) => (
+            <>
+              <dt>{m.term}</dt>
+              <dd style={m.accent ? `color: ${accent}` : undefined}>{m.value}</dd>
+            </>
+          ))}
+        </dl>
+      )}
+      {cv && (
+        <a href="/cv-ahmad-husein-fullstack-engineer.pdf" class="cv" download>
+          <span>Download CV <span class="cv-type">· pdf</span></span>
+          <ArrowDownToLine size={16} aria-hidden="true" />
+        </a>
+      )}
+    </div>
+  )}
+</header>
+
+<style>
+  .title-block {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px 64px;
+    padding: 56px 0 40px;
+    border-bottom: 1px solid var(--border);
+  }
+  .title-main {
+    flex: 999 1 560px;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .doc,
+  dt {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 12px;
+    color: var(--subtext);
+  }
+  .title {
+    margin: 0;
+  }
+  .lead {
+    margin: 0;
+    max-width: 560px;
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--chip-text);
+  }
+  .lead-accent {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 16px;
+    font-weight: 500;
+  }
+  .title-side {
+    flex: 1 1 280px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 20px;
+  }
+  .meta {
+    margin: 0;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 10px 20px;
+    font-size: 14px;
+  }
+  dt {
+    padding-top: 2px;
+  }
+  dd {
+    margin: 0;
+  }
+  .cv {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    min-height: 48px;
+    padding: 0 16px;
+    border-radius: var(--radius-tile);
+    border: 1px solid var(--border-strong);
+    color: var(--text);
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: border-color 150ms ease-out;
+  }
+  .cv:hover {
+    border-color: var(--subtext);
+  }
+  .cv-type {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--subtext);
+  }
+</style>

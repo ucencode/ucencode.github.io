@@ -1,8 +1,6 @@
 ---
 import { ExternalLink } from 'lucide-react';
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import Header from '../../components/Header.tsx';
-import Footer from '../../components/Footer.astro';
+import PageLayout from '../../layouts/PageLayout.astro';
 import ImageViewer from '../../components/ImageViewer.tsx';
 import { getCollection, render, type CollectionEntry } from 'astro:content';
 import { profile } from '@/data/about';
@@ -37,18 +35,18 @@ const firstFigureKey = firstFigure && new URL(firstFigure, 'file:///src/content/
 const ogImage = project.image?.src.src ?? (firstFigureKey ? figureImages[firstFigureKey]?.default.src : undefined);
 ---
 
-<BaseLayout
+<PageLayout
+  width="48rem"
   title={`${project.title} — ${profile.name}`}
   description={project.description}
   ogType="article"
   ogImage={ogImage}
   ogImageAlt={project.image?.alt ?? `${project.title} preview`}
 >
-  <Header client:load />
-  <main class="max-w-3xl mx-auto px-6 py-24">
+  <div class="pt-12">
 
     <nav class="flex items-center justify-between mb-10 text-sm">
-      <a href={`${base}#projects`} class="text-muted-foreground hover:text-primary transition-colors">← All projects</a>
+      <a href={`${base}projects/`} class="text-muted-foreground hover:text-primary transition-colors">← All projects</a>
       <div class="flex items-center gap-2">
         {prev && (
           <a href={`${base}projects/${prev.id}/`} class="px-4 py-2 rounded-lg border border-border text-muted-foreground hover:text-foreground hover:border-primary/40 transition-colors duration-200">
@@ -108,7 +106,7 @@ const ogImage = project.image?.src.src ?? (firstFigureKey ? figureImages[firstFi
     <ImageViewer client:idle />
 
     <nav class="flex items-center justify-between mt-16 pt-8 border-t border-border text-sm">
-      <a href={`${base}#projects`} class="text-muted-foreground hover:text-primary transition-colors">← All projects</a>
+      <a href={`${base}projects/`} class="text-muted-foreground hover:text-primary transition-colors">← All projects</a>
       <div class="flex items-center gap-2">
         {prev && (
           <a href={`${base}projects/${prev.id}/`} class="px-4 py-2 rounded-lg border border-border text-muted-foreground hover:text-foreground hover:border-primary/40 transition-colors duration-200">
@@ -123,6 +121,5 @@ const ogImage = project.image?.src.src ?? (firstFigureKey ? figureImages[firstFi
       </div>
     </nav>
 
-  </main>
-  <Footer />
-</BaseLayout>
+  </div>
+</PageLayout>

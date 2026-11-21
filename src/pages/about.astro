@@ -1,0 +1,149 @@
+---
+import { ArrowRight } from 'lucide-react';
+import PageLayout from '../layouts/PageLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import SpecSection from '../components/SpecSection.astro';
+import { profile, description, coreStrengths, socialLinks } from '@/data/about';
+import { experience, experienceSummary } from '@/data/experience';
+
+const latest = experience[0];
+const since = Math.min(...experience.map((e) => Number(e.start.slice(0, 4))));
+const capabilities = coreStrengths.map((s) => {
+  const [area, ...rest] = s.split(' — ');
+  return { area, detail: rest.join(' — ') };
+});
+const sections = [
+  { id: 's1', heading: '§1 summary', text: description[0], note: { label: 'CS-001 ClinicOS', href: '/projects/clinic-os/' } },
+  { id: 's2', heading: '§2 how i work', text: description[1], note: { text: 'strong backend focus · works across the stack' } },
+  { id: 's3', heading: '§3 current focus', text: description[2], note: { label: 'CS-004 AI Study Tool', href: '/projects/study-ai-tools/' } },
+];
+---
+<PageLayout title={`About — ${profile.name}`} description={profile.metaDescription}>
+  <PageHeader
+    doc="doc README"
+    title={profile.name}
+    lead={profile.headline}
+    leadAccent
+    group="peach"
+    meta={[
+      { term: 'status', value: 'open to roles', accent: true },
+      { term: 'since', value: `${since} · ${experience.length} roles` },
+      { term: 'latest', value: `${latest.position}, ${latest.company}` },
+    ]}
+    cv
+  />
+
+  <nav aria-label="Contents" class="toc">
+    {[...sections.map((s) => s.heading), '§4 capabilities', '§5 availability'].map((h, i) => (
+      <a href={`#s${i + 1}`}><span>{h.split(' ')[0]}</span>&nbsp;{h.split(' ').slice(1).join(' ')}</a>
+    ))}
+  </nav>
+
+  {sections.map((s, i) => (
+    <SpecSection id={s.id} heading={s.heading} group="peach">
+      <p class:list={['prose-text', { first: i === 0 }]}>{s.text}</p>
+      <Fragment slot="note">
+        {s.note.href ? <>see → <a href={s.note.href}>{s.note.label}</a></> : s.note.text}
+      </Fragment>
+    </SpecSection>
+  ))}
+
+  <SpecSection id="s4" heading="§4 capabilities" group="peach">
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th scope="col">area</th><th scope="col">detail</th></tr>
+        </thead>
+        <tbody>
+          {capabilities.map((c) => (
+            <tr><th scope="row">{c.area}</th><td>{c.detail}</td></tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </SpecSection>
+
+  <SpecSection id="s5" heading="§5 availability" group="peach">
+    <p class="prose-text first">{experienceSummary.note}</p>
+    <div class="actions">
+      <a href={`mailto:${socialLinks.email}`} class="btn-primary">Email me <ArrowRight size={18} aria-hidden="true" /></a>
+      <a href={socialLinks.linkedin} class="btn-secondary" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a href={socialLinks.github} class="btn-secondary" target="_blank" rel="noopener noreferrer">GitHub</a>
+    </div>
+  </SpecSection>
+</PageLayout>
+
+<style>
+  .toc {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 28px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 13px;
+  }
+  .toc a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    color: var(--subtext);
+    text-decoration: none;
+  }
+  .toc a:hover {
+    color: var(--text);
+  }
+  .toc span {
+    color: var(--peach);
+  }
+  .prose-text {
+    margin: 0;
+    max-width: 640px;
+    font-size: 18px;
+    line-height: 1.7;
+    color: var(--chip-text);
+  }
+  .prose-text.first {
+    font-size: 20px;
+    line-height: 1.55;
+    color: var(--text);
+  }
+  .table-wrap {
+    overflow-x: auto;
+  }
+  table {
+    width: 100%;
+    min-width: 520px;
+    border-collapse: collapse;
+    font-size: 15px;
+  }
+  thead tr {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 12px;
+    color: var(--subtext);
+    text-align: left;
+  }
+  thead th {
+    padding: 10px 24px 10px 0;
+    font-weight: 400;
+  }
+  tr {
+    border-bottom: 1px solid var(--border);
+  }
+  tbody th {
+    width: 34%;
+    padding: 14px 24px 14px 0;
+    text-align: left;
+    font-weight: 600;
+  }
+  td {
+    padding: 14px 0;
+    color: var(--chip-text);
+  }
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 20px;
+  }
+</style>

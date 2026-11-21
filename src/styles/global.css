@@ -4,44 +4,35 @@
 
 @layer base {
   :root {
-    --background: 222 25% 6%;
-    --foreground: 210 15% 92%;
+    /* Neutrals: pure greys (equal RGB) with Catppuccin Mocha text */
+    --bg: #1e1e1e;
+    --tile: #262626;
+    --border: #333333;
+    --border-strong: #444444;
+    --track: #333333;
+    --muted-bar: #585b70;
+    --text: #cdd6f4;
+    --subtext: #a6adc8;
+    --chip-text: #bac2de;
 
-    --card: 222 20% 10%;
-    --card-foreground: 210 15% 92%;
+    /* Accent groups */
+    --peach: #fab387;    /* identity: About, Contact */
+    --lavender: #b4befe; /* proof: Work, Experience, Blog */
+    --mauve: #cba6f7;    /* other people's voice: Recommendations */
+    --on-accent: #11111b;
 
-    --popover: 222 20% 10%;
-    --popover-foreground: 210 15% 92%;
+    /* Fluid type scale */
+    --fs-display: clamp(40px, 4.4vw, 64px);
+    --fs-headline-lg: clamp(32px, 3.4vw, 48px);
+    --fs-headline-md: clamp(22px, 2vw, 28px);
 
-    --primary: 160 84% 39%;
-    --primary-foreground: 222 25% 4%;
+    --radius-tile: 6px;
+    --radius-chip: 3px;
+    --radius-bar: 1px;
+    --gap: 12px;
+    --page-pad: clamp(16px, 3.3vw, 48px);
 
-    --secondary: 222 18% 14%;
-    --secondary-foreground: 210 12% 78%;
-
-    --muted: 222 15% 16%;
-    --muted-foreground: 215 12% 52%;
-
-    --accent: 158 30% 18%;
-    --accent-foreground: 158 50% 70%;
-
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 210 15% 92%;
-
-    --border: 222 14% 16%;
-    --input: 222 14% 20%;
-    --ring: 160 84% 39%;
-
-    --radius: 0.5rem;
-
-    --sidebar-background: 222 25% 6%;
-    --sidebar-foreground: 210 15% 92%;
-    --sidebar-primary: 160 84% 39%;
-    --sidebar-primary-foreground: 222 25% 4%;
-    --sidebar-accent: 222 15% 16%;
-    --sidebar-accent-foreground: 210 15% 92%;
-    --sidebar-border: 222 14% 16%;
-    --sidebar-ring: 160 84% 39%;
+    --font-display: "Space Grotesk", "Inter", system-ui, sans-serif;
   }
 
   * {
@@ -56,31 +47,95 @@
     @apply bg-background text-foreground antialiased;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   }
+
+  :focus-visible {
+    outline: 2px solid var(--text);
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
 }
 
 @layer components {
-  .hero-grid {
-    background-image:
-      linear-gradient(hsl(160 84% 39% / 0.04) 1px, transparent 1px),
-      linear-gradient(90deg, hsl(160 84% 39% / 0.04) 1px, transparent 1px);
-    background-size: 64px 64px;
-  }
-
-  .hero-glow {
-    background: radial-gradient(
-      ellipse 60% 50% at 50% 40%,
-      hsl(160 84% 39% / 0.08) 0%,
-      transparent 70%
-    );
-  }
-
   .section-alt {
     @apply bg-secondary/40;
   }
 
   .tech-tag {
-    @apply inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-mono
-      bg-accent text-accent-foreground border border-border;
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 8px;
+    border-radius: var(--radius-chip);
+    background: var(--track);
+    color: var(--chip-text);
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 12px;
+    line-height: 1.4;
+  }
+
+  .label-mono {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 13px;
+    line-height: 1.4;
+  }
+
+  .display-xl,
+  .headline-lg,
+  .headline-md {
+    font-family: var(--font-display);
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .display-xl {
+    font-size: var(--fs-display);
+    line-height: 0.94;
+    letter-spacing: -0.045em;
+  }
+
+  .headline-lg {
+    font-size: var(--fs-headline-lg);
+    line-height: 0.95;
+    letter-spacing: -0.045em;
+  }
+
+  .headline-md {
+    font-size: var(--fs-headline-md);
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 0 18px;
+    border-radius: var(--radius-tile);
+    font-size: 15px;
+    font-weight: 600;
+    transition: border-color 150ms ease-out, background-color 150ms ease-out;
+  }
+
+  .btn-primary {
+    min-height: 50px;
+    background: var(--peach);
+    color: var(--on-accent);
+  }
+
+  .btn-secondary {
+    min-height: 44px;
+    border: 1px solid var(--border-strong);
+    color: var(--text);
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--subtext);
   }
 
   [data-reveal] {
@@ -100,11 +155,16 @@
       transform: none;
       transition: none;
     }
+
+    .btn-primary,
+    .btn-secondary {
+      transition: none;
+    }
   }
 }
 
 /* "Figure N." label inside Markdown figure captions (see src/lib/rehype-figure.mjs). */
 .figure-label {
   font-weight: 600;
-  color: hsl(var(--foreground));
+  color: var(--text);
 }

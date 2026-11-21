@@ -5,6 +5,10 @@ order: 1
 image:
   src: "../../assets/projects/clinicos-preview.webp"
   alt: "ClinicOS project preview"
+period: "Jan 2024 – Dec 2025"
+kind: "professional"
+domain: "healthcare SaaS"
+org: "NoscAi GmbH"
 projectStack:
   - "AI-Powered"
   - "Node.js"

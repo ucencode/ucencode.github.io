@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!--
+  /blog — E2 theme
+  REFERENCE SNAPSHOT at 1440px wide — not a layout spec. Rules and tokens: DESIGN.md.
+  Images point at the repo's existing public/ paths; they load when served by the Astro dev server, not when opened as a file.
+  Content structure is the reference; inner pages use the "spec sheet" style (numbered sections, margin notes).
+-->
+<meta charset="utf-8">
+<title>Blog — Ahmad Husein Hambali</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#1e1e1e}
+a{color:#cdd6f4}a:hover{color:#ffffff}
+a:focus-visible{outline:2px solid #cdd6f4;outline-offset:3px}
+</style>
+</head>
+<body>
+<div style="background: #1e1e1e; min-height: 100vh; font-family: Inter, system-ui, sans-serif; color: #cdd6f4">
+<div style="box-sizing: border-box; max-width: 1200px; margin: 0 auto; padding: 32px clamp(16px, 4vw, 48px) 48px; display: flex; flex-direction: column; gap: 40px">
+
+  <header style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px 24px; padding-bottom: 16px; border-bottom: 1px solid #333333">
+    <a href="/" style="display: inline-flex; align-items: center; gap: 10px; height: 44px; text-decoration: none; font-family: 'Space Grotesk', sans-serif; font-size: 17px; font-weight: 700; letter-spacing: -0.02em"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#a6adc8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"></path></svg>Ahmad Husein Hambali</a>
+    <nav aria-label="Main" style="display: flex; flex-wrap: wrap; gap: 0 20px; font-family: 'JetBrains Mono', monospace; font-size: 13px">
+      <a href="/about" style="display: inline-flex; align-items: center; height: 44px; text-decoration: none; color: #a6adc8">/about</a>
+      <a href="/projects" style="display: inline-flex; align-items: center; height: 44px; text-decoration: none; color: #a6adc8">/projects</a>
+      <a href="/experience" style="display: inline-flex; align-items: center; height: 44px; text-decoration: none; color: #a6adc8">/experience</a>
+      <a href="/blog" aria-current="page" style="display: inline-flex; align-items: center; height: 44px; text-decoration: none; color: #b4befe">/blog</a>
+      <a href="/recommendations" style="display: inline-flex; align-items: center; height: 44px; text-decoration: none; color: #a6adc8">/recommendations</a>
+    </nav>
+  </header>
+
+  <section aria-labelledby="blog-h" style="display: flex; flex-direction: column; gap: 14px">
+    <span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #b4befe">/blog · 10 posts</span>
+    <h1 id="blog-h" style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: clamp(32px, 3.4vw, 48px); line-height: 0.95; letter-spacing: -0.045em; font-weight: 700">Writing</h1>
+    <p style="margin: 0; max-width: 62ch; font-size: 18px; line-height: 1.55; color: #a6adc8">A small collection of things I’m learning, building, breaking, and occasionally overthinking.</p>
+  </section>
+
+  <div role="group" aria-label="Filter by tag" style="display: flex; flex-wrap: wrap; gap: 8px">
+    <button type="button" aria-pressed="true" style="height: 36px; box-sizing: border-box; padding: 0 12px; border-radius: 3px; border: 1px solid #b4befe; background: #333333; color: #cdd6f4; font-family: 'JetBrains Mono', monospace; font-size: 13px; cursor: pointer">all <span style="color: #a6adc8">10</span></button>
+    <button type="button" aria-pressed="false" style="height: 36px; box-sizing: border-box; padding: 0 12px; border-radius: 3px; border: 1px solid #333333; background: transparent; color: #bac2de; font-family: 'JetBrains Mono', monospace; font-size: 13px; cursor: pointer">backend <span style="color: #a6adc8">6</span></button>
+    <button type="button" aria-pressed="false" style="height: 36px; box-sizing: border-box; padding: 0 12px; border-radius: 3px; border: 1px solid #333333; background: transparent; color: #bac2de; font-family: 'JetBrains Mono', monospace; font-size: 13px; cursor: pointer">engineering <span style="color: #a6adc8">4</span></button>
+    <button type="button" aria-pressed="false" style="height: 36px; box-sizing: border-box; padding: 0 12px; border-radius: 3px; border: 1px solid #333333; background: transparent; color: #bac2de; font-family: 'JetBrains Mono', monospace; font-size: 13px; cursor: pointer">typescript <span style="color: #a6adc8">4</span></button>
+    <button type="button" aria-pressed="false" style="height: 36px; box-sizing: border-box; padding: 0 12px; border-radius: 3px; border: 1px solid #333333; background: transparent; color: #bac2de; font-family: 'JetBrains Mono', monospace; font-size: 13px; cursor: pointer">xml <span style="color: #a6adc8">2</span></button>
+    <button type="button" aria-pressed="false" style="height: 36px; box-sizing: border-box; padding: 0 12px; border-radius: 3px; border: 1px solid #333333; background: transparent; color: #bac2de; font-family: 'JetBrains Mono', monospace; font-size: 13px; cursor: pointer">more…</button>
+  </div>
+
+  <ol style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; border-top: 1px solid #333333">
+
+    <li style="border-bottom: 1px solid #333333"><a href="/blog/it-worked-fine-until-someone-optimized-it" style="display: flex; flex-wrap: wrap; gap: 8px 40px; padding: 24px 0; text-decoration: none">
+      <span style="flex: 0 0 120px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #a6adc8; padding-top: 5px">2026-06-10</span>
+      <div style="flex: 999 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 6px">
+        <h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 24px; letter-spacing: -0.025em; font-weight: 700">It Worked Fine Until Someone Optimized It</h2>
+        <p style="margin: 0; font-size: 15px; line-height: 1.55; color: #a6adc8">A favorite-item feature started with a deliberately boring database design. Moving it into an asynchronous search index created exactly the consistency problems I had tried to avoid</p>
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #b4befe">engineering · backend</span>
+      </div>
+    </a></li>
+
+    <li style="border-bottom: 1px solid #333333"><a href="#post" style="display: flex; flex-wrap: wrap; gap: 8px 40px; padding: 24px 0; text-decoration: none">
+      <span style="flex: 0 0 120px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #a6adc8; padding-top: 5px">2026-06-10</span>
+      <div style="flex: 999 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 6px">
+        <h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 24px; letter-spacing: -0.025em; font-weight: 700">I Should Have Understood How User Used it</h2>
+        <p style="margin: 0; font-size: 15px; line-height: 1.55; color: #a6adc8">The External API XML schema went through six versions in six weeks. Each clearinghouse validation attempt revealed fields no documentation had mentioned yet.</p>
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #b4befe">backend · architecture · xml · engineering</span>
+      </div>
+    </a></li>
+
+    <li style="border-bottom: 1px solid #333333"><a href="#post" style="display: flex; flex-wrap: wrap; gap: 8px 40px; padding: 24px 0; text-decoration: none">
+      <span style="flex: 0 0 120px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #a6adc8; padding-top: 5px">2026-06-10</span>
+      <div style="flex: 999 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 6px">
+        <h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 24px; letter-spacing: -0.025em; font-weight: 700">I Thought I Only Needed to Add a Notification</h2>
+        <p style="margin: 0; font-size: 15px; line-height: 1.55; color: #a6adc8">I only needed to add a new notification. Following its CTA into the frontend taught me more about the API contract I was designing from the backend.</p>
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #b4befe">backend · frontend · react · typescript</span>
+      </div>
+    </a></li>
+
+    <li style="border-bottom: 1px solid #333333"><a href="#post" style="display: flex; flex-wrap: wrap; gap: 8px 40px; padding: 24px 0; text-decoration: none">
+      <span style="flex: 0 0 120px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #a6adc8; padding-top: 5px">2026-06-10</span>
+      <div style="flex: 999 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 6px">
+        <h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 24px; letter-spacing: -0.025em; font-weight: 700">I Wanted to Clean the Code Before Changing the Architecture</h2>
+        <p style="margin: 0; font-size: 15px; line-height: 1.55; color: #a6adc8">The billing system had accumulated duplicated logic, expensive data flows, and unclear boundaries. I wanted to clean those problems up first, but we chose a larger architectural refactor instead.</p>
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #b4befe">engineering · backend</span>
+      </div>
+    </a></li>
+
+    <li style="border-bottom: 1px solid #333333"><a href="#post" style="display: flex; flex-wrap: wrap; gap: 8px 40px; padding: 24px 0; text-decoration: none">
+      <span style="flex: 0 0 120px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #a6adc8; padding-top: 5px">2026-06-10</span>
+      <div style="flex: 999 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 6px">
+        <h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 24px; letter-spacing: -0.025em; font-weight: 700">Making Automated Test Faster With SWC</h2>
+        <p style="margin: 0; font-size: 15px; line-height: 1.55; color: #a6adc8">Automated tests gave me confidence until the test suite became expensive to run. Understanding what ts-jest was doing led me to SWC, and to a decorator metadata problem I did not expect.</p>
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #b4befe">engineering · backend · typescript · testing · jest · swc</span>
+      </div>
+    </a></li>
+
+    <li style="border-bottom: 1px solid #333333"><a href="#post" style="display: flex; flex-wrap: wrap; gap: 8px 40px; padding: 24px 0; text-decoration: none">
+      <span style="flex: 0 0 120px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #a6adc8; padding-top: 5px">2026-06-10</span>
+      <div style="flex: 999 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 6px">
+        <h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 24px; letter-spacing: -0.025em; font-weight: 700">When Encoding isn&#39;t Compatible</h2>
+        <p style="margin: 0; font-size: 15px; line-height: 1.55; color: #a6adc8">A service requires ISO-8859-15 encoding. Writing UTF-8 and declaring ISO-8859-15 in the XML header passes some validators but corrupts some characters.</p>
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #b4befe">backend · encoding · xml · typescript</span>
+      </div>
+    </a></li>
+
+    <li style="border-bottom: 1px solid #333333"><a href="#post" style="display: flex; flex-wrap: wrap; gap: 8px 40px; padding: 24px 0; text-decoration: none">
+      <span style="flex: 0 0 120px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #a6adc8; padding-top: 5px">2026-02-02</span>
+      <div style="flex: 999 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 6px">
+        <h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 24px; letter-spacing: -0.025em; font-weight: 700">TypeScript Habits That Actually Saved Me</h2>
+        <p style="margin: 0; font-size: 15px; line-height: 1.55; color: #a6adc8">I tried to put static typing to my code.</p>
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #b4befe">typescript · dev</span>
+      </div>
+    </a></li>
+
+    <li style="border-bottom: 1px solid #333333"><a href="#post" style="display: flex; flex-wrap: wrap; gap: 8px 40px; padding: 24px 0; text-decoration: none">
+      <span style="flex: 0 0 120px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #a6adc8; padding-top: 5px">2026-01-27</span>
+      <div style="flex: 999 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 6px">
+        <h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 24px; letter-spacing: -0.025em; font-weight: 700">I Started Sharing My Work</h2>
+        <p style="margin: 0; font-size: 15px; line-height: 1.55; color: #a6adc8">Sharing my work in public started as a simple habit, but it changed how I learn, write, and think about my work</p>
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #b4befe">career · writings</span>
+      </div>
+    </a></li>
+
+    <li style="border-bottom: 1px solid #333333"><a href="#post" style="display: flex; flex-wrap: wrap; gap: 8px 40px; padding: 24px 0; text-decoration: none">
+      <span style="flex: 0 0 120px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #a6adc8; padding-top: 5px">2026-01-27</span>
+      <div style="flex: 999 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 6px">
+        <h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 24px; letter-spacing: -0.025em; font-weight: 700">Why I Moved Into Astro</h2>
+        <p style="margin: 0; font-size: 15px; line-height: 1.55; color: #a6adc8">I rebuilt my personal website a few times before landing on Astro. It gave me the simplicity of static HTML, reusable components, and just enough React when I need it.</p>
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #b4befe">astro · web · personal-site</span>
+      </div>
+    </a></li>
+
+    <li style="border-bottom: 1px solid #333333"><a href="#post" style="display: flex; flex-wrap: wrap; gap: 8px 40px; padding: 24px 0; text-decoration: none">
+      <span style="flex: 0 0 120px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #a6adc8; padding-top: 5px">2026-01-24</span>
+      <div style="flex: 999 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 6px">
+        <h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 24px; letter-spacing: -0.025em; font-weight: 700">Hello, World</h2>
+        <p style="margin: 0; font-size: 15px; line-height: 1.55; color: #a6adc8">First post — a quick note on why I’m starting to write.</p>
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #b4befe">meta</span>
+      </div>
+    </a></li>
+  </ol>
+
+  <footer style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 20px; padding-top: 28px; border-top: 1px solid #333333">
+    <div style="display: flex; flex-direction: column; gap: 4px">
+      <span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #fab387">/contact</span>
+      <span style="font-family: 'Space Grotesk', sans-serif; font-size: 24px; font-weight: 700; letter-spacing: -0.03em">Get in touch</span>
+    </div>
+    <div style="display: flex; flex-wrap: wrap; gap: 8px">
+      <a href="mailto:ahmadhuseinh.03@gmail.com" style="height: 44px; box-sizing: border-box; padding: 0 18px; border-radius: 6px; background: #fab387; color: #11111b; font-weight: 600; font-size: 14px; text-decoration: none; display: flex; align-items: center; gap: 10px">Email me <span aria-hidden="true">→</span></a>
+      <a href="https://www.linkedin.com/in/ahmadhuseinhambali03/" style="height: 44px; box-sizing: border-box; padding: 0 18px; border-radius: 6px; border: 1px solid #444444; font-size: 14px; font-weight: 500; text-decoration: none; display: flex; align-items: center">LinkedIn</a>
+      <a href="https://github.com/ucencode" style="height: 44px; box-sizing: border-box; padding: 0 18px; border-radius: 6px; border: 1px solid #444444; font-size: 14px; font-weight: 500; text-decoration: none; display: flex; align-items: center">GitHub</a>
+    </div>
+  </footer>
+
+</div>
+</div>
+</body>
+</html>

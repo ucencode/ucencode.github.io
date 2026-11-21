@@ -1,9 +1,30 @@
-export const experience = [
+export interface ExperienceEntry {
+  year: string;
+  /** Start and end month as "YYYY-MM"; used by the timeline. */
+  start: string;
+  end: string;
+  company: string;
+  /** Short company name for timeline lanes. */
+  short: string;
+  position: string;
+  mode: string;
+  duration: string;
+  /** Related project id in the `projects` collection. */
+  project?: string;
+  bullets: string[];
+}
+
+export const experience: ExperienceEntry[] = [
   {
     year: "Jan 2024 - Dec 2025",
     company: "NoscAi GmbH",
+    short: "NoscAi",
     position: "Founding Engineer",
-    location: "Hamburg, Germany - Remote - 2 Years",
+    start: "2024-01",
+    end: "2025-12",
+    mode: "Remote",
+    duration: "2 years",
+    project: "clinic-os",
     bullets: [
       "Joined as the first full-time engineer on ClinicOS, an AI-powered clinic management system, and helped scale the engineering team to 9 engineers.",
       "Established foundational backend practices including code review standards, testing, formatting conventions, CI/CD workflows, and onboarding support for new engineers.",
@@ -18,8 +39,13 @@ export const experience = [
   {
     year: "Aug 2023 - Oct 2024",
     company: "PITCAR Service",
+    short: "PITCAR",
     position: "Backend Developer - Freelance Project",
-    location: "Purwokerto, Indonesia - Remote - 1 Year 3 Months",
+    start: "2023-08",
+    end: "2024-10",
+    mode: "Remote · freelance",
+    duration: "1 year 3 months",
+    project: "pitcar",
     bullets: [
       "Migrated workshop operations from fragmented SaaS tools and spreadsheets into a centralized Odoo 16 ERP system.",
       "Built custom Odoo modules for service workflows, invoicing, vehicle records, mechanic tracking, and operational audit trails.",
@@ -31,8 +57,13 @@ export const experience = [
   {
     year: "Sep 2021 - Jan 2024",
     company: "CV. Indokoding Sukses Makmur",
+    short: "Indokoding",
     position: "Full Stack Developer",
-    location: "Yogyakarta, Indonesia - On-site - 2 Years 5 Months",
+    start: "2021-09",
+    end: "2024-01",
+    mode: "On-site",
+    duration: "2 years 5 months",
+    project: "book-your-gp",
     bullets: [
       "Co-owned technical delivery of BookYourGP as one of two engineers, a Laravel-based clinical oversight platform used by NHS-associated GP surgeries in the UK.",
       "Enabled life-critical patient recall workflows by integrating GovNotify and Twilio for automated appointment reminders across GP clinics.",
@@ -44,8 +75,12 @@ export const experience = [
   {
     year: "Jun 2020 - Jul 2021",
     company: "PT. Bama Berita Sarana Televisi (BBS TV)",
+    short: "BBS TV",
     position: "Web Developer",
-    location: "Surabaya, Indonesia - On-site - 1 Year 2 Months",
+    start: "2020-06",
+    end: "2021-07",
+    mode: "On-site",
+    duration: "1 year 2 months",
     bullets: [
       "Maintained and improved a WordPress-based media website, ensuring stability, compatibility, and reliable production operation.",
       "Built a CodeIgniter-based online competition platform with up to 1500 participant registrations, submission workflows, and an admin portal for managing entries and follow-ups.",
@@ -54,8 +89,12 @@ export const experience = [
   {
     year: "Jul 2018 - Jun 2019",
     company: "PT. Hyperdata Solusindo Mandiri",
+    short: "Hyperdata",
     position: "Software Engineer Intern",
-    location: "Tangerang, Indonesia - On-site - 1 Year",
+    start: "2018-07",
+    end: "2019-06",
+    mode: "On-site",
+    duration: "1 year",
     bullets: [
       "Developed and maintained backend logic for web applications using PHP and CodeIgniter.",
       "Built a client website from scratch using CodeIgniter and PostgreSQL for backend services and data storage.",

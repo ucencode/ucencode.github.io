@@ -5,6 +5,10 @@ order: 2
 image:
   src: "../../assets/projects/bygp-preview.webp"
   alt: "BookYourGP project preview"
+period: "Sep 2021 – Jan 2024"
+kind: "professional"
+domain: "UK healthcare"
+org: "Indokoding"
 projectStack:
   - "Laravel"
   - "PHP"

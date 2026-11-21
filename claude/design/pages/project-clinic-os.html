@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!--
+  /projects/clinic-os — E2 theme
+  REFERENCE SNAPSHOT at 1440px wide — not a layout spec. Rules and tokens: DESIGN.md.
+  Images point at the repo's existing public/ paths; they load when served by the Astro dev server, not when opened as a file.
+  Content structure is the reference; inner pages use the "spec sheet" style (numbered sections, margin notes).
+-->
+<meta charset="utf-8">
+<title>ClinicOS case study — Ahmad Husein Hambali</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#1e1e1e}
+a{color:#cdd6f4}a:hover{color:#ffffff}
+a:focus-visible{outline:2px solid #cdd6f4;outline-offset:3px}
+</style>
+</head>
+<body>
+<div style="background: #1e1e1e; min-height: 100vh; font-family: Inter, system-ui, sans-serif; color: #cdd6f4">
+<div style="box-sizing: border-box; max-width: 1160px; margin: 0 auto; padding: 24px clamp(16px, 4vw, 48px) 56px; display: flex; flex-direction: column">
+
+  <!-- masthead -->
+  <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 4px 24px; padding-bottom: 4px; border-bottom: 1px solid #333333; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #a6adc8">
+    <div style="display: flex; align-items: center; gap: 4px">
+      <a href="/" aria-label="Home" style="display: inline-flex; align-items: center; height: 44px; padding-right: 4px; text-decoration: none; color: #a6adc8">~</a><span style="color: #585b70">/</span><a href="/projects" style="display: inline-flex; align-items: center; height: 44px; padding: 0 4px; text-decoration: none; color: #a6adc8">projects</a><span style="color: #585b70">/</span><span aria-current="page" style="padding-left: 4px; color: #b4befe">clinic-os</span>
+    </div>
+    <nav aria-label="Main" style="display: flex; flex-wrap: wrap; gap: 0 18px">
+      <a href="/about" style="display: inline-flex; align-items: center; height: 44px; text-decoration: none; color: #a6adc8">about</a>
+      <a href="/projects" style="display: inline-flex; align-items: center; height: 44px; text-decoration: none; color: #b4befe">projects</a>
+      <a href="/experience" style="display: inline-flex; align-items: center; height: 44px; text-decoration: none; color: #a6adc8">experience</a>
+      <a href="/blog" style="display: inline-flex; align-items: center; height: 44px; text-decoration: none; color: #a6adc8">blog</a>
+      <a href="/recommendations" style="display: inline-flex; align-items: center; height: 44px; text-decoration: none; color: #a6adc8">recommendations</a>
+    </nav>
+  </div>
+
+  <!-- title block -->
+  <header style="display: flex; flex-wrap: wrap; gap: 32px 64px; padding: 56px 0 40px; border-bottom: 1px solid #333333">
+    <div style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 18px">
+      <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #a6adc8">doc CS-001 · status: <span style="color: #b4befe">shipped</span> · Jan 2024 – Dec 2025</span>
+      <h1 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: clamp(32px, 3.4vw, 48px); line-height: 0.88; letter-spacing: -0.045em; font-weight: 700">ClinicOS</h1>
+      <p style="margin: 0; max-width: 58ch; font-size: 19px; line-height: 1.55; color: #bac2de">An AI-assisted healthcare operations platform for medical practices, built to streamline documentation, appointments, billing, patient communication, integrations, and administrative workflows in one cloud-based system.</p>
+    </div>
+    <dl style="flex: 1 1 260px; margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 10px 20px; align-content: end; font-size: 14px">
+      <dt style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #a6adc8; padding-top: 2px">author</dt><dd style="margin: 0">Ahmad Husein Hambali</dd>
+      <dt style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #a6adc8; padding-top: 2px">role</dt><dd style="margin: 0">Founding Engineer, backend lead</dd>
+      <dt style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #a6adc8; padding-top: 2px">org</dt><dd style="margin: 0">NoscAi GmbH · Hamburg, remote</dd>
+      <dt style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #a6adc8; padding-top: 2px">domain</dt><dd style="margin: 0">Healthcare SaaS</dd>
+    </dl>
+  </header>
+
+  <!-- contents strip -->
+  <nav aria-label="Contents" style="display: flex; flex-wrap: wrap; gap: 4px 28px; padding: 14px 0; border-bottom: 1px solid #333333; font-family: 'JetBrains Mono', monospace; font-size: 13px">
+    <a href="#s1" style="display: inline-flex; align-items: center; height: 36px; text-decoration: none; color: #a6adc8"><span style="color: #b4befe">§1</span>&#160;context</a>
+    <a href="#s2" style="display: inline-flex; align-items: center; height: 36px; text-decoration: none; color: #a6adc8"><span style="color: #b4befe">§2</span>&#160;scope</a>
+    <a href="#s3" style="display: inline-flex; align-items: center; height: 36px; text-decoration: none; color: #a6adc8"><span style="color: #b4befe">§3</span>&#160;implementation</a>
+    <a href="#s4" style="display: inline-flex; align-items: center; height: 36px; text-decoration: none; color: #a6adc8"><span style="color: #b4befe">§4</span>&#160;trade-offs</a>
+    <a href="#s5" style="display: inline-flex; align-items: center; height: 36px; text-decoration: none; color: #a6adc8"><span style="color: #b4befe">§5</span>&#160;results</a>
+    <a href="#s6" style="display: inline-flex; align-items: center; height: 36px; text-decoration: none; color: #a6adc8"><span style="color: #b4befe">§6</span>&#160;dependencies</a>
+  </nav>
+
+  <!-- §1 -->
+  <section id="s1" aria-labelledby="h1s" style="display: flex; flex-wrap: wrap; gap: 16px 40px; padding: 48px 0; border-bottom: 1px solid #333333">
+    <h2 id="h1s" style="flex: 0 0 120px; margin: 0; font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: 500; color: #b4befe">§1 context</h2>
+    <div style="flex: 999 1 480px; min-width: 0; max-width: 640px; display: flex; flex-direction: column; gap: 16px; font-size: 18px; line-height: 1.7; color: #bac2de">
+      <p style="margin: 0">Medical teams often relied on fragmented tools for documentation, billing, lab submissions, insurance workflows, and patient data management.</p>
+      <p style="margin: 0">Manual forms and disconnected systems slowed clinical operations and increased the risk of data-entry errors.</p>
+    </div>
+    <aside style="flex: 1 1 200px; align-self: flex-start; padding-left: 14px; border-left: 1px solid #333333; font-family: 'JetBrains Mono', monospace; font-size: 12px; line-height: 1.6; color: #a6adc8">note — sensitive medical data throughout; imaging metadata anonymized with GDPR in mind.</aside>
+  </section>
+
+  <!-- §2 -->
+  <section id="s2" aria-labelledby="h2s" style="display: flex; flex-wrap: wrap; gap: 16px 40px; padding: 48px 0; border-bottom: 1px solid #333333">
+    <h2 id="h2s" style="flex: 0 0 120px; margin: 0; font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: 500; color: #b4befe">§2 scope</h2>
+    <div style="flex: 999 1 480px; min-width: 0; max-width: 640px; display: flex; flex-direction: column; gap: 16px; font-size: 18px; line-height: 1.7; color: #bac2de">
+      <p style="margin: 0">Backend Engineer leading backend development across invoicing, billing workflows, third-party integrations, and backend architecture.</p>
+      <p style="margin: 0">Established backend standards around code reviews, testing, linting, formatting, and onboarding as the team scaled.</p>
+    </div>
+    <aside style="flex: 1 1 200px; align-self: flex-start; padding-left: 14px; border-left: 1px solid #333333; font-family: 'JetBrains Mono', monospace; font-size: 12px; line-height: 1.6; color: #a6adc8">note — first full-time engineer; team grew to 9.</aside>
+  </section>
+
+  <!-- §3 -->
+  <section id="s3" aria-labelledby="h3s" style="display: flex; flex-wrap: wrap; gap: 16px 40px; padding: 48px 0; border-bottom: 1px solid #333333">
+    <h2 id="h3s" style="flex: 0 0 120px; margin: 0; font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: 500; color: #b4befe">§3 implementation</h2>
+    <div style="flex: 999 1 720px; min-width: 0; display: flex; flex-direction: column; gap: 32px">
+
+      <figure style="margin: 0; display: flex; flex-direction: column; gap: 8px">
+        <img src="/slides/clinic-os/slide-01.webp" alt="ClinicOS dashboard overview" style="width: 100%; height: clamp(220px, 30vw, 400px); object-fit: cover; object-position: top left; display: block; border-radius: 3px; border: 1px solid #333333">
+        <figcaption style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #a6adc8">fig. 1 — dashboard overview</figcaption>
+      </figure>
+
+      <div style="display: flex; flex-wrap: wrap; gap: 12px 40px">
+        <div style="flex: 999 1 420px; min-width: 0; max-width: 640px; display: flex; flex-direction: column; gap: 6px">
+          <h3 style="margin: 0; font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 500; color: #cdd6f4">3.1 invoicing &amp; integrations</h3>
+          <p style="margin: 0; font-size: 17px; line-height: 1.7; color: #bac2de">Owned invoicing workflows and integrations with third-party billing, external lab, medication-data, insurance, and liquidation systems.</p>
+        </div>
+        <span style="flex: 1 1 200px"></span>
+      </div>
+
+      <div style="display: flex; flex-wrap: wrap; gap: 12px 40px">
+        <div style="flex: 999 1 420px; min-width: 0; max-width: 640px; display: flex; flex-direction: column; gap: 6px">
+          <h3 style="margin: 0; font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 500; color: #cdd6f4">3.2 invoice lifecycle</h3>
+          <p style="margin: 0; font-size: 17px; line-height: 1.7; color: #bac2de">Built an appointment-driven invoice lifecycle where draft invoices sync with appointment changes before being finalized into immutable invoices.</p>
+        </div>
+        <figure role="img" aria-label="Invoice states: draft, synced with appointment changes, then finalized and immutable" style="flex: 1 1 200px; margin: 0; align-self: flex-start; box-sizing: border-box; padding: 14px; border-radius: 3px; border: 1px solid #333333; background: #262626; display: flex; flex-direction: column; gap: 6px; font-family: 'JetBrains Mono', monospace; font-size: 12px">
+          <span style="padding: 6px 8px; border-radius: 3px; background: #333333">draft</span>
+          <span style="padding-left: 10px; color: #a6adc8">⟲ appointment changes</span>
+          <span style="padding-left: 10px; color: #a6adc8">↓ finalize</span>
+          <span style="padding: 6px 8px; border-radius: 3px; border: 1px solid #b4befe; color: #b4befe">final · immutable</span>
+        </figure>
+      </div>
+
+      <div style="display: flex; flex-wrap: wrap; gap: 12px 40px">
+        <div style="flex: 999 1 420px; min-width: 0; max-width: 640px; display: flex; flex-direction: column; gap: 6px">
+          <h3 style="margin: 0; font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 500; color: #cdd6f4">3.3 lab &amp; insurance submission</h3>
+          <p style="margin: 0; font-size: 17px; line-height: 1.7; color: #bac2de">Automated lab and insurance data submission, replacing manual multi-step forms with one-click clinician confirmation.</p>
+        </div>
+        <aside style="flex: 1 1 200px; align-self: flex-start; padding-left: 14px; border-left: 1px solid #333333; font-family: 'JetBrains Mono', monospace; font-size: 12px; line-height: 1.6; color: #a6adc8">multi-step form → <span style="color: #b4befe">1 click</span></aside>
+      </div>
+
+      <div style="display: flex; flex-wrap: wrap; gap: 12px 40px">
+        <div style="flex: 999 1 420px; min-width: 0; max-width: 640px; display: flex; flex-direction: column; gap: 6px">
+          <h3 style="margin: 0; font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 500; color: #cdd6f4">3.4 plugin architecture</h3>
+          <p style="margin: 0; font-size: 17px; line-height: 1.7; color: #bac2de">Redesigned the plugin-based backend architecture to reduce coupling and improve modularity.</p>
+        </div>
+        <aside style="flex: 1 1 200px; align-self: flex-start; padding-left: 14px; border-left: 1px solid #333333; font-family: 'JetBrains Mono', monospace; font-size: 12px; line-height: 1.6; color: #a6adc8">build time <span style="color: #b4befe">−25%</span></aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- §4 -->
+  <section id="s4" aria-labelledby="h4s" style="display: flex; flex-wrap: wrap; gap: 16px 40px; padding: 48px 0; border-bottom: 1px solid #333333">
+    <h2 id="h4s" style="flex: 0 0 120px; margin: 0; font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: 500; color: #b4befe">§4 trade-offs</h2>
+    <div style="flex: 999 1 480px; min-width: 0; max-width: 640px; display: flex; flex-direction: column; gap: 16px">
+      <div style="box-sizing: border-box; padding: 16px 18px; border-radius: 3px; border: 1px dashed #444444; font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 1.6; color: #a6adc8">[ your words: one decision you made, what you gave up, and why ]</div>
+      <a href="#post" style="display: flex; flex-direction: column; gap: 6px; box-sizing: border-box; padding: 18px; border-radius: 3px; background: #262626; border: 1px solid #333333; text-decoration: none">
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #b4befe">related writing →</span>
+        <span style="font-family: 'Space Grotesk', sans-serif; font-size: 20px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.25">I Wanted to Clean the Code Before Changing the Architecture</span>
+        <span style="font-size: 14px; line-height: 1.55; color: #a6adc8">The billing system had accumulated duplicated logic, expensive data flows, and unclear boundaries. I wanted to clean those problems up first, but we chose a larger architectural refactor instead.</span>
+      </a>
+    </div>
+    <span style="flex: 1 1 200px"></span>
+  </section>
+
+  <!-- §5 -->
+  <section id="s5" aria-labelledby="h5s" style="display: flex; flex-wrap: wrap; gap: 16px 40px; padding: 48px 0; border-bottom: 1px solid #333333">
+    <h2 id="h5s" style="flex: 0 0 120px; margin: 0; font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: 500; color: #b4befe">§5 results</h2>
+    <div style="flex: 999 1 720px; min-width: 0; display: flex; flex-direction: column; gap: 24px">
+      <div style="overflow-x: auto">
+        <table style="width: 100%; min-width: 520px; border-collapse: collapse; font-size: 15px">
+          <thead>
+            <tr style="border-bottom: 1px solid #333333; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #a6adc8; text-align: left">
+              <th scope="col" style="padding: 10px 16px 10px 0; font-weight: 400">metric</th>
+              <th scope="col" style="padding: 10px 16px; font-weight: 400">before</th>
+              <th scope="col" style="padding: 10px 0 10px 16px; font-weight: 400">after</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom: 1px solid #333333">
+              <td style="padding: 14px 16px 14px 0">Build time</td>
+              <td style="padding: 14px 16px; color: #a6adc8">baseline</td>
+              <td style="padding: 14px 0 14px 16px; font-family: 'JetBrains Mono', monospace; color: #b4befe">−25%</td>
+            </tr>
+            <tr style="border-bottom: 1px solid #333333">
+              <td style="padding: 14px 16px 14px 0">Lab &amp; insurance submission</td>
+              <td style="padding: 14px 16px; color: #a6adc8">manual multi-step forms</td>
+              <td style="padding: 14px 0 14px 16px; font-family: 'JetBrains Mono', monospace; color: #b4befe">one-click confirmation</td>
+            </tr>
+            <tr style="border-bottom: 1px solid #333333">
+              <td style="padding: 14px 16px 14px 0">Engineering team</td>
+              <td style="padding: 14px 16px; color: #a6adc8">1 (first full-time hire)</td>
+              <td style="padding: 14px 0 14px 16px; font-family: 'JetBrains Mono', monospace; color: #b4befe">9 engineers</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <ul style="margin: 0; max-width: 640px; padding-left: 20px; display: flex; flex-direction: column; gap: 10px; font-size: 16px; line-height: 1.65; color: #bac2de">
+        <li>Reduced manual clinical data-entry work and minimized submission errors.</li>
+        <li>Helped shorten doctor documentation workflows through AI-assisted drafts and OCR-based health record extraction.</li>
+        <li>Streamlined patient, insurance, lab, and billing workflows across the wider ClinicOS platform.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- §6 -->
+  <section id="s6" aria-labelledby="h6s" style="display: flex; flex-wrap: wrap; gap: 16px 40px; padding: 48px 0; border-bottom: 1px solid #333333">
+    <h2 id="h6s" style="flex: 0 0 120px; margin: 0; font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: 500; color: #b4befe">§6 dependencies</h2>
+    <div style="flex: 999 1 720px; min-width: 0; display: flex; flex-direction: column; gap: 20px">
+      <pre style="margin: 0; box-sizing: border-box; padding: 20px; border-radius: 3px; background: #262626; border: 1px solid #333333; overflow-x: auto; font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 1.8; color: #bac2de">runtime    Node.js · TypeScript · Express.js
+data       PostgreSQL · Redis
+async      BullMQ · Pub/Sub
+infra      Google Cloud · ArgoCD
+observe    Sentry · Grafana
+auth       JWT · RBAC
+ai         AI-Powered features</pre>
+      <div style="display: flex; flex-wrap: wrap; gap: 8px">
+        <a href="https://web.archive.org/web/20251210015016/https://www.clinicos.de/" style="height: 44px; box-sizing: border-box; padding: 0 16px; border-radius: 3px; border: 1px solid #444444; font-size: 14px; font-weight: 500; text-decoration: none; display: flex; align-items: center; gap: 8px">ref: snapshot during my work <span aria-hidden="true">↗</span></a>
+        <a href="https://clinicos.de" style="height: 44px; box-sizing: border-box; padding: 0 16px; border-radius: 3px; border: 1px solid #444444; font-size: 14px; font-weight: 500; text-decoration: none; display: flex; align-items: center; gap: 8px">ref: current product page <span aria-hidden="true">↗</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- end matter -->
+  <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 20px; padding-top: 32px">
+    <div style="display: flex; flex-wrap: wrap; gap: 8px">
+      <a href="mailto:ahmadhuseinh.03@gmail.com" style="height: 44px; box-sizing: border-box; padding: 0 18px; border-radius: 3px; background: #fab387; color: #11111b; font-weight: 600; font-size: 14px; text-decoration: none; display: flex; align-items: center; gap: 10px">Email me <span aria-hidden="true">→</span></a>
+      <a href="https://www.linkedin.com/in/ahmadhuseinhambali03/" style="height: 44px; box-sizing: border-box; padding: 0 16px; border-radius: 3px; border: 1px solid #444444; font-size: 14px; font-weight: 500; text-decoration: none; display: flex; align-items: center">LinkedIn</a>
+      <a href="https://github.com/ucencode" style="height: 44px; box-sizing: border-box; padding: 0 16px; border-radius: 3px; border: 1px solid #444444; font-size: 14px; font-weight: 500; text-decoration: none; display: flex; align-items: center">GitHub</a>
+    </div>
+    <a href="#book-your-gp" style="display: flex; flex-direction: column; align-items: flex-end; gap: 2px; text-decoration: none; padding: 6px 0">
+      <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #a6adc8">next doc · CS-002</span>
+      <span style="font-family: 'Space Grotesk', sans-serif; font-size: 22px; font-weight: 700; letter-spacing: -0.02em">BookYourGP →</span>
+    </a>
+  </div>
+
+</div>
+</div>
+</body>
+</html>
