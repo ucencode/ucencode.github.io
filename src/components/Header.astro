@@ -1,28 +1,15 @@
 ---
+import { ChevronLeft } from 'lucide-react';
 import { routes } from '@/lib/routes';
 
 const path = Astro.url.pathname;
-const segments = path.split('/').filter(Boolean);
 const section = routes.find((r) => path.startsWith(r.href));
 ---
 <header class="masthead">
-  <div class="crumbs">
-    <a href="/" aria-label="Home" class="crumb-link">~</a>
-    {segments.map((seg, i) => {
-      const href = '/' + segments.slice(0, i + 1).join('/') + '/';
-      const last = i === segments.length - 1;
-      return (
-        <>
-          <span class="crumb-sep" aria-hidden="true">/</span>
-          {last ? (
-            <span class="crumb-current" style={`color: var(--${section?.group ?? 'lavender'})`}>{seg}</span>
-          ) : (
-            <a href={href} class="crumb-link">{seg}</a>
-          )}
-        </>
-      );
-    })}
-  </div>
+  <a href="/" class="home-link">
+    <ChevronLeft className="home-icon" size={16} aria-hidden="true" />
+    <span>home</span>
+  </a>
   <nav aria-label="Main" class="nav">
     {routes.map((r) => (
       <a
@@ -50,29 +37,25 @@ const section = routes.find((r) => path.startsWith(r.href));
     font-size: 12px;
     color: var(--subtext);
   }
-  .crumbs {
-    display: flex;
+  .home-link {
+    display: inline-flex;
     align-items: center;
     gap: 4px;
-    min-width: 0;
+    min-height: 44px;
+    margin-left: -4px;
+    color: var(--subtext);
+    text-decoration: none;
   }
-  .crumb-link,
+  .home-link:hover,
+  .nav-link:hover {
+    color: var(--text);
+  }
   .nav-link {
     display: inline-flex;
     align-items: center;
     min-height: 44px;
     color: var(--subtext);
     text-decoration: none;
-  }
-  .crumb-link:hover,
-  .nav-link:hover {
-    color: var(--text);
-  }
-  .crumb-sep {
-    color: var(--muted-bar);
-  }
-  .crumb-current {
-    overflow-wrap: anywhere;
   }
   .nav {
     display: flex;

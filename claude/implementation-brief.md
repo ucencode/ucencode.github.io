@@ -42,7 +42,7 @@ Add a `highlight` line per person and two new people:
 /recommendations page: compact symmetric 2×2 (max-width ~772px), one line per person, key phrase in mauve, "full text ↗" to LinkedIn.
 
 ## 6. Header
-Static `Header.astro` on inner pages only (the homepage has none): a breadcrumb path starting at `~`, plus route links from `src/lib/routes.ts`, with the current section in its group colour. No React island.
+Static `Header.astro` on inner pages only (the homepage has none): a "home" back link with a Lucide `ChevronLeft`, plus route links from `src/lib/routes.ts`, with the current section in its group colour. No React island.
 
 ## Constraints
 No location anywhere on the site. Keep accessibility: real `<a>`/`<button>`, visible focus, 4.5:1 text contrast, `prefers-reduced-motion`.
