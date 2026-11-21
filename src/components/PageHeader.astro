@@ -3,8 +3,6 @@ import { ArrowDownToLine } from 'lucide-react';
 import type { Group } from '@/lib/routes';
 
 type Props = {
-  /** Mono label above the title, e.g. "doc README". */
-  doc: string;
   title: string;
   /** Short line under the title. */
   lead?: string;
@@ -15,12 +13,11 @@ type Props = {
   cv?: boolean;
 };
 
-const { doc, title, lead, leadAccent = false, group, meta = [], cv = false } = Astro.props;
+const { title, lead, leadAccent = false, group, meta = [], cv = false } = Astro.props;
 const accent = `var(--${group})`;
 ---
 <header class="title-block">
   <div class="title-main">
-    <span class="doc">{doc}</span>
     <h1 class="headline-lg title">{title}</h1>
     {lead && <p class:list={['lead', { 'lead-accent': leadAccent }]} style={leadAccent ? `color: ${accent}` : undefined}>{lead}</p>}
   </div>
@@ -61,7 +58,6 @@ const accent = `var(--${group})`;
     flex-direction: column;
     gap: 18px;
   }
-  .doc,
   dt {
     font-family: 'JetBrains Mono', ui-monospace, monospace;
     font-size: 12px;
