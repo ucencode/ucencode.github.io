@@ -2,7 +2,7 @@
 title: "Why I Moved Into Astro"
 description: "I rebuilt my personal website a few times before landing on Astro. It gave me the simplicity of static HTML, reusable components, and just enough React when I need it."
 pubDate: 2026-01-27
-tags: ["astro", "web", "personal-site"]
+tags: ["astro", "web", "personal website"]
 ---
 
 I rebuilt my personal website a few times.
