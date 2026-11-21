@@ -6,8 +6,6 @@ tags: ["design", "ux", "personal website"]
 draft: true
 ---
 
-> Design journal draft — November 10, 2026. Intended as source material for a future blog post, not an implementation specification.
-
 ## The problem
 
 I'm redesigning my personal website, but I don't want to build another portfolio that simply looks good.
@@ -120,13 +118,5 @@ An interesting composition isn't automatically usable. A technically elegant imp
 
 The current design is a hypothesis to test against real content, realistic viewport sizes, and different navigation paths.
 
-**The goal isn't to make my personal website look like a product. It's to design the experience with a product mindset.**
+**The goal isn't a website that looks impressive. It's one that is easy to use for the people who actually visit it.**
 
-## Follow-up before publishing
-
-- [ ] Include a visual of the initial circle/oval hierarchy experiments.
-- [ ] Include a visual of the selected desktop arrangement.
-- [ ] Include the mobile arrangement.
-- [ ] Validate block size and copy fit with real content.
-- [ ] Define tablet behavior and keyboard/accessibility expectations.
-- [ ] Revise this journal into a publishable blog post after validating the design.
