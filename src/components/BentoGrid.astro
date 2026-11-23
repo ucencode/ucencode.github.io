@@ -1,12 +1,12 @@
 ---
-import { getCollection } from 'astro:content';
 import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import ExperienceTimeline from './ExperienceTimeline.astro';
 import { tiles, type TileId } from '@/data/tiles';
 import { testimonials } from '@/data/testimonials';
 import { socialLinks } from '@/data/about';
+import { getPublishedPosts } from '@/lib/blog';
 
-const posts = await getCollection('blog', ({ data }) => !data.draft);
+const posts = await getPublishedPosts();
 const quote = testimonials[0];
 
 const tile = (id: TileId) => tiles.find((t) => t.id === id)!;

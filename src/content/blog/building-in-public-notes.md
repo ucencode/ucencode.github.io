@@ -1,14 +1,14 @@
 ---
 title: "I Started Sharing My Work"
-description: "Sharing my work in public started as a simple habit, but it changed how I learn, write, and think about my work"
+description: "Sharing my work in public changed how I learn and what I choose to write about."
 pubDate: 2026-01-27
 tags: ["career", "writings"]
 draft: false
 ---
 
-I started sharing my work online six months ago. I am posting what I was building and my experience, and my thought, or what i learned from mistakes.
+I started sharing my work online six months ago. I post about what I'm building and what I learn when something goes wrong.
 
-I might revisit what i did in my past and see it in different way / perspective. You may think you understand something, but when you try to explain it clearly to other people, you discover how well you really understand it.
+Writing also gives me a reason to revisit old work. Trying to explain a decision often shows me which parts I understood and which parts I took for granted.
 
 The people who read my posts were mostly learning the same things I was writing about. Many of them were discovering these ideas for the first time. This changed the way I thought about being useful. I was no longer trying to impress people. I wanted to write the kind of helpful things I wish I had found when I was stuck.
 

@@ -142,22 +142,4 @@ The next person also needed enough information to continue without reconstructin
 
 ## What I Think About It Now
 
-Looking back, I do not think a large refactor is always wrong or that a gradual refactor is always better. Sometimes replacing a large part of a system at once makes sense, and sometimes several concepts really are similar enough that putting them behind one abstraction removes unnecessary complexity.
-
-I also understand why engineering work cannot be considered separately from business requirements. There can be client commitments, revenue targets, certification deadlines, and other reasons why a company needs to keep delivering. I never expected development to stop until the engineering team considered the codebase perfect.
-
-What concerned me was the order of the changes and where we chose to put the abstraction. We already had duplicated logic, unnecessary data being fetched and passed around, unclear responsibilities, frequent changes, and bugs that we were still dealing with.
-
-In that situation, I would rather have started by making the business flow more structured and extracting behavior that was genuinely shared. That would not require the four billing concepts to remain separate forever. It would give us a clearer view of their responsibilities before deciding whether their data representation should also be consolidated.
-
-Maybe after doing that work, we would still have decided that one `BillingDocument` model was the better architecture. I would have been more comfortable with that decision if it came after reducing the existing implementation problems and understanding the boundaries more clearly.
-
-This experience also changed how I look at architectural simplicity. Having four tables become one table or several services become one abstraction is easy to see, but fewer components do not always mean fewer concepts.
-
-If those concepts still have different lifecycles, rules, and data-access patterns, those differences still need to be represented somewhere. They can appear as nullable fields, enums, handler conditions, query filters, or additional indexes, depending on how the system is designed.
-
-I also learned that disagreeing with a technical decision does not mean I should implement it badly. I can explain my concerns and propose another approach, but there will be times when the final decision is different from what I would choose.
-
-In that situation, I still want to make the migration safe, write the tests, document the implementation, and make sure the next engineer understands what they are taking over. Disagreement with the design and responsibility for the implementation are two separate things.
-
-If I faced the same kind of problem now, I would still ask how much of the complexity actually belongs to the domain and how much comes from the way we currently implemented it. I would prefer to reduce the implementation complexity first, then use what remains to decide which domain boundaries are actually unnecessary.
+I'd evaluate a similar refactor by tracing one operation end to end. Take editing a line item. A draft allows it, while a finalized invoice restricts it. After consolidation, I'd check how each path enforces that rule and where a maintainer has to look to understand it. That would tell me more about the cost of the shared model than counting the tables it replaces.

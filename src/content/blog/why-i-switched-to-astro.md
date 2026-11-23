@@ -1,8 +1,8 @@
 ---
-title: "Why I Moved Into Astro"
+title: "Why I Switched to Astro"
 description: "I rebuilt my personal website a few times before landing on Astro. It gave me the simplicity of static HTML, reusable components, and just enough React when I need it."
 pubDate: 2026-01-27
-tags: ["astro", "web", "personal-site"]
+tags: ["astro", "web", "personal website"]
 ---
 
 I rebuilt my personal website a few times.
@@ -43,7 +43,7 @@ The content-heavy parts of the site can stay simple and fast. The interactive pa
 
 ## Migrating was surprisingly fast
 
-I migrated the site with some help from AI, and honestly, it was fast enough to get the first version working quickly.
+I used AI to help get the first version of the migration running.
 
 Of course, I still had to check the output, clean things up, test the behavior, and understand how Astro actually works. But once I saw the generated output and how the pages were built, it made a lot of sense.
 
@@ -60,11 +60,3 @@ For a personal website, most sections do not need hydration. The hero section, a
 If something needs interactivity, Astro lets me opt in. That feels like the right default.
 
 I also like that writing blog posts can be as simple as creating Markdown files. That makes the site feel easier to grow over time. I do not need a complicated CMS yet. I just need a simple way to write, organize, and publish content.
-
-## Final thought
-
-Moving to Astro made my personal website feel easier to maintain.
-
-Plain HTML was simple but became repetitive. React SPA was comfortable but felt unnecessary for mostly static content. Astro gave me a balance between both: static output, reusable components, Markdown content, and React only when I actually need it.
-
-For now, that is exactly what I want from a personal website.

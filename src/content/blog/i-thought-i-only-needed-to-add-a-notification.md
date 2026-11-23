@@ -1,6 +1,6 @@
 ---
 title: "I Thought I Only Needed to Add a Notification"
-description: "I only needed to add a new notification. Following its CTA into the frontend taught me more about the API contract I was designing from the backend."
+description: "Opening a draft invoice from a notification showed me how the frontend uses the order ID returned by the API."
 pubDate: 2026-06-10
 tags: ["backend", "frontend", "react", "typescript"]
 draft: false
@@ -108,22 +108,4 @@ In this case, the external order ID was not just another identifier in a respons
 
 Following that path gave me a better understanding of what I was actually proposing from the backend.
 
-## An API Contract Has a Consumer
-
-Since then, I have tried to think beyond whether an API contract looks clean from the backend side.
-
-I also think about what the consumer will actually have to do with it.
-
-Does the frontend have enough information to perform the next interaction? Will it need another request just to resolve something that could reasonably have been provided already? Does the response shape fit the way the feature is actually presented, or is it convenient for the backend while making the frontend work around it?
-
-That does not mean the backend should reshape every API around whatever the frontend happens to need at a particular moment. The boundaries still matter, and there are good reasons to keep responsibilities separate.
-
-What changed for me was understanding that those boundaries have to work for both sides.
-
-The notification feature started as a small piece of frontend work after I had already finished the backend. I could have handed it to someone who knew the frontend better than I did.
-
-Instead, I pair programmed through an unfamiliar part of the application and got to see how an identifier from an API eventually became an interaction in the UI.
-
-The feature itself was small.
-
-Understanding the other side of the API was the useful part.
+Now when I review an API response, I ask what the client needs to do next and whether the response gives it enough information.

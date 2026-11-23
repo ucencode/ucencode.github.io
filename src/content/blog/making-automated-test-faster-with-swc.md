@@ -1,5 +1,5 @@
 ---
-title: "Making Automated Test Faster With SWC"
+title: "Making Automated Tests Faster With SWC"
 description: "Automated tests gave me confidence until the test suite became expensive to run. Understanding what ts-jest was doing led me to SWC, and to a decorator metadata problem I did not expect."
 pubDate: 2026-06-10
 tags: ["engineering", "backend", "typescript", "testing", "jest", "swc"]
@@ -12,7 +12,7 @@ Once we started implementing tests across all the packages, though, the cost beg
 
 ## When More Hardware Seemed Like the Answer
 
-I asked one of my senior engineers about the resource usage because I wanted to know whether there was something obvious I was missing. His answer was that there was no problem when he ran the tests, what i know is that he had 96 GB of RAM. His suggestion was simple: expand the RAM. From his environment, that made perfect sense because he was not experiencing the same limitation.
+I asked a senior engineer whether he had run into the same problem. The tests ran fine on his machine, which had 96 GB of RAM. He suggested adding more memory to mine.
 
 At the time, that was probably the most practical solution to the problem I was seeing. I just did not stop thinking about whether giving the test suite more hardware was really the only way to make it manageable.
 
@@ -36,7 +36,17 @@ The invoicing package used TypeORM entities with decorators such as `@Entity` an
 
 I spent around twenty minutes reading through the SWC documentation to understand what was actually happening. The important part was that decorator support and decorator metadata were two separate things. I could enable decorators, but that did not automatically mean SWC would generate the metadata that TypeORM expected.
 
-The relevant configuration ended up looking roughly like this:
+Here is a minimal version of the setup. In `jest.config.cjs`, use `@swc/jest` to transform TypeScript files:
+
+```js
+module.exports = {
+  transform: {
+    "^.+\\.tsx?$": "@swc/jest",
+  },
+};
+```
+
+Then set the TypeScript parser and decorator options in `.swcrc`:
 
 ```json
 {
@@ -53,7 +63,9 @@ The relevant configuration ended up looking roughly like this:
 }
 ```
 
-Without `decoratorMetadata: true`, tests involving the TypeORM entities would fail because the metadata expected by `reflect-metadata` was not being generated. The error itself was not particularly helpful, which made the problem initially feel more mysterious than it really was.
+Without `decoratorMetadata: true`, SWC didn't emit the type metadata that TypeORM reads through `reflect-metadata`. Tests involving those entities failed.
+
+See the [SWC Jest setup](https://swc.rs/docs/usage/jest) and [SWC compilation options](https://swc.rs/docs/configuration/compilation) for the configuration details.
 
 That was also the part of the migration I had not anticipated. I was not simply replacing one TypeScript transformer with another. I was changing the compilation behavior underneath libraries that depended on specific output, so I had to make sure SWC reproduced the behavior that those libraries were relying on.
 
@@ -61,34 +73,10 @@ Once I understood that, the migration became much more straightforward.
 
 ## The Feedback Loop Got Faster
 
-After the SWC configuration was correct, the difference was immediately noticeable. The unit tests in the invoicing domain became much faster to execute, and that mattered much more to me than the benchmark itself because I could finally get feedback quickly while working through the refactor.
-
-The whole point was not really that SWC was a faster compiler. The useful part was that the test loop stopped getting in the way of the work I was doing. I could make a change and get an answer much sooner instead of repeatedly waiting for a heavier TypeScript compilation process.
-
-There was still a trade-off, though.
-
-## Faster Tests, Less Work Per Test Run
-
-Moving from `ts-jest` to SWC meant that the test transformation was no longer doing TypeScript type checking in the same way. At first, that sounds like an obvious regression because type checking is useful for catching mistakes, but I was not removing type checking from the project.
-
-The production code still went through the normal TypeScript compilation and type checking process. I was separating that responsibility from the behavioral feedback loop provided by the tests. The tests needed to tell me whether the behavior still worked, while TypeScript needed to tell me whether the code satisfied its type constraints. I did not necessarily need both systems to perform all of their work every time I changed a few lines.
-
-That made the trade-off acceptable to me. I would rather have a fast test suite that I could run repeatedly while working and let the normal build or type-checking process handle the type safety separately.
+After configuring SWC, I got feedback sooner when rerunning the invoicing unit tests during the refactor.
 
 ## The Trade-Off Made Test Quality More Important
 
-There was still another consequence to that decision. Once the test runner stopped performing type checking, I became more conscious of what the tests themselves were actually validating. A test suite can pass while still having weak assertions, missing important cases, or simply failing to exercise the behavior that matters.
+SWC transpiles TypeScript without type checking, so I still rely on the normal TypeScript build to catch type errors. That made me pay closer attention to what Jest was checking. A suite can pass even when its assertions miss an important invoicing case.
 
-Code coverage does not solve that problem either. You can execute a lot of lines and still write tests that do not meaningfully prove anything. Faster tests made it easier for me to run them more frequently, but they also made it more important that those tests were actually useful.
-
-That became the balance I was looking for. Type checking belonged to the TypeScript build process, while behavioral verification belonged to the tests. The test runner did not need to duplicate every responsibility of the compiler just to tell me whether the code still behaved correctly.
-
-## More RAM Wasn't the Only Answer
-
-Looking back, my senior's suggestion to expand my RAM was reasonable because the tests were running fine on his machine with 96 GB. The problem was that I was running them on a machine with 32 GB, so adding more memory would have addressed the immediate resource limitation.
-
-What changed for me was that I stopped looking at the hardware as the only explanation for the problem. When something becomes expensive to run, there is always a temptation to throw more resources at it and move on, but sometimes the better question is what work is actually necessary in the first place.
-
-In my case, the unit tests did not need the full TypeScript compilation workload every time they ran. Switching from `ts-jest` to SWC let me separate fast test transformation from the type checking that was still handled elsewhere in the development and production workflow.
-
-> The tests originally taught me that I did not have to manually verify everything after every change. Later, the test suite taught me almost the same lesson about itself. I did not need every test run to verify everything either.
+During a refactor, I want a failing test to tell me which invoicing behavior changed. If I can rerun that test after each small edit, I have a better chance of spotting which change broke it.

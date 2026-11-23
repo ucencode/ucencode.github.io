@@ -1,6 +1,6 @@
 ---
 title: "It Worked Fine Until Someone Optimized It"
-description: "A favorite-item feature started with a deliberately boring database design. Moving it into an asynchronous search index created exactly the consistency problems I had tried to avoid"
+description: "Moving favorites from database reads to an asynchronous search index introduced stale results and made partial failures harder to diagnose."
 pubDate: 2026-06-10
 tags: ["engineering", "backend"]
 draft: false
@@ -24,11 +24,7 @@ We could have allocated dedicated concurrency to make favorite updates propagate
 
 The workload was also naturally read-heavy. Users might open their favorite list many times, but they were not continuously adding and removing hundreds of favorites, so I accepted the database access.
 
-Part of my reasoning came from watching how other systems behave under load. Steam was one example I kept thinking about. During a major seasonal sale, the store homepage is fast to open, and this is something almost everyone needs, so it makes sense for that kind of broadly shared content to be heavily cached or indexed so millions of requests do not repeatedly perform expensive database work.
-
-A wishlist is different because it belongs to an individual user and has a very different access pattern. During the first hours of a major sale, I got a 503 Service Unavailable instead. Wishlist functionality has historically been one of the parts of Steam that can struggle while the general storefront remains accessible.
-
-I did not take that as proof that Steam had the same architecture as ours because I obviously did not know their internal implementation. What I took from it was simpler: not every piece of data needs the same availability and scaling strategy.
+During one Steam sale, I could open the storefront while my wishlist returned `503 Service Unavailable`. I didn't know what caused the error. The incident stuck with me because browsing a shared storefront and opening a personal list are separate actions with different access patterns.
 
 For our users and our expected traffic, I preferred the simpler consistency model. The feature shipped, and it worked.
 
@@ -42,17 +38,13 @@ The actual consequence became obvious during a demo. I received a message from m
 
 That was especially frustrating because these were failure modes the original implementation deliberately did not have. The database-backed version had already worked. Now I was dealing with consequences from a change I had neither required nor designed, in a feature for which I still effectively carried ownership.
 
-Eventually that engineer left the team, but the architectural change remained. Once an additional system becomes part of a feature, removing the engineer who introduced it does not remove the additional system.
-
 ## Soft Delete Changed More Than I Expected
 
-There was another change that made the situation more complicated. "a so-called clever low-level engineer" later introduced soft delete for the favorite-item data.
+The team later introduced soft delete for favorites so deleted records could be recovered.
 
 Originally, the database relationship followed a simpler delete behavior. Because the relationship was represented as a normal database record with cascade behavior, deleting the related data meant the favorite relationship would no longer exist.
 
 With soft delete, that behavior changed. The record remained in the table with a non-null `deleted_at` value instead of actually disappearing.
-
-At first, the reasoning sounded reasonable. If something was deleted accidentally, we could recover it.
 
 Looking back, I think I could have pushed back on that trade-off more clearly. For a favorite-item relationship, the state seemed fundamentally binary to me. The item is favorited, or it is not. I did not immediately see a user requirement for keeping a deleted favorite in a recoverable state.
 
@@ -108,7 +100,7 @@ The feature was neither fully broken nor fully working. It was just wrong for so
 
 ## I Needed the Indexer to Tell Me Which Record Was Bad
 
-The eventual code change was small. Instead of allowing the parsing failure to disappear into the surrounding batch operation, I handled it at the individual item level and included enough context to identify exactly what had failed.
+The change I remember was adding the batch position and ID to the parsing error so I could identify the failed record.
 
 Conceptually, it looked like this:
 
@@ -124,11 +116,7 @@ items.map((id, index) => {
 });
 ```
 
-I deliberately did not silently filter malformed IDs. Filtering them would have allowed the rest of the batch to continue, but it would also have turned corrupted or unexpected data into something the system quietly accepted.
-
-If an ID violated the format we expected, I wanted to know about it. The important improvement was not that the indexer could magically recover from malformed production data. It was that the next failure would tell me which record had violated the assumption.
-
-A batch containing hundreds of records should not make one of those records anonymous when it fails.
+The throw still aborts the batch. For the new message to reach someone who can act on it, the job runner has to report the failure. This snippet covers the parser change only.
 
 ## The Original Trade-Off Hadn't Disappeared
 
@@ -143,17 +131,3 @@ The mistake was assuming that because a system was useful for one part of the ap
 The same applied to soft delete. Keeping deleted records recoverable can be useful when the business needs that capability, but it is not automatically an improvement when the underlying feature only has a simple active-or-not-active state.
 
 Sometimes those trade-offs are absolutely worth paying. For favorites, I had originally decided they weren't.
-
-## Boring Architecture Can Be a Deliberate Decision
-
-This experience changed how I react when someone describes an implementation as too simple. A direct database query can look unsophisticated next to a search index, caching layer, asynchronous queue, or dedicated read model, but those systems are not free improvements. Each one changes the failure modes of the feature.
-
-The original favorite implementation had a straightforward limitation: reads reached the database. I knew about that limitation when I designed it, and I accepted it because the expected usage made the cost reasonable.
-
-The indexed version solved that theoretical concern while introducing asynchronous propagation, synchronization, reindexing, partial failures, another data representation, and more states that had to be interpreted consistently.
-
-The important question was never whether Meilisearch could make favorite reads faster. Of course it could.
-
-The question was whether favorite reads needed it badly enough to justify everything that came with it. For this feature, they didn't.
-
-> Sometimes the boring database query is not the architecture you ended up with because you forgot to optimize it. Sometimes you already considered the optimization and deliberately decided not to need it.

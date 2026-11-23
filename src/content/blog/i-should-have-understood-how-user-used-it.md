@@ -1,6 +1,6 @@
 ---
-title: "I Should Have Understood How User Used it"
-description: "The External API XML schema went through six versions in six weeks. Each clearinghouse validation attempt revealed fields no documentation had mentioned yet."
+title: "I Should Have Asked How Doctors Submit Invoices"
+description: "Clearinghouse validation taught me what belonged in the XML. Learning how doctors submit invoices changed how I thought about the workload."
 pubDate: 2026-06-10
 tags: ["backend", "architecture", "xml", "engineering"]
 draft: false
@@ -44,25 +44,25 @@ For the workload I knew about, it worked well. The problem was that the workload
 
 ## Then the Implementation Became Heavier Again
 
-Later, someone senior changed part of the processing flow and introduced a library to handle some of the work I had previously kept relatively direct. The implementation became heavier, the processing delay became noticeable, and the microservice could no longer handle as many requests concurrently as I expected.
+Later, a senior engineer introduced a library into the processing flow. I noticed a delay after the change and wanted to know what it meant for concurrent submissions.
 
 Normally, that would have been the point where I wanted numbers immediately. How much slower was each request? Where was the time being spent? What happened to memory consumption? How did throughput change as concurrency increased?
 
-Unfortunately, I had not finished adding the observability I needed to answer those questions properly. That left me in a weak position because I could see the behavioral difference and reason about what had changed in the implementation, but I did not yet have enough production telemetry to demonstrate the impact as clearly as I wanted.
+I hadn't finished adding the instrumentation. I had an observation about the delay, but I couldn't quantify the effect on throughput or attribute the delay to the library alone.
 
 That was another mistake I carried forward from the project. If performance is part of an architectural decision, observability cannot be something I plan to add after the architecture is already being challenged.
 
 But even that was not the biggest surprise.
 
-## Then hundred of Invoices Arrived at Once
+## Then Invoices Arrived in Batches
 
 The mental model I had been using was relatively simple. An invoice is completed, the system processes it, and the invoice is submitted. Then another invoice comes later.
 
-What I had not prepared for was a doctor accumulating invoices first. Instead of automatically submitting each invoice as it became ready, a doctor might work through their billing, review a large collection of invoices, and then submit perhaps 100 or 200 of them around the same time.
+I hadn't accounted for doctors who reviewed a group of invoices first and submitted them together.
 
 Suddenly, the service was not handling the workload I had designed around. It was handling bursts, and that changed the meaning of the performance problem completely.
 
-A small increase in processing time for one invoice might be almost invisible. Multiply that cost across a burst of 100 or 200 requests, however, and concurrency becomes much more important.
+Imagine a batch of 100 invoices. A small delay on one invoice might go unnoticed, but if work arrives faster than the service can process it, the doctor can be left waiting for the batch.
 
 The service had been technically correct, the XML could be correct, the validation could be correct, and the implementation could even be clean. We could still have the wrong performance characteristics because I had misunderstood how the feature was used.
 
@@ -86,22 +86,4 @@ If I approached the same situation again, I would communicate the uncertainty mu
 
 That changes the conversation because the missing domain knowledge is now visible. Product, engineering, and whoever understands the users can decide whether we need to investigate it immediately or consciously accept the risk.
 
-I would also document what I learned while building the integration. Not only the XML fields and their types, but the business meaning behind them, the assumptions we had validated, the expected user flow, and the workload patterns we had observed.
-
-That documentation would help me while developing the feature, help the next engineer who inherited it, and eventually help us explain the workflow to users without forcing them to understand our implementation.
-
-## Correct Code Can Still Solve the Wrong Workload
-
-There are several technical lessons I took from that project. External validators should be treated as part of the testing process when their documentation is incomplete. Schemas are useful not only for validation but also as executable documentation. Performance-sensitive services need observability early enough that architectural changes can be measured instead of argued from intuition.
-
-But the lesson that stayed with me most was simpler.
-
-I had spent a lot of effort understanding what the system needed to process. I had not spent enough effort understanding how users would make it process those things.
-
-That difference only became obvious when a workload I imagined as individual invoice submissions turned into bursts of 100 or 200 invoices.
-
-The implementation I had built was intentionally simple, strict, fast, and boring. I still think those were good properties. What I would change is what happened before I built it.
-
-When I enter a domain I do not understand, I no longer want to silently learn the business while simultaneously making architectural decisions around it. I want that uncertainty written down, communicated, and treated like any other engineering constraint.
-
-> Because "I don't know how users actually do this" is not just missing context. Sometimes it is the most important performance requirement you haven't discovered yet.
+If I were starting again, I'd ask someone to walk me through a real billing session and note when invoices are reviewed and submitted. I'd use that workflow to plan a load test alongside the XML validation tests.
