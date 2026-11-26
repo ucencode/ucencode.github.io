@@ -273,6 +273,8 @@ const contact = tile('contact');
       max-width: none;
       font-size: clamp(20px, 6.6vw, 30px);
       white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     /* Navigation rows: label, title and one line on the left, arrow on the right. */
     .tile:not(.tile-about) {
