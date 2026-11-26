@@ -268,8 +268,11 @@ const contact = tile('contact');
     .tile-about {
       min-height: clamp(185px, 28vh, 240px);
     }
+    /* One line on phones: no em-based width cap, and the size follows the screen width. */
     .tile-about .name {
-      font-size: clamp(28px, 8.5vw, 34px);
+      max-width: none;
+      font-size: clamp(20px, 6.6vw, 30px);
+      white-space: nowrap;
     }
     /* Navigation rows: label, title and one line on the left, arrow on the right. */
     .tile:not(.tile-about) {
