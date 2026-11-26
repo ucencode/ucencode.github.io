@@ -11,6 +11,8 @@ export interface Testimonial {
   /** True when `highlight` is translated from the original language. */
   translatedFrom?: string;
   paragraphs?: string[];
+  /** Work the quote speaks to; shown as a link under the quote. */
+  related?: { label: string; href: string };
 }
 
 export const testimonials: Testimonial[] = [
@@ -20,6 +22,7 @@ export const testimonials: Testimonial[] = [
     title: "Lead QA Engineer",
     subtitle: "",
     relation: "same team at NoscAi",
+    related: { label: "ClinicOS · my part", href: "/projects/clinic-os/#my-part" },
     highlight: {
       before: "He was someone ",
       phrase: "others relied on",
@@ -37,6 +40,7 @@ export const testimonials: Testimonial[] = [
     title: "Senior Software Engineer",
     subtitle: "Ex-Coupang & HOOQ",
     relation: "managed Husein directly",
+    related: { label: "ClinicOS · my part", href: "/projects/clinic-os/#my-part" },
     highlight: {
       before: "He is the kind of engineer ",
       phrase: "you want in your corner",
