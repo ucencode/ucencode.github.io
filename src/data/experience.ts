@@ -11,6 +11,10 @@ export interface ExperienceEntry {
   duration: string;
   /** Related project id in the `projects` collection. */
   project?: string;
+  /** One sentence shown on the closed timeline card. */
+  summary: string;
+  /** Two or three short facts; `section` links into the project case study (e.g. "outcomes"). */
+  highlights?: { text: string; section?: string }[];
   bullets: string[];
 }
 
@@ -18,6 +22,8 @@ export const experience: ExperienceEntry[] = [
   {
     year: "Jan 2024 - Dec 2025",
     company: "NoscAi GmbH",
+    summary: "First full-time engineer on ClinicOS, an AI-powered clinic management system, owning core clinical workflows while the team grew to 9 engineers.",
+    highlights: [{ text: "Team scaled to 9 engineers", section: "my-part" }, { text: "Near-zero data-entry errors", section: "outcomes" }, { text: "25% faster builds", section: "outcomes" }],
     short: "NoscAi",
     position: "Founding Engineer",
     start: "2024-01",
@@ -39,6 +45,8 @@ export const experience: ExperienceEntry[] = [
   {
     year: "Aug 2023 - Oct 2024",
     company: "PITCAR Service",
+    summary: "Moved workshop operations from SaaS tools and spreadsheets into one Odoo 16 ERP system with custom modules.",
+    highlights: [{ text: "400–450 service units a month", section: "outcomes" }, { text: "Custom Odoo modules", section: "my-part" }],
     short: "PITCAR",
     position: "Backend Developer - Freelance Project",
     start: "2023-08",
@@ -57,6 +65,8 @@ export const experience: ExperienceEntry[] = [
   {
     year: "Sep 2021 - Jan 2024",
     company: "CV. Indokoding Sukses Makmur",
+    summary: "One of two engineers on BookYourGP, a Laravel platform used by NHS-associated GP surgeries in the UK.",
+    highlights: [{ text: "60–75% faster complex requests", section: "outcomes" }, { text: "Legacy PHP to Laravel", section: "my-part" }],
     short: "Indokoding",
     position: "Full Stack Developer",
     start: "2021-09",
@@ -75,6 +85,8 @@ export const experience: ExperienceEntry[] = [
   {
     year: "Jun 2020 - Jul 2021",
     company: "PT. Bama Berita Sarana Televisi (BBS TV)",
+    summary: "Maintained a WordPress media website and built an online competition platform.",
+    highlights: [{ text: "Up to 1,500 participant registrations" }],
     short: "BBS TV",
     position: "Web Developer",
     start: "2020-06",
@@ -89,6 +101,7 @@ export const experience: ExperienceEntry[] = [
   {
     year: "Jul 2018 - Jun 2019",
     company: "PT. Hyperdata Solusindo Mandiri",
+    summary: "Built backend logic for web applications and a client website with CodeIgniter and PostgreSQL.",
     short: "Hyperdata",
     position: "Software Engineer Intern",
     start: "2018-07",

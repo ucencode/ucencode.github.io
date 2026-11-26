@@ -1,18 +1,24 @@
 ---
 import { getCollection } from 'astro:content';
+import { ArrowRight, Boxes, ChevronDown, Gauge, Server } from 'lucide-react';
 import PageLayout from '../layouts/PageLayout.astro';
 import PageHeader from '../components/PageHeader.astro';
 import ExperienceTimeline from '../components/ExperienceTimeline.astro';
 import { profile } from '@/data/about';
 import { experience, experienceSummary } from '@/data/experience';
+import { roleAnchor } from '@/lib/utils';
 
 const projects = await getCollection('projects');
-const projectRef = (id?: string) => {
-  const p = id && projects.find((x) => x.id === id);
-  return p ? { href: `/projects/${p.id}/`, label: `CS-${String(p.data.order).padStart(3, '0')} ${p.data.title}` } : null;
-};
+const findProject = (id?: string) => (id ? projects.find((p) => p.id === id) : undefined);
 const years = experience.flatMap((e) => [Number(e.start.slice(0, 4)), Number(e.end.slice(0, 4))]);
 const dates = (year: string) => year.replace(' - ', ' – ');
+const STACK_SHOWN = 4;
+
+const evidence = [
+  { icon: Server, label: 'Production backends', href: '/projects/clinic-os/#my-part' },
+  { icon: Gauge, label: 'Performance work', href: '/projects/book-your-gp/#outcomes' },
+  { icon: Boxes, label: 'ERP delivery', href: '/projects/pitcar/#outcomes' },
+];
 ---
 <PageLayout title={`Experience — ${profile.name}`} description={experienceSummary.subtitle}>
   <PageHeader
@@ -27,40 +33,108 @@ const dates = (year: string) => year.replace(' - ', ' – ');
     cv
   />
 
+  <nav class="evidence" aria-label="Selected engineering evidence">
+    {evidence.map(({ icon: Icon, label, href }) => (
+      <a href={href}><Icon size={16} aria-hidden="true" /><span>{label}</span></a>
+    ))}
+  </nav>
+
   <figure class="fig">
     <ExperienceTimeline detailed />
     <figcaption>fig. 1 — roles over time (PITCAR was freelance, alongside Indokoding and NoscAi)</figcaption>
   </figure>
 
-  {experience.map((role, i) => {
-    const ref = projectRef(role.project);
-    return (
-      <section class="role" aria-labelledby={`r${i}`}>
-        <div class="when">
-          <span class="dates">{dates(role.year)}</span>
-          <span class="mode">{role.mode.toLowerCase()} · {role.duration}</span>
-        </div>
-        <div class="what">
-          <div class="head">
-            <h2 id={`r${i}`} class="headline-md">{role.position}</h2>
-            <p class="company">{role.company}</p>
-          </div>
-          <ul>
-            {role.bullets.map((b) => <li>{b}</li>)}
-          </ul>
-        </div>
-        {ref && (
-          <aside class="note">see → <a href={ref.href}>{ref.label}</a></aside>
-        )}
-      </section>
-    );
-  })}
+  <ol class="entries">
+    {experience.map((role, i) => {
+      const project = findProject(role.project);
+      const stack = project?.data.projectStack ?? [];
+      const projectHref = project && `/projects/${project.id}/`;
+      return (
+        <li class="entry" id={roleAnchor(role.short)}>
+          <p class="date">{dates(role.year)}</p>
+          <article class="card" aria-labelledby={`r${i}`}>
+            <div class="head">
+              <h2 id={`r${i}`} class="headline-md">{role.company}</h2>
+              <p class="role">{role.position} <span class="mode">· {role.mode.toLowerCase()} · {role.duration}</span></p>
+            </div>
+            <p class="summary">{role.summary}</p>
+
+            {role.highlights && role.highlights.length > 0 && (
+              <ul class="highlights" aria-label="Highlights">
+                {role.highlights.map((h) => (
+                  <li>
+                    {h.section && projectHref ? <a href={`${projectHref}#${h.section}`}>{h.text}</a> : <span>{h.text}</span>}
+                  </li>
+                ))}
+              </ul>
+            )}
+
+            {stack.length > 0 && (
+              <div class="stack">
+                {stack.slice(0, STACK_SHOWN).map((t) => <span class="tech-tag">{t}</span>)}
+                {stack.length > STACK_SHOWN && (
+                  <a href={projectHref} class="tech-tag more" aria-label={`${stack.length - STACK_SHOWN} more tools on the ${project!.data.title} page`}>
+                    +{stack.length - STACK_SHOWN}
+                  </a>
+                )}
+              </div>
+            )}
+
+            <details>
+              <summary>
+                <span class="when-closed">Details</span>
+                <span class="when-open">Close</span>
+                <ChevronDown size={16} aria-hidden="true" className="chevron" />
+              </summary>
+              <ul class="bullets">
+                {role.bullets.map((b) => <li>{b}</li>)}
+              </ul>
+              {project && (
+                <div class="nested">
+                  <p class="nested-label">1 project at {role.short}</p>
+                  <a href={projectHref} class="nested-row">
+                    <span class="nested-title">{project.data.title}</span>
+                    {project.data.stage && <span class="stage">{project.data.stage}</span>}
+                    <ArrowRight size={16} aria-hidden="true" className="nested-arrow" />
+                  </a>
+                </div>
+              )}
+            </details>
+          </article>
+        </li>
+      );
+    })}
+  </ol>
 </PageLayout>
 
 <style>
+  /* Phone first: one column, date above each card. */
+  .evidence {
+    display: flex;
+    flex-direction: column;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .evidence a {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 44px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--chip-text);
+    text-decoration: none;
+  }
+  .evidence a :global(svg) {
+    flex: 0 0 auto;
+    color: var(--lavender);
+  }
+  .evidence a:hover {
+    color: var(--text);
+  }
   .fig {
     margin: 0;
-    padding: 40px 0;
+    padding: 32px 0;
     display: flex;
     flex-direction: column;
     gap: 16px;
@@ -71,32 +145,27 @@ const dates = (year: string) => year.replace(' - ', ' – ');
     font-size: 12px;
     color: var(--subtext);
   }
-  .role {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 16px 40px;
-    padding: 44px 0;
-    border-bottom: 1px solid var(--border);
+  .entries {
+    margin: 0;
+    padding: 0;
+    list-style: none;
   }
-  .when {
-    flex: 0 0 180px;
+  .entry {
     display: flex;
     flex-direction: column;
-    gap: 6px;
-    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    gap: 10px;
+    padding: 28px 0;
+    border-bottom: 1px solid var(--border);
+    scroll-margin-top: 16px;
   }
-  .dates {
+  .date {
+    margin: 0;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
     font-size: 13px;
     color: var(--lavender);
   }
-  .mode {
-    font-size: 12px;
-    color: var(--subtext);
-  }
-  .what {
-    flex: 999 1 480px;
+  .card {
     min-width: 0;
-    max-width: 680px;
     display: flex;
     flex-direction: column;
     gap: 14px;
@@ -107,35 +176,185 @@ const dates = (year: string) => year.replace(' - ', ' – ');
     gap: 4px;
   }
   .head h2,
-  .company {
+  .role,
+  .summary {
     margin: 0;
   }
-  .company {
+  .role {
     font-size: 15px;
+    color: var(--text);
+  }
+  .mode {
     color: var(--subtext);
   }
-  ul {
+  .summary {
+    max-width: 680px;
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--chip-text);
+  }
+  .highlights {
     margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 13px;
+    color: var(--chip-text);
+  }
+  .highlights li {
+    display: inline-flex;
+    align-items: center;
+  }
+  .highlights li:not(:last-child)::after {
+    content: '·';
+    padding: 0 10px;
+    color: var(--subtext);
+  }
+  .highlights a,
+  .highlights span {
+    display: inline-flex;
+    align-items: center;
+    min-height: 32px;
+  }
+  .highlights a {
+    color: var(--text);
+    text-decoration: underline;
+    text-decoration-color: var(--border-strong);
+    text-underline-offset: 4px;
+  }
+  .highlights a:hover {
+    text-decoration-color: var(--lavender);
+  }
+  .stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .more {
+    color: var(--subtext);
+    text-decoration: none;
+  }
+  .more:hover {
+    color: var(--text);
+  }
+  details {
+    border-top: 1px solid var(--border);
+  }
+  summary {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 44px;
+    cursor: pointer;
+    list-style: none;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 13px;
+    color: var(--lavender);
+  }
+  summary::-webkit-details-marker {
+    display: none;
+  }
+  summary :global(.chevron) {
+    transition: transform 150ms ease;
+  }
+  .when-open,
+  details[open] .when-closed {
+    display: none;
+  }
+  details[open] .when-open {
+    display: inline;
+  }
+  details[open] summary :global(.chevron) {
+    transform: rotate(180deg);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    summary :global(.chevron) {
+      transition: none;
+    }
+  }
+  .bullets {
+    max-width: 680px;
+    margin: 4px 0 0;
     padding-left: 20px;
     display: flex;
     flex-direction: column;
     gap: 10px;
     list-style: disc;
-    font-size: 16px;
+    font-size: 15px;
     line-height: 1.65;
     color: var(--chip-text);
   }
-  .note {
-    flex: 1 1 180px;
-    align-self: flex-start;
-    padding-left: 14px;
-    border-left: 1px solid var(--border);
+  .nested {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .nested-label {
+    margin: 0;
     font-family: 'JetBrains Mono', ui-monospace, monospace;
     font-size: 12px;
-    line-height: 1.6;
     color: var(--subtext);
   }
-  .note a {
+  .nested-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 12px;
+    min-height: 52px;
+    padding: 10px 14px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-tile);
+    background: var(--tile);
+    color: var(--text);
+    text-decoration: none;
+  }
+  .nested-row:hover {
+    border-color: var(--border-strong);
+  }
+  .nested-title {
+    flex: 1 1 auto;
+    font-weight: 600;
+  }
+  .stage {
+    padding: 2px 8px;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-chip);
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 11px;
     color: var(--chip-text);
+  }
+  .nested-row :global(.nested-arrow) {
+    color: var(--subtext);
+  }
+
+  /* Tablet and up: evidence links sit in one row. */
+  @media (min-width: 700px) {
+    .evidence {
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 0 28px;
+    }
+    .entry {
+      padding: 40px 0;
+    }
+  }
+
+  /* Desktop: date column on the left, card on the right. */
+  @media (min-width: 1200px) {
+    .entry {
+      flex-direction: row;
+      gap: 40px;
+    }
+    .date {
+      flex: 0 0 180px;
+      padding-top: 6px;
+    }
+    .card {
+      flex: 1 1 auto;
+      max-width: 720px;
+    }
   }
 </style>

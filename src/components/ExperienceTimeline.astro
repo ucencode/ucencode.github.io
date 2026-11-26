@@ -47,7 +47,7 @@ const label = `Timeline of ${lanes.length} roles from ${startYear} to ${endYear}
   <div class="lane-row">
     {detailed && <span class="lane-name"></span>}
     <div class="axis">
-      {detailed ? years.map((y) => <span>{y}</span>) : (
+      {detailed ? years.map((y, i) => <span class:list={{ mid: i > 0 && i < years.length - 1 }}>{y}</span>) : (
         <>
           <span>{startYear}</span>
           <span>{endYear}</span>
@@ -101,5 +101,11 @@ const label = `Timeline of ${lanes.length} roles from ${startYear} to ${endYear}
     font-family: 'JetBrains Mono', ui-monospace, monospace;
     font-size: 11px;
     color: var(--subtext);
+  }
+  /* Phones show the first and last year only, so the labels do not overlap. */
+  @media (max-width: 699px) {
+    .axis .mid {
+      display: none;
+    }
   }
 </style>
