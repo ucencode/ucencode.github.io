@@ -95,6 +95,7 @@ const blogLine = `${posts.length} posts · ${blog.line}`;
     <div class="contact-head">
       <div class="contact-label"><span class="label" style="color: var(--peach)">{contact.label}</span></div>
       <h2 id="tile-contact-h" class="headline-md title">{contact.title}</h2>
+      {contact.line && <p class="line">{contact.line}</p>}
     </div>
     <div class="contact-actions">
       <a href={`mailto:${socialLinks.email}`} class="btn-primary email"><span>Email me</span><ArrowRight size={18} aria-hidden="true" /></a>
@@ -332,7 +333,8 @@ const blogLine = `${posts.length} posts · ${blog.line}`;
       justify-content: center;
       gap: 6px;
     }
-    .tile-contact .title {
+    .tile-contact .title,
+    .tile-contact .line {
       display: none;
     }
     .tile-contact .contact-actions {

@@ -12,6 +12,11 @@ const capabilities = coreStrengths.map((s) => {
   const [area, ...rest] = s.split(' — ');
   return { area, detail: rest.join(' — ') };
 });
+const proof = [
+  { area: 'Architecture', value: '25%', unit: 'faster builds', project: 'ClinicOS', href: '/projects/clinic-os/#outcomes' },
+  { area: 'Performance', value: '60–75%', unit: 'faster page loads', project: 'BookYourGP', href: '/projects/book-your-gp/#outcomes' },
+  { area: 'Delivery', value: '400+', unit: 'service units a month', project: 'Pitcar', href: '/projects/pitcar/#outcomes' },
+];
 const sections = [
   { id: 's1', heading: '§1 summary', text: description[0], note: { label: 'CS-001 ClinicOS', href: '/projects/clinic-os/' } },
   { id: 's2', heading: '§2 how i work', text: description[1], note: { text: 'strong backend focus · works across the stack' } },
@@ -31,6 +36,18 @@ const sections = [
     ]}
     cv
   />
+
+  <ul class="proof" aria-label="Results, each linked to the project behind it">
+    {proof.map((p) => (
+      <li>
+        <a href={p.href}>
+          <span class="proof-area">{p.area}</span>
+          <span class="proof-value"><strong>{p.value}</strong> {p.unit}</span>
+          <span class="proof-project">{p.project} · outcomes →</span>
+        </a>
+      </li>
+    ))}
+  </ul>
 
   <nav aria-label="Contents" class="toc">
     {[...sections.map((s) => s.heading), '§4 capabilities', '§5 availability'].map((h, i) => (
@@ -63,16 +80,68 @@ const sections = [
   </SpecSection>
 
   <SpecSection id="s5" heading="§5 availability" group="peach">
-    <p class="prose-text first">{experienceSummary.note}</p>
+    <p class="prose-text first">Want to hire me? Let’s talk about the problem you need an engineer to solve.</p>
+    <p class="prose-text">{experienceSummary.note}</p>
     <div class="actions">
       <a href={`mailto:${socialLinks.email}`} class="btn-primary">Email me <ArrowRight size={18} aria-hidden="true" /></a>
       <a href={socialLinks.linkedin} class="btn-secondary" target="_blank" rel="noopener noreferrer">LinkedIn</a>
       <a href={socialLinks.github} class="btn-secondary" target="_blank" rel="noopener noreferrer">GitHub</a>
     </div>
+    <p class="email-text">or write to <span class="address">{socialLinks.email}</span></p>
   </SpecSection>
 </PageLayout>
 
 <style>
+  /* Phone first: proof cards stack; three columns from tablet up. */
+  .proof {
+    margin: 0;
+    padding: 20px 0;
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--gap);
+    border-bottom: 1px solid var(--border);
+  }
+  @media (min-width: 700px) {
+    .proof {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  .proof a {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 16px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-tile);
+    background: var(--tile);
+    color: var(--text);
+    text-decoration: none;
+  }
+  .proof a:hover {
+    border-color: var(--border-strong);
+  }
+  .proof-area,
+  .proof-project {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 12px;
+    color: var(--subtext);
+  }
+  .proof-area {
+    color: var(--peach);
+  }
+  .proof-value {
+    font-size: 15px;
+    color: var(--chip-text);
+  }
+  .proof-value strong {
+    font-family: var(--font-display);
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--text);
+  }
   .toc {
     display: flex;
     flex-wrap: wrap;
@@ -138,6 +207,20 @@ const sections = [
   td {
     padding: 14px 0;
     color: var(--chip-text);
+  }
+  .prose-text + .prose-text {
+    margin-top: 12px;
+  }
+  .email-text {
+    margin: 14px 0 0;
+    font-size: 14px;
+    color: var(--subtext);
+  }
+  .address {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    color: var(--text);
+    user-select: all;
+    overflow-wrap: anywhere;
   }
   .actions {
     display: flex;

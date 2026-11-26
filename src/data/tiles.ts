@@ -25,5 +25,5 @@ export const tiles: Tile[] = [
   // `line` is completed with the post count at build time.
   { id: 'blog', group: 'lavender', href: '/blog/', label: '/blog', title: 'Writing', line: 'backend · engineering · typescript' },
   { id: 'recommendations', group: 'mauve', label: '/recommendations', title: 'All recommendations' },
-  { id: 'contact', group: 'peach', label: '/contact', title: 'Get in touch' },
+  { id: 'contact', group: 'peach', label: '/contact', title: 'Want to hire me?', line: 'Let’s talk about the problem you need an engineer to solve.' },
 ];
