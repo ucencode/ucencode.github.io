@@ -20,10 +20,9 @@ export interface Tile {
  */
 export const tiles: Tile[] = [
   { id: 'about', group: 'peach', href: '/about/', label: '/about', title: 'Ahmad Husein Hambali', line: 'Fullstack & Product Engineer' },
-  { id: 'work', group: 'lavender', href: '/projects/', label: '/projects', title: 'My Work', line: 'healthcare SaaS · ERP · AI' },
-  { id: 'experience', group: 'lavender', href: '/experience/', label: '/experience', title: 'Founding Engineer', line: 'NoscAi GmbH · 5 roles total' },
-  // `line` is completed with the post count at build time.
-  { id: 'blog', group: 'lavender', href: '/blog/', label: '/blog', title: 'Writing', line: 'backend · engineering · typescript' },
+  { id: 'work', group: 'lavender', href: '/projects/', label: '/projects', title: 'My Work' },
+  { id: 'experience', group: 'lavender', href: '/experience/', label: '/experience', title: 'Experience' },
+  { id: 'blog', group: 'lavender', href: '/blog/', label: '/blog', title: 'Writing' },
   { id: 'recommendations', group: 'mauve', label: '/recommendations', title: 'All recommendations' },
   { id: 'contact', group: 'peach', label: '/contact', title: 'Want to hire me?', line: 'Let’s talk about the problem you need an engineer to solve.' },
 ];

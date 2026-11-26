@@ -79,7 +79,7 @@ Multi-page portfolio site. The homepage (`src/pages/index.astro`) is a tile hub 
 - Tablet (700–1199px): a two-column grid in pairs, About|Work · Experience|Blog · Recommendations|Contact. The three rows share the viewport height, with a minimum of 260px each.
 - Desktop (≥1200px): two rows, About · My Work · Experience and Contact · Recommendations · Blog. The hub fills the viewport up to 1920×900px, with a minimum height of 688px below which the page scrolls. Heading sizes follow the hub width and stop growing at their full size. Beyond the maximum, the hub is centred horizontally and aligned to the top.
 
-DOM order follows the phone and tablet order; desktop row 2 is reordered with `grid-template-areas`. Tile text comes from `src/data/tiles.ts`, and the Blog tile adds the post count at build time.
+DOM order follows the phone and tablet order; desktop row 2 is reordered with `grid-template-areas`. Tile text comes from `src/data/tiles.ts`.
 
 **Astro vs React split** — all components are static `.astro` except one React Island: `ImageViewer.tsx` (`client:idle`), a fullscreen viewer for the figures on a project page, in a native `<dialog>` with wheel and pinch zoom, drag to pan and prev/next navigation.
 
@@ -136,7 +136,7 @@ draft: true                  # optional, defaults to false; true hides from list
 ---
 ```
 
-- The homepage Blog tile shows the number of non-draft posts; `src/pages/blog/index.astro` is the full `/blog` listing; `src/pages/blog/[slug].astro` renders a post with prev/next nav (drafts excluded from `getStaticPaths`).
+- `src/pages/blog/index.astro` is the full `/blog` listing; `src/pages/blog/[slug].astro` renders a post with prev/next nav (drafts excluded from `getStaticPaths`).
 - Render post cards with `BlogCard.astro` — don't duplicate the card markup.
 - Each post sets `ogType="article"` and its own OG title/description via `BaseLayout`.
 - Open items are tracked in `TODO.md` (syntax highlighting, reading time, tag filter).

@@ -4,9 +4,7 @@ import ExperienceTimeline from './ExperienceTimeline.astro';
 import { tiles, type TileId } from '@/data/tiles';
 import { testimonials } from '@/data/testimonials';
 import { socialLinks } from '@/data/about';
-import { getPublishedPosts } from '@/lib/blog';
 
-const posts = await getPublishedPosts();
 const quote = testimonials[0];
 
 const tile = (id: TileId) => tiles.find((t) => t.id === id)!;
@@ -16,7 +14,6 @@ const experience = tile('experience');
 const blog = tile('blog');
 const recs = tile('recommendations');
 const contact = tile('contact');
-const blogLine = `${posts.length} posts · ${blog.line}`;
 ---
 <div class="hub">
   <div class="row row1">
@@ -38,7 +35,7 @@ const blogLine = `${posts.length} posts · ${blog.line}`;
     </div>
     <div class="tile-body">
       <h2 class="headline-lg title">{work.title}</h2>
-      <p class="line mono">{work.line}</p>
+      {work.line && <p class="line mono">{work.line}</p>}
     </div>
   </a>
 
@@ -50,7 +47,7 @@ const blogLine = `${posts.length} posts · ${blog.line}`;
     <div class="tile-body">
       <div class="visual"><ExperienceTimeline /></div>
       <h2 class="headline-md title">{experience.title}</h2>
-      <p class="line">{experience.line}</p>
+      {experience.line && <p class="line">{experience.line}</p>}
     </div>
   </a>
   </div>
@@ -63,7 +60,7 @@ const blogLine = `${posts.length} posts · ${blog.line}`;
     </div>
     <div class="tile-body">
       <h2 class="headline-md title">{blog.title}</h2>
-      <p class="line mono">{blogLine}</p>
+      {blog.line && <p class="line mono">{blog.line}</p>}
     </div>
   </a>
 
@@ -271,6 +268,9 @@ const blogLine = `${posts.length} posts · ${blog.line}`;
     .tile-about {
       min-height: clamp(185px, 28vh, 240px);
     }
+    .tile-about .name {
+      font-size: clamp(28px, 8.5vw, 34px);
+    }
     /* Navigation rows: label, title and one line on the left, arrow on the right. */
     .tile:not(.tile-about) {
       height: 84px;
@@ -330,8 +330,10 @@ const blogLine = `${posts.length} posts · ${blog.line}`;
       display: none;
     }
     .tile.tile-contact {
-      justify-content: center;
-      gap: 6px;
+      height: auto;
+      padding: 16px;
+      justify-content: flex-start;
+      gap: 12px;
     }
     .tile-contact .title,
     .tile-contact .line {
@@ -377,7 +379,7 @@ const blogLine = `${posts.length} posts · ${blog.line}`;
   }
 
   @media (max-width: 359px) {
-    .tile:not(.tile-about) {
+    .tile:not(.tile-about):not(.tile-contact) {
       height: 92px;
     }
   }
