@@ -4,6 +4,8 @@ import PageLayout from '../../layouts/PageLayout.astro';
 import ImageViewer from '../../components/ImageViewer.tsx';
 import { getCollection, render, type CollectionEntry } from 'astro:content';
 import { profile } from '@/data/about';
+import { experience } from '@/data/experience';
+import { roleAnchor } from '@/lib/utils';
 
 export async function getStaticPaths() {
   const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
@@ -25,7 +27,9 @@ interface Props {
 
 const { entry, prev, next } = Astro.props;
 const project = entry.data;
-const { Content } = await render(entry);
+const { Content, headings } = await render(entry);
+const sections = headings.filter((h) => h.depth === 2);
+const role = experience.find((e) => e.project === entry.id);
 const base = import.meta.env.BASE_URL;
 // Fall back to the first figure in the body when the project has no card image.
 // Figure paths are relative to src/content/projects/, so resolve them to the built asset.
@@ -62,8 +66,16 @@ const ogImage = project.image?.src.src ?? (firstFigureKey ? figureImages[firstFi
     </nav>
 
     <header>
-      <p class="font-mono text-xs text-primary mb-2 tracking-wide uppercase">Project</p>
+      <div class="flex flex-wrap items-center gap-x-3 gap-y-2 mb-2">
+        <p class="font-mono text-xs text-primary tracking-wide uppercase">Project</p>
+        {project.stage && <span class="stage">{project.stage}</span>}
+      </div>
       <h1 class="text-3xl font-semibold text-foreground">{project.title}</h1>
+      {role && (
+        <p class="mt-2 text-sm text-muted-foreground">
+          {role.position} at <a href={`${base}experience/#${roleAnchor(role.short)}`} class="text-foreground underline underline-offset-4 decoration-border hover:decoration-primary">{role.company}</a>
+        </p>
+      )}
       <p class="mt-3 text-muted-foreground leading-relaxed">{project.description}</p>
 
       <div class="mt-5 flex flex-wrap gap-2">
@@ -89,11 +101,17 @@ const ogImage = project.image?.src.src ?? (firstFigureKey ? figureImages[firstFi
       )}
     </header>
 
+    {sections.length > 1 && (
+      <nav class="section-bar" aria-label="Parts of this case study">
+        {sections.map((h) => <a href={`#${h.slug}`}>{h.text}</a>)}
+      </nav>
+    )}
+
     <article
       data-figures
-      class="mt-12 prose prose-invert max-w-none
+      class="mt-8 prose prose-invert max-w-none
         prose-headings:font-semibold prose-headings:text-foreground
-        prose-h2:font-mono prose-h2:text-xs prose-h2:text-primary prose-h2:tracking-wide prose-h2:uppercase prose-h2:mt-10 prose-h2:mb-3
+        prose-h2:font-mono prose-h2:text-xs prose-h2:text-primary prose-h2:tracking-wide prose-h2:uppercase prose-h2:mt-10 prose-h2:mb-3 prose-h2:scroll-mt-20
         prose-p:text-muted-foreground prose-p:leading-relaxed
         prose-li:text-muted-foreground prose-li:leading-relaxed prose-li:marker:text-primary
         prose-a:text-primary prose-a:no-underline hover:prose-a:underline
@@ -123,3 +141,53 @@ const ogImage = project.image?.src.src ?? (firstFigureKey ? figureImages[firstFi
 
   </div>
 </PageLayout>
+
+<style>
+  .stage {
+    padding: 2px 8px;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-chip);
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 11px;
+    color: var(--chip-text);
+  }
+  /* Phone first: the bar scrolls sideways and stays at the top while reading. */
+  .section-bar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    margin: 40px calc(-1 * var(--page-pad)) 0;
+    padding: 0 var(--page-pad);
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+  }
+  .section-bar::-webkit-scrollbar {
+    display: none;
+  }
+  .section-bar a {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 13px;
+    color: var(--subtext);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .section-bar a:hover {
+    color: var(--text);
+  }
+  @media (min-width: 700px) {
+    .section-bar {
+      margin-left: 0;
+      margin-right: 0;
+      padding: 0;
+      gap: 28px;
+    }
+  }
+</style>

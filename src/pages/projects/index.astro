@@ -51,7 +51,7 @@ const STACK_SHOWN = 4;
               <a href={`/projects/${id}/`} class="project">
                 <span class="project-title">{data.title} <ArrowRight size={20} aria-hidden="true" className="title-arrow" /></span>
                 <span class="project-desc">{data.description}</span>
-                <span class="mono project-meta">{[data.kind, data.domain, data.org].filter(Boolean).join(' · ')}</span>
+                <span class="mono project-meta">{[data.stage, data.kind, data.domain, data.org].filter(Boolean).join(' · ')}</span>
               </a>
             </td>
             <td class="mono period">{data.period ?? '—'}</td>

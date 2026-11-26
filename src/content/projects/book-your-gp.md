@@ -9,6 +9,7 @@ period: "Sep 2021 – Jan 2024"
 kind: "professional"
 domain: "UK healthcare"
 org: "Indokoding"
+stage: "Production"
 projectStack:
   - "Laravel"
   - "PHP"
@@ -26,18 +27,16 @@ links:
     url: "https://www.hummingbirdsmedical.com/"
 ---
 
-## Problem
+## Overview
 
 - The existing legacy PHP system supported core appointment, recall, and patient communication workflows, but became harder to maintain, extend, and scale over time.
 - Performance bottlenecks in database queries and legacy implementation patterns affected responsiveness during real clinic usage.
 - The product needed modernization and essential improvements such as better performance, translation support, and support for imported-file inputs while preserving production stability.
 
-## My Role
+## My part
 
 - Full Stack Developer contributing as one of two engineers on the modernization from legacy PHP to Laravel.
 - Focused on backend development, SQL performance optimization, production stability, and communication workflow integrations.
-
-## What I Built
 
 ![BookYourGP interface](../../assets/projects/book-your-gp/slide-01.webp "BookYourGP interface")
 
@@ -47,7 +46,7 @@ links:
 - Improved patient communication integrations using GOV.UK Notify and Twilio for recall and appointment-related messaging.
 - Maintained and enhanced existing appointment, recall, and follow-up workflows without disrupting live clinic operations.
 
-## Outcome
+## Outcomes
 
 - Reduced page load times by 60–75% through SQL optimization and database indexing.
 - Improved maintainability and scalability by modernizing the backend architecture with Laravel.

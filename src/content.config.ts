@@ -22,6 +22,8 @@ const projects = defineCollection({
     order: z.number(),
     /** Card preview image; `src` is relative to the Markdown file, inside `src/assets/projects/`. */
     image: z.object({ src: image(), alt: z.string() }).optional(),
+    /** Delivery stage shown as a pill, e.g. "Production". */
+    stage: z.string().optional(),
     projectStack: z.array(z.string()),
     /** Period of my role, e.g. "Jan 2024 – Dec 2025"; shown on /projects. */
     period: z.string().optional(),

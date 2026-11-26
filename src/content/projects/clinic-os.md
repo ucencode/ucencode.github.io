@@ -9,6 +9,7 @@ period: "Jan 2024 – Dec 2025"
 kind: "professional"
 domain: "healthcare SaaS"
 org: "NoscAi GmbH"
+stage: "Production"
 projectStack:
   - "AI-Powered"
   - "Node.js"
@@ -31,17 +32,15 @@ links:
     url: "https://clinicos.de"
 ---
 
-## Problem
+## Overview
 
 - Medical teams often relied on fragmented tools for documentation, billing, lab submissions, insurance workflows, and patient data management.
 - Manual forms and disconnected systems slowed clinical operations and increased the risk of data-entry errors.
 
-## My Role
+## My part
 
 - Backend Engineer leading backend development across invoicing, billing workflows, third-party integrations, and backend architecture.
 - Established backend standards around code reviews, testing, linting, formatting, and onboarding as the team scaled.
-
-## What I Built
 
 ![ClinicOS dashboard overview](../../assets/projects/clinic-os/slide-01.webp "ClinicOS dashboard overview")
 
@@ -50,7 +49,7 @@ links:
 - Automated lab and insurance data submission, replacing manual multi-step forms with one-click clinician confirmation.
 - Redesigned the plugin-based backend architecture to reduce coupling and improve modularity.
 
-## Outcome
+## Outcomes
 
 - Reduced manual clinical data-entry work and minimized submission errors.
 - Improved backend modularity and reduced build time by 25%, accelerating CI/CD and team-wide feature delivery.

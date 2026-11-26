@@ -9,6 +9,7 @@ period: "Aug 2023 – Oct 2024"
 kind: "professional"
 domain: "ERP"
 org: "freelance"
+stage: "Production"
 projectStack:
   - "Odoo"
   - "Python"
@@ -19,13 +20,13 @@ links:
     url: "https://pitcar.co.id"
 ---
 
-## Problem
+## Overview
 
 - The company's existing tools could no longer support growing operational needs across service, inventory, customer management, and finance.
 - Business data was spread across separate workflows, making it harder to track service history, sparepart stock, transactions, and operational reports in real time.
 - The company needed a maintainable ERP-based system that could be handed off without requiring a dedicated in-house engineering team.
 
-## What I Built
+## My part
 
 ![Pitcar sale table overview](../../assets/projects/pitcar/slide-01.webp "Pitcar sale table overview")
 
@@ -34,7 +35,7 @@ links:
 - Created an admin dashboard so leadership could monitor operations, service activity, inventory, and financial data from one place.
 - Prepared documentation and a handoff plan for future maintenance by the client's internal or external maintainer.
 
-## Outcome
+## Outcomes
 
 - Replaced fragmented operational tools with a centralized ERP system for day-to-day business management.
 - Enabled real-time visibility across service history, inventory, transactions, and reporting.
